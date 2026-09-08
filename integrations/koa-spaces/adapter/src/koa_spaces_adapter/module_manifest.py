@@ -25,6 +25,9 @@ class ValidatedManifest:
     required_capabilities: tuple[str, ...]
     asset_bundle_ref: str | None
     design_system_id: str | None
+    product_id: str | None = None
+    surface_ids: tuple[str, ...] = ()
+    standalone_supported: bool = False
 
 
 def _require_object(value: Any, label: str) -> Mapping[str, Any]:
@@ -78,6 +81,35 @@ def _detect_fallback_cycles(routes: Mapping[str, Mapping[str, Any]]) -> None:
             seen.add(current)
             current = str(fallback)
 
+
+
+def _product_ui_metadata(manifest: Mapping[str, Any], routes: Mapping[str, Mapping[str, Any]]) -> tuple[str | None, tuple[str, ...], bool]:
+    product_id = manifest.get("product_id")
+    modes = manifest.get("ui_modes")
+    surfaces = manifest.get("surface_profiles", [])
+    if product_id is None and modes is None and not surfaces:
+        return None, (), False
+    if not isinstance(product_id, str) or not product_id:
+        raise ManifestValidationError("product_id must be a non-empty string when UI portability metadata is declared")
+    mode_obj = _require_object(modes, "ui_modes")
+    if mode_obj.get("composition_host_required_for_standalone") is not False:
+        raise ManifestValidationError("standalone product operation cannot require the optional composition host")
+    if mode_obj.get("private_cross_product_ui_imports") is not False:
+        raise ManifestValidationError("private cross-product UI imports are prohibited")
+    standalone_supported = mode_obj.get("standalone") == "supported"
+    surface_ids: list[str] = []
+    for raw in _require_array(surfaces, "surface_profiles"):
+        surface = _require_object(raw, "surface profile")
+        surface_id = surface.get("surface_id")
+        if not isinstance(surface_id, str) or not surface_id:
+            raise ManifestValidationError("surface_id must be a non-empty string")
+        if surface.get("home_route_id") not in routes:
+            raise ManifestValidationError(f"surface {surface_id} references unknown home route")
+        for route_id in _require_array(surface.get("route_ids"), "surface route_ids"):
+            if route_id not in routes:
+                raise ManifestValidationError(f"surface {surface_id} references unknown route {route_id}")
+        surface_ids.append(surface_id)
+    return product_id, _assert_unique(surface_ids, "surface_id"), standalone_supported
 
 def validate_manifest(
     document: Mapping[str, Any],
@@ -180,6 +212,8 @@ def validate_manifest(
         }:
             raise ManifestValidationError("every widget must declare offline behavior")
 
+    product_id, surface_ids, standalone_supported = _product_ui_metadata(manifest, routes)
+
     required_capabilities = _assert_unique(
         (str(item) for item in _require_array(manifest.get("required_capabilities", []), "required_capabilities")),
         "manifest capability",
@@ -208,4 +242,7 @@ def validate_manifest(
         required_capabilities=tuple(sorted(required_capabilities)),
         asset_bundle_ref=asset_bundle_ref,
         design_system_id=design_system_id,
+        product_id=product_id,
+        surface_ids=surface_ids,
+        standalone_supported=standalone_supported,
     )

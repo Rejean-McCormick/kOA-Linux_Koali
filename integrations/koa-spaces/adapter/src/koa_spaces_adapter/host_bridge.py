@@ -1,4 +1,4 @@
-"""Narrow host lifecycle bridge for the optional kOA Spaces process."""
+"""Narrow host lifecycle bridge for the optional kOA Spaces composition-host process."""
 
 from __future__ import annotations
 

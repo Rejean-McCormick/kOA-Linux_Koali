@@ -1047,3 +1047,14 @@ Two branches use different container names but the same database user and schema
 ### 11.5 Development-to-release transition
 
 A clean workspace builds an immutable service package, produces provenance and test evidence, and publishes the package to the services channel. The workspace `.venv`, branch checkout, local database, and running development container remain outside the artifact and release claim.
+
+## Product UI portability checks
+
+Conformance for a product-facing interface includes these structural checks where the product declares both standalone and integrated modes:
+
+- the standalone entry point remains product-owned and does not require kOA Spaces or another optional product;
+- integrated routes, navigation, commands, inspectors, and widgets are contributed through declared public interface contracts;
+- the integrated product registry is derived from installed and admitted manifests, not a hard-coded mandatory product list;
+- surface profiles reuse product-owned routes and capabilities instead of duplicating pages;
+- removal of one optional product does not require source changes to unrelated products;
+- menu or surface visibility never substitutes for owner-side authorization.

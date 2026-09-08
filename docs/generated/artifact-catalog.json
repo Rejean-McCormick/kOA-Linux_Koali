@@ -74,14 +74,14 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/interface-asset-manifest.schema.json",
       "path": "contracts/artifact-contracts/interface-asset-manifest.schema.json",
-      "title": "kOA Spaces Interface Asset Manifest",
+      "title": "Koali Interface Asset Manifest",
       "status": null,
       "version": null
     },
     {
       "id": "https://schemas.koa.local/artifact-contracts/interface-theme.schema.json",
       "path": "contracts/artifact-contracts/interface-theme.schema.json",
-      "title": "kOA Spaces Interface Theme",
+      "title": "Koali Interface Theme",
       "status": null,
       "version": null
     },
@@ -116,7 +116,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/module-interface-manifest.schema.json",
       "path": "contracts/artifact-contracts/module-interface-manifest.schema.json",
-      "title": "kOA Spaces Module Interface Manifest",
+      "title": "Koali Product Interface Manifest",
       "status": null,
       "version": null
     },
@@ -179,7 +179,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/route-contribution.schema.json",
       "path": "contracts/artifact-contracts/route-contribution.schema.json",
-      "title": "kOA Spaces Route Contribution",
+      "title": "Koali Product Route Contribution",
       "status": null,
       "version": null
     },
@@ -207,7 +207,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/sidebar-navigation.schema.json",
       "path": "contracts/artifact-contracts/sidebar-navigation.schema.json",
-      "title": "kOA Spaces Sidebar Navigation",
+      "title": "Koali Surface Navigation",
       "status": null,
       "version": null
     },
@@ -221,7 +221,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/space-activation-receipt.schema.json",
       "path": "contracts/artifact-contracts/space-activation-receipt.schema.json",
-      "title": "kOA Space Activation Receipt",
+      "title": "Koali Space Activation Receipt",
       "status": null,
       "version": null
     },
@@ -235,7 +235,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/topbar-widget.schema.json",
       "path": "contracts/artifact-contracts/topbar-widget.schema.json",
-      "title": "kOA Spaces Top-Bar Widget",
+      "title": "Koali Context-Header Widget",
       "status": null,
       "version": null
     },

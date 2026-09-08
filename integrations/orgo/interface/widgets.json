@@ -1,12 +1,12 @@
 {
   "format_version": "1.0.0",
-  "module_id": "orgo_schoolwork",
+  "module_id": "orgo",
   "schema": "docs/contracts/artifact-contracts/topbar-widget.schema.json",
   "widgets": [
     {
       "$schema": "../../../docs/contracts/artifact-contracts/topbar-widget.schema.json",
       "widget_id": "orgo_schoolwork.status",
-      "module_id": "orgo_schoolwork",
+      "module_id": "orgo",
       "scope": "module",
       "slot": "status",
       "kind": "status",
@@ -22,7 +22,17 @@
         "route_id": null,
         "command_ref": null,
         "status_provider_ref": "koa://orgo/health"
-      }
+      },
+      "surface_ids": [
+        "control",
+        "operations",
+        "my_work",
+        "supervisor",
+        "intake",
+        "workflow_admin",
+        "executive",
+        "embedded"
+      ]
     }
   ]
 }

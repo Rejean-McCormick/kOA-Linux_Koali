@@ -45,3 +45,7 @@ No repository presence, installed package, environment variable, reachable endpo
 - `degradation.toml`: explicit failure and removal behavior;
 - `interface/`: presentation-only module, sidebar and status widget manifests;
 - `adapter/pyproject.toml`: packaging metadata for the future kOA-owned adapter.
+
+## Product UI portability
+
+Konnaxion owns its standalone interface runtime, internal navigation, and product surfaces. The Koali integration contributes only admitted presentation metadata. kOA Spaces is an optional composition host, not a Konnaxion runtime dependency. Integrated navigation is derived from the Konnaxion manifest, and removing the Konnaxion integration removes only Konnaxion contributions from the integrated registry without requiring source changes to other products.

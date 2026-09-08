@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/module-interface-manifest.schema.json",
-  "title": "kOA Spaces Module Interface Manifest",
-  "description": "Declarative navigation and interface contribution supplied by one system or capability to kOA Spaces.",
+  "title": "Koali Product Interface Manifest",
+  "description": "Declarative product interface contribution that can be mounted by an admitted Koali composition host while preserving product-owned standalone operation, internal navigation, page behavior, business authorization, and removal independence.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -68,7 +68,8 @@
       }
     },
     "sidebar": {
-      "$ref": "./sidebar-navigation.schema.json"
+      "$ref": "./sidebar-navigation.schema.json",
+      "description": "Surface-level navigation contribution rendered by the active Koali shell host. It does not replace product-owned inner navigation and does not make kOA Spaces a standalone-runtime dependency."
     },
     "topbar_widgets": {
       "type": "array",
@@ -154,7 +155,8 @@
         "menu_visibility_is_authorization": {
           "const": false
         }
-      }
+      },
+      "description": "Presentation authority boundary. Visibility and capability projection never replace owner-side authorization."
     },
     "shell_compatibility": {
       "type": "object",
@@ -201,6 +203,189 @@
         "null"
       ],
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$",
+      "description": "Stable independently packaged product identity. It may equal module_id when one module represents one product."
+    },
+    "ui_modes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "standalone",
+        "integrated",
+        "composition_host_required_for_standalone",
+        "private_cross_product_ui_imports"
+      ],
+      "properties": {
+        "standalone": {
+          "enum": [
+            "supported",
+            "not_applicable"
+          ]
+        },
+        "integrated": {
+          "enum": [
+            "supported",
+            "not_applicable"
+          ]
+        },
+        "composition_host_required_for_standalone": {
+          "const": false
+        },
+        "private_cross_product_ui_imports": {
+          "const": false
+        }
+      }
+    },
+    "surface_profiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface_id",
+          "home_route_id",
+          "route_ids"
+        ],
+        "properties": {
+          "surface_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "home_route_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+          },
+          "route_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+            }
+          },
+          "navigation_mode": {
+            "enum": [
+              "manifest_navigation",
+              "product_owned_inner_navigation"
+            ]
+          },
+          "density": {
+            "enum": [
+              "compact",
+              "standard",
+              "touch"
+            ]
+          }
+        }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "command_id",
+          "label",
+          "required_capabilities"
+        ],
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "route_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "surface_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "inspectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "inspector_id",
+          "label",
+          "surface_ids"
+        ],
+        "properties": {
+          "inspector_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "surface_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "ui_modes"
+        ]
+      },
+      "then": {
+        "required": [
+          "product_id",
+          "surface_profiles"
+        ]
+      }
+    }
+  ]
 }

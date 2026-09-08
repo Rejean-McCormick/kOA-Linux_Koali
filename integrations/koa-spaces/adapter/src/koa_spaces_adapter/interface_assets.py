@@ -1,4 +1,4 @@
-"""Validation for local-only Koali Spaces interface asset manifests."""
+"""Validation for local-only Koali interface asset manifests used by products or composition hosts."""
 from __future__ import annotations
 from dataclasses import dataclass
 from types import MappingProxyType
@@ -30,7 +30,7 @@ def validate_asset_manifest(document: Mapping[str, Any]) -> ValidatedAssetManife
     for field in ("bundle_id","version","owner_kind","owner_id","entrypoints","assets","offline_policy","authority_boundary"):
         if field not in document:
             raise AssetManifestValidationError(f"asset manifest missing {field}")
-    if document["owner_kind"] not in {"koa_spaces_shell","module"}:
+    if document["owner_kind"] not in {"koa_spaces_shell","koali_ui_shell","module","product"}:
         raise AssetManifestValidationError("invalid asset owner_kind")
     if document.get("remote_runtime_dependencies",[]) != []:
         raise AssetManifestValidationError("remote runtime dependencies are prohibited")

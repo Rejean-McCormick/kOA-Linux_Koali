@@ -45,5 +45,9 @@
   "observability": {
     "correlation_id_required": true,
     "per_dependency_latency": true
-  }
+  },
+  "surface_ids": [
+    "operations"
+  ],
+  "standalone_compatible": true
 }

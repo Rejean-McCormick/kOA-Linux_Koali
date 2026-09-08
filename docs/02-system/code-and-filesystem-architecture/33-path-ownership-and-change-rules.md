@@ -170,3 +170,14 @@ The source repository SHALL NOT contain:
 `tools/src/koa_tools/checks/file_architecture.py` SHALL compare committed paths with the generated machine-readable lock derived from this series. The check SHALL fail on unknown top-level roots, ownerless structural files, prohibited generated content, subsystem vendoring, invalid runtime paths, private cross-component imports, or kOA Spaces authority expansion.
 
 A successful documentation validation confirms the consistency of this series. Implementation conformance additionally requires the code-repository checks defined here once the corresponding source scaffold exists.
+
+## Koali product UI modularity
+
+This document is interpreted with the Koali product-interface portability rule:
+
+- each independently packaged product owns its user interface and remains independently operable when its declared standalone mode is supported;
+- shared Koali shell and design-system code is reusable presentation infrastructure, not a mandatory product runtime and not a source of business authority;
+- an integrated composition host discovers installed and admitted product manifests dynamically rather than hard-coding a mandatory product list;
+- a surface profile is a projection of the same product routes, capabilities, commands, and contextual views, not a separately implemented frontend;
+- removing one product removes only that product's admitted presentation contributions and SHALL NOT require source changes to unrelated products;
+- ordinary shell behavior SHALL NOT require private UI imports from another product; cross-product journeys use explicit public routes, commands, capabilities, or integration contracts.

@@ -64,3 +64,7 @@ The directory contains non-authoritative examples for integration resilience, de
 ## kOA Spaces Examples
 
 Examples can illustrate Space definitions, module interface manifests, route contributions, sidebar trees, top-bar widgets, activation receipts, interface themes, local interface asset manifests, view adapters, projections, and cache policies. They remain non-authoritative and cannot be activated until validated, admitted, and bound to an applicable profile and release set.
+
+## Product-interface examples
+
+Interface examples use the same portability model as the normative contracts: product-owned standalone entry points, optional integrated composition, dynamic product discovery, surface-profile projection, and owner-side authorization. Examples must not imply that kOA Spaces or another optional product is required for standalone product operation.

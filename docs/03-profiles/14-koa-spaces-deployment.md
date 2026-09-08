@@ -173,3 +173,7 @@ kOA Spaces should remain lightweight. Its baseline resource use is limited to:
 - optional search or notification adapters supplied by other systems.
 
 The subsystem does not duplicate subsystem databases, media stores, learning stores, task stores, analytics stores, or subsystem business functions. Shared frontend conventions remain presentation alignment only.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

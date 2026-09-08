@@ -7,7 +7,9 @@
   "description": "Presentation-only status surface for the independently owned Konnaxion subsystem. No internal Konnaxion workflow or business capability is declared here.",
   "icon_ref": null,
   "home_route_id": "konnaxion.home",
-  "required_capabilities": ["konnaxion.integration_status"],
+  "required_capabilities": [
+    "konnaxion.integration_status"
+  ],
   "routes": [
     {
       "$schema": "../../../docs/contracts/artifact-contracts/route-contribution.schema.json",
@@ -23,9 +25,14 @@
       "safe_fallback_route_id": null,
       "aliases": [],
       "capability_policy": {
-        "required_capabilities": ["konnaxion.integration_status"],
+        "required_capabilities": [
+          "konnaxion.integration_status"
+        ],
         "denied_behavior": "hidden"
-      }
+      },
+      "surface_ids": [
+        "default"
+      ]
     }
   ],
   "sidebar": {
@@ -39,12 +46,15 @@
         "label_key": "konnaxion.navigation.home",
         "icon_ref": null,
         "order": 100,
-        "required_capabilities": ["konnaxion.integration_status"],
+        "required_capabilities": [
+          "konnaxion.integration_status"
+        ],
         "availability": "conditional",
         "badge_provider_ref": "adapter://konnaxion/health",
         "route_id": "konnaxion.home"
       }
-    ]
+    ],
+    "surface_id": "default"
   },
   "topbar_widgets": [
     {
@@ -58,7 +68,9 @@
       "label_key": "konnaxion.status.availability",
       "icon_ref": null,
       "priority": 100,
-      "required_capabilities": ["konnaxion.integration_status"],
+      "required_capabilities": [
+        "konnaxion.integration_status"
+      ],
       "offline_behavior": "unavailable",
       "compact_only": true,
       "activation": {
@@ -66,7 +78,10 @@
         "route_id": null,
         "command_ref": null,
         "status_provider_ref": "adapter://konnaxion/health"
-      }
+      },
+      "surface_ids": [
+        "default"
+      ]
     }
   ],
   "localization_refs": [],
@@ -84,5 +99,38 @@
     "may_grant_capabilities": false,
     "direct_domain_writes": false,
     "menu_visibility_is_authorization": false
-  }
+  },
+  "product_id": "konnaxion",
+  "ui_modes": {
+    "standalone": "supported",
+    "integrated": "supported",
+    "composition_host_required_for_standalone": false,
+    "private_cross_product_ui_imports": false
+  },
+  "surface_profiles": [
+    {
+      "surface_id": "default",
+      "label": "Default",
+      "home_route_id": "konnaxion.home",
+      "route_ids": [
+        "konnaxion.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    }
+  ],
+  "commands": [
+    {
+      "command_id": "konnaxion.open",
+      "label": "Open Konnaxion",
+      "route_id": "konnaxion.home",
+      "required_capabilities": [
+        "konnaxion.integration_status"
+      ],
+      "surface_ids": [
+        "default"
+      ]
+    }
+  ],
+  "inspectors": []
 }

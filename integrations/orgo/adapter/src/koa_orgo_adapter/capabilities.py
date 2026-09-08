@@ -1,4 +1,4 @@
-"""Declared capability projection for the Orgo integration."""
+"""Declared capability projection for Orgo; UI surfaces filter capabilities without granting authority."""
 from __future__ import annotations
 
 from dataclasses import dataclass

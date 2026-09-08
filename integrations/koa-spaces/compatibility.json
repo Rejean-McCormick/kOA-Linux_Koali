@@ -5,7 +5,7 @@
   "subsystem_contract": {
     "path": "docs/contracts/subsystems/koa-spaces.subsystem.json",
     "subsystem_id": "koa_spaces",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "artifact_contracts": [
     {
@@ -82,6 +82,16 @@
     "required_asset_bundle_missing": "block_activation",
     "optional_asset_bundle_missing": "disable_contribution_and_report",
     "remote_runtime_asset_dependency": "reject",
-    "shell_asset_manifest_missing": "block_activation"
+    "shell_asset_manifest_missing": "block_activation",
+    "product_removed": "remove_product_contributions_only",
+    "composition_host_removed": "preserve_product_standalone_interfaces",
+    "hard_coded_product_registry": "reject"
+  },
+  "ui_modularity": {
+    "role": "optional_integrated_composition_host",
+    "dynamic_product_registry": true,
+    "hard_coded_product_list": false,
+    "product_standalone_interfaces_preserved_when_absent": true,
+    "private_cross_product_ui_imports": false
   }
 }

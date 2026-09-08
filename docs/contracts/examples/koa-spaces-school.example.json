@@ -5,7 +5,7 @@
   "space_id": "isolated_school",
   "title": "Isolated School",
   "version": "1.0.0",
-  "description": "Example Space for local learning, media, schoolwork, guidance, and restricted administration.",
+  "description": "Example Space for local learning, media, schoolwork, guidance, and restricted administration. Product contributions remain independently owned and can retain standalone operation outside this Space.",
   "default_module_id": "space_home",
   "module_instances": [
     {

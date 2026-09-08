@@ -82,9 +82,11 @@ KOA:DOC-META:END -->
 
 ## 1. Purpose
 
-kOA Spaces is the optional public-facing experience layer for kOA-Linux Operating System. It allows one stable core to present different navigational structures and interface compositions for a school, enterprise, community, trade, project, or personal installation.
+kOA Spaces is the optional integrated experience-composition layer for kOA-Linux Operating System. It allows one stable core to compose installed product interfaces into contextual navigational structures for a school, enterprise, community, trade, project, or personal installation.
 
-kOA Spaces is not part of the privileged core. It is an independently versioned subsystem that consumes declared interfaces and capabilities. It can be installed, replaced, disabled, or omitted without changing the authority, storage, policy, lifecycle, or security rules of the core.
+kOA Spaces is not the sole owner or mandatory runtime of product user interfaces. Each independently owned product can retain a standalone interface that remains functional when kOA Spaces is absent. When kOA Spaces is installed, it composes admitted product contributions into one coherent Koali experience without taking ownership of product business behavior.
+
+kOA Spaces is not part of the privileged core. It is an independently versioned subsystem that consumes declared interfaces and capabilities. It can be installed, replaced, disabled, or omitted without changing the authority, storage, policy, lifecycle, security rules, or standalone operability of the other installed products.
 
 ## 2. Public and Technical Identity
 
@@ -100,12 +102,12 @@ A presentation module is not a new authority domain. It is a navigational contri
 
 ## 3. Architectural Role
 
-kOA Spaces owns:
+When active as the integrated Koali composition host, kOA Spaces owns:
 
-- the global visual frame;
-- the module selector;
-- the shared top bar and its placement rules;
-- the rendering of the active module's sidebar contribution;
+- the integrated visual frame;
+- the installed-product/module selector;
+- the shared context header and its placement rules;
+- the rendering of the active product surface's navigation contribution;
 - route composition and collision detection;
 - responsive and accessibility behavior of the global frame;
 - activation, rollback, and local caching of validated Space definitions;
@@ -122,20 +124,35 @@ kOA Spaces does not own:
 - governance policy;
 - direct writes into subsystem databases;
 - the internal interface architecture of contributing systems;
+- the standalone entry point or standalone shell of a contributing product;
 - a duplicate implementation of a contributing system's business functions.
 
 The experience layer composes what an owner exposes. It does not recreate the owner's feature set in a second Koali implementation.
+
+## 3.1 Product UI Autonomy and Portability
+
+A Koali product user interface is independently operable and composable. A product that exposes a graphical interface SHOULD support both of these modes when applicable:
+
+- **standalone** — the product renders its own application entry point using the shared Koali visual and interaction contract or a compatible implementation;
+- **integrated** — the product contributes declarative routes, navigation, commands, contextual inspection surfaces, and capability metadata to an admitted composition host such as kOA Spaces.
+
+The shared Koali UI implementation is a reusable presentation library and contract, not a business application and not a mandatory central runtime. A product may depend on that shared UI library without depending on another product.
+
+Product removal is a first-class operation. Removing Orgo, Konnaxion, Kristal-facing surfaces, or another independently packaged product SHALL NOT require source changes to unrelated product interfaces. The integrated product registry is derived from installed and admitted product manifests rather than from a hard-coded list in the global frame.
+
+A product interface SHALL NOT import another product's private UI implementation to obtain ordinary shell, navigation, or page-frame behavior. Cross-product user journeys use declared integration contracts, stable routes, commands, or public interface contributions.
 
 ## 4. Composition Model
 
 A Space definition selects a set of installed interface module manifests. Each manifest contributes:
 
-- one stable module identity;
+- one stable product/module identity;
 - a public label and icon;
-- a home route;
+- one or more declared surface profiles;
+- a home route per applicable surface;
 - namespaced route contributions;
-- a sidebar tree with at most two visible levels;
-- optional top-bar widgets and shortcuts;
+- navigation groups for the active surface;
+- optional commands, contextual inspectors, top-bar widgets, and shortcuts;
 - capability requirements;
 - offline behavior;
 - accessibility and localization metadata;
@@ -194,10 +211,11 @@ The composition model deliberately aligns with the established Konnaxion interfa
 
 Inside kOA Spaces:
 
-- kOA Spaces owns the outer frame;
-- Konnaxion contributes its public module entry, routes, sidebar, and widgets when its integration is admitted;
+- kOA Spaces owns the integrated outer frame;
+- Konnaxion contributes its public product entry, surfaces, routes, navigation, commands, inspectors, and widgets when its integration is admitted;
 - Konnaxion page shells can continue to structure Konnaxion content inside the main page surface;
-- Konnaxion does not recreate the outer kOA Spaces module selector, shared top bar, or global sidebar container;
+- Konnaxion does not recreate a second integrated outer frame inside the kOA Spaces frame;
+- when Konnaxion runs standalone, it can render the same shared Koali shell primitives itself without requiring kOA Spaces;
 - kOA Spaces does not reproduce Konnaxion business pages, workflows, validation, services, or domain state.
 
 Shared visual language, interaction patterns, design tokens, frontend libraries, or PageShell conventions are compatible with this boundary. They are implementation alignment, not function duplication.
@@ -219,7 +237,7 @@ The core remains operable without kOA Spaces. A deployment may use:
 - a restricted appliance interface;
 - command-line or administrative surfaces.
 
-Removing kOA Spaces cannot delete or reinterpret business data. Its local state is limited to presentation configuration, validated manifests, navigation state, preferences, admitted presentation assets, and activation receipts.
+Removing kOA Spaces cannot delete or reinterpret business data and cannot make an otherwise installed product lose its standalone interface solely because the composition host was removed. Its local state is limited to presentation configuration, validated manifests, navigation state, preferences, admitted presentation assets, and activation receipts.
 
 ## 11. Validation Criteria
 

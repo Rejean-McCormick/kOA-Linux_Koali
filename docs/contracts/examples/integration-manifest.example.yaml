@@ -428,3 +428,10 @@ canonical_references:
 
 supersedes: []
 replaced_by: null
+
+presentation:
+  product_interface_owned_by_provider: true
+  standalone_operation_without_composition_host: true
+  integrated_composition_optional: true
+  private_cross_product_ui_imports: false
+  removal_preserves_unrelated_product_interfaces: true

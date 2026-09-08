@@ -1,4 +1,4 @@
-"""Governed command forwarding to Orgo without internal workflow simulation."""
+"""Governed command forwarding to Orgo from standalone or integrated UI surfaces without internal workflow simulation."""
 from __future__ import annotations
 
 from dataclasses import dataclass

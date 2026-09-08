@@ -157,3 +157,7 @@ kOA Spaces is optional and replaceable. It composes validated interface contribu
 - `CODE_ALIGNMENT_NOTES.md` — implementation/contract areas that still need alignment.
 
 The documentation validators remain the executable consistency check for this corpus.
+
+## Product UI architecture
+
+The canonical UI rule is product autonomy plus optional composition. Product interfaces own their standalone entry points and business-facing route implementations. Shared Koali UI contracts and shell primitives provide reusable layout, navigation, command, context, inspector, responsive, and accessibility behavior. kOA Spaces may compose admitted product manifests when selected, but it is not the mandatory runtime of product UIs.

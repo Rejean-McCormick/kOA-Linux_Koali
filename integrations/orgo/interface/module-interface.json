@@ -2,7 +2,7 @@
   "$schema": "../../../docs/contracts/artifact-contracts/module-interface-manifest.schema.json",
   "manifest_id": "orgo-schoolwork.interface",
   "manifest_version": "1.0.0",
-  "module_id": "orgo_schoolwork",
+  "module_id": "orgo",
   "public_name": "Assignments",
   "description": "Presentation-only kOA Spaces entrypoint for the independently owned Orgo subsystem.",
   "icon_ref": null,
@@ -12,7 +12,7 @@
     {
       "$schema": "../../../docs/contracts/artifact-contracts/route-contribution.schema.json",
       "route_id": "orgo_schoolwork.home",
-      "module_id": "orgo_schoolwork",
+      "module_id": "orgo",
       "path": "/orgo",
       "page_ref": "koa://orgo/surface/home",
       "default_label": "Assignments",
@@ -25,12 +25,22 @@
       "capability_policy": {
         "required_capabilities": [],
         "denied_behavior": "access_denied"
-      }
+      },
+      "surface_ids": [
+        "control",
+        "operations",
+        "my_work",
+        "supervisor",
+        "intake",
+        "workflow_admin",
+        "executive",
+        "embedded"
+      ]
     }
   ],
   "sidebar": {
     "$schema": "../../../docs/contracts/artifact-contracts/sidebar-navigation.schema.json",
-    "module_id": "orgo_schoolwork",
+    "module_id": "orgo",
     "visible_depth": 2,
     "items": [
       {
@@ -44,13 +54,14 @@
         "badge_provider_ref": null,
         "route_id": "orgo_schoolwork.home"
       }
-    ]
+    ],
+    "surface_id": "control"
   },
   "topbar_widgets": [
     {
       "$schema": "../../../docs/contracts/artifact-contracts/topbar-widget.schema.json",
       "widget_id": "orgo_schoolwork.status",
-      "module_id": "orgo_schoolwork",
+      "module_id": "orgo",
       "scope": "module",
       "slot": "status",
       "kind": "status",
@@ -66,7 +77,17 @@
         "route_id": null,
         "command_ref": null,
         "status_provider_ref": "koa://orgo/health"
-      }
+      },
+      "surface_ids": [
+        "control",
+        "operations",
+        "my_work",
+        "supervisor",
+        "intake",
+        "workflow_admin",
+        "executive",
+        "embedded"
+      ]
     }
   ],
   "localization_refs": [],
@@ -84,5 +105,125 @@
     "may_grant_capabilities": false,
     "direct_domain_writes": false,
     "menu_visibility_is_authorization": false
-  }
+  },
+  "product_id": "orgo",
+  "ui_modes": {
+    "standalone": "supported",
+    "integrated": "supported",
+    "composition_host_required_for_standalone": false,
+    "private_cross_product_ui_imports": false
+  },
+  "surface_profiles": [
+    {
+      "surface_id": "control",
+      "label": "Control",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "operations",
+      "label": "Operations",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "my_work",
+      "label": "My Work",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "supervisor",
+      "label": "Supervisor",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "intake",
+      "label": "Intake",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "workflow_admin",
+      "label": "Workflow Admin",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "executive",
+      "label": "Executive",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    },
+    {
+      "surface_id": "embedded",
+      "label": "Embedded",
+      "home_route_id": "orgo_schoolwork.home",
+      "route_ids": [
+        "orgo_schoolwork.home"
+      ],
+      "navigation_mode": "product_owned_inner_navigation",
+      "density": "standard"
+    }
+  ],
+  "commands": [
+    {
+      "command_id": "orgo.open",
+      "label": "Open Orgo",
+      "route_id": "orgo_schoolwork.home",
+      "required_capabilities": [],
+      "surface_ids": [
+        "control",
+        "operations",
+        "my_work",
+        "supervisor",
+        "intake",
+        "workflow_admin",
+        "executive",
+        "embedded"
+      ]
+    }
+  ],
+  "inspectors": [
+    {
+      "inspector_id": "orgo.context",
+      "label": "Orgo context",
+      "surface_ids": [
+        "control",
+        "operations",
+        "my_work",
+        "supervisor"
+      ],
+      "required_capabilities": []
+    }
+  ]
 }

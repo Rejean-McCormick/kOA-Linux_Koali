@@ -45,3 +45,13 @@ boundary_document = "docs/04-components/subsystems/orgo.md"
 [activation]
 allowed = false
 reason = "source_and_official_documentation_not_pinned"
+
+[interface_modularity]
+product_id = "orgo"
+standalone_interface_owned_by_product = true
+standalone_requires_koa_spaces = false
+integrated_composition_optional = true
+installed_manifest_discovery = true
+private_cross_product_ui_imports = false
+removal_preserves_unrelated_product_interfaces = true
+surface_profiles = ["control", "operations", "my_work", "supervisor", "intake", "workflow_admin", "executive", "embedded"]

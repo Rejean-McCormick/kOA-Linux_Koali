@@ -3,7 +3,7 @@
   "space_id": "community_space",
   "title": "Community Space",
   "version": "1.0.0",
-  "description": "Presentation composition for community knowledge, coordination, media, and guidance; deferred module contributions remain disabled until independently admitted.",
+  "description": "Presentation composition for community knowledge, coordination, media, and guidance; deferred module contributions remain disabled until independently admitted. Integrated products remain independently owned and are discovered through admitted manifests rather than a hard-coded product runtime dependency.",
   "default_module_id": "space_home",
   "module_instances": [
     {

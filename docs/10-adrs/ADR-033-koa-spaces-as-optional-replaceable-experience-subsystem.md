@@ -67,9 +67,9 @@ A unified module selector, sidebar, top bar, route composition, and shared page 
 
 ## Decision
 
-kOA Spaces is an independently versioned, optional, replaceable subsystem that owns only the global presentation frame and validated Space activation state. It consumes declared interface contributions and capability visibility from their owners. It does not own authentication, authorization, business data, workflows, host privilege, resource admission, release activation, backup, recovery, or the internal page implementation of contributing systems.
+kOA Spaces is an independently versioned, optional, replaceable subsystem that owns only the integrated presentation frame and validated Space activation state when it is selected as the composition host. It consumes declared interface contributions and capability visibility from their owners. Independently packaged products retain standalone interface entry points and do not require kOA Spaces to remain usable. It does not own authentication, authorization, business data, workflows, host privilege, resource admission, release activation, backup, recovery, or the internal page implementation of contributing systems.
 
-Koali can align its interface implementation with Konnaxion on generic visual and interaction patterns when that reduces user-facing divergence. Alignment of design system, component library, PageShell conventions, navigation mechanics, or frontend technology does not duplicate Konnaxion business functions and does not transfer Konnaxion authority into kOA Spaces.
+Koali can align its interface implementation with Konnaxion on generic visual and interaction patterns when that reduces user-facing divergence. Generic shell behavior can be extracted into reusable Koali UI primitives so standalone products and the integrated kOA Spaces host share the same interaction grammar without importing each other's private product UI code. Alignment of design system, component library, PageShell conventions, navigation mechanics, or frontend technology does not duplicate Konnaxion business functions and does not transfer Konnaxion authority into kOA Spaces.
 
 Browser-rendered or web-technology presentation does not imply an Internet dependency. kOA Spaces and admitted local module surfaces can package their required runtime assets locally and preserve declared offline-capable functions through local services.
 
@@ -84,7 +84,10 @@ A conventional application shell often becomes the implicit owner of routing, se
 - Menu, route, alias, widget, or page visibility never grants authority.
 - Space definitions and interface manifests are declarative admitted artifacts, not executable privilege packages.
 - Every protected action is authorized and executed by its owning system.
-- Disabling or replacing kOA Spaces preserves authoritative data and native or administrative fallback paths.
+- Disabling or replacing kOA Spaces preserves authoritative data, native or administrative fallback paths, and otherwise installed standalone product interfaces.
+- Removing one independently packaged product removes its manifest contributions without requiring source changes to unrelated product interfaces.
+- The integrated product registry is derived from installed/admitted manifests rather than a hard-coded mandatory product list.
+- Shared Koali shell primitives do not contain product-specific business semantics.
 - Core readiness, recovery, and privileged administration remain independent from the experience subsystem.
 - Shared frontend conventions never transfer or duplicate a contributing subsystem's business authority.
 - A local offline-capable surface resolves required runtime presentation assets without depending on the public Internet.

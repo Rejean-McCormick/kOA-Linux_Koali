@@ -47,6 +47,20 @@ KOA:DOC-META:END -->
 
 # Documentation Changelog
 
+
+## 1.3.0 — 2026-09-08
+
+Clarified modular Koali product-interface architecture before Orgo frontend expansion:
+
+- defined standalone and integrated rendering modes for independently packaged product UIs;
+- made kOA Spaces an optional integrated composition host rather than a mandatory runtime for product interfaces;
+- established shared Koali shell primitives as a reusable presentation library/contract, not a business application;
+- separated product selection from product-owned surface profiles;
+- added declarative navigation, commands, contextual inspectors, and surface composition to the integrated UI model;
+- required registry-driven product discovery so individual products can be removed without source edits to unrelated interfaces;
+- documented Orgo's full Control Panel as its reference maximal surface, with reduced surfaces as projections of the same capabilities and pages;
+- preserved Konnaxion standalone UI ownership while allowing the same shell grammar in integrated mode.
+
 ## 1.2.0 — 2026-09-05
 
 Closed the kOA Spaces interface-definition gap before frontend implementation:

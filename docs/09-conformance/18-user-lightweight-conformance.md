@@ -719,3 +719,14 @@ A `user_lightweight` installation with an explicitly compatible `appliance_shell
 ## Optional kOA Spaces Claim
 
 A user-lightweight release can add a kOA Spaces presentation claim only when the selected Space, required manifests, offline frame, resource envelope, accessibility checks, activation receipt, rollback, and fallback tests pass. The base user-lightweight conformance claim remains valid without kOA Spaces.
+
+## Product UI portability checks
+
+Conformance for a product-facing interface includes these structural checks where the product declares both standalone and integrated modes:
+
+- the standalone entry point remains product-owned and does not require kOA Spaces or another optional product;
+- integrated routes, navigation, commands, inspectors, and widgets are contributed through declared public interface contracts;
+- the integrated product registry is derived from installed and admitted manifests, not a hard-coded mandatory product list;
+- surface profiles reuse product-owned routes and capabilities instead of duplicating pages;
+- removal of one optional product does not require source changes to unrelated products;
+- menu or surface visibility never substitutes for owner-side authorization.

@@ -106,3 +106,7 @@ Retain:
 - accessibility check results;
 - activation and rollback timestamps;
 - the finalized activation receipt.
+
+## Modular product-interface behavior
+
+This recipe assumes product UI portability. A product that supports standalone operation keeps its own product-owned entry point. When an integrated composition host is selected, the product contributes the same admitted routes and capabilities through its interface manifest. Reduced surfaces are projections of that product definition rather than separate frontends. Removing the product removes its integrated contributions without changing unrelated product source code.

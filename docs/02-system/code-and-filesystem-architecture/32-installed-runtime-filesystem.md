@@ -235,3 +235,14 @@ Dynamic instances SHALL be content-addressed, version-addressed, receipt-identif
 ## 9. kOA Spaces Runtime State
 
 `/var/lib/koa/integrations/koa-spaces/` may contain validated Space definitions, interface manifests, navigation preferences, last permitted route state, cached presentation assets, activation receipts, and the previous validated Space for rollback. It SHALL NOT contain Orgo tasks, Konnaxion records, UCKK course authority, Mediatheque media authority, identity credentials, policy authority, release activation state, or privileged-operation requests.
+
+## Koali product UI modularity
+
+This document is interpreted with the Koali product-interface portability rule:
+
+- each independently packaged product owns its user interface and remains independently operable when its declared standalone mode is supported;
+- shared Koali shell and design-system code is reusable presentation infrastructure, not a mandatory product runtime and not a source of business authority;
+- an integrated composition host discovers installed and admitted product manifests dynamically rather than hard-coding a mandatory product list;
+- a surface profile is a projection of the same product routes, capabilities, commands, and contextual views, not a separately implemented frontend;
+- removing one product removes only that product's admitted presentation contributions and SHALL NOT require source changes to unrelated products;
+- ordinary shell behavior SHALL NOT require private UI imports from another product; cross-product journeys use explicit public routes, commands, capabilities, or integration contracts.

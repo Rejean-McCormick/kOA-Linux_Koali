@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import fnmatch
+import subprocess
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -35,6 +36,101 @@ def _matches_pattern(path: str, pattern: str) -> bool:
     if any(character in normalized for character in "*?["):
         return fnmatch.fnmatchcase(path, normalized)
     return path == normalized or path.startswith(normalized + "/")
+
+
+
+
+def _gitignore_pattern_matches(path: str, pattern: str) -> bool:
+    """Best-effort Git-ignore matching used only when git check-ignore is unavailable."""
+
+    directory_only = pattern.endswith("/")
+    normalized = pattern.strip("/")
+    if not normalized:
+        return False
+
+    path_parts = path.split("/")
+    pattern_parts = normalized.split("/")
+
+    if len(pattern_parts) == 1:
+        candidates = path_parts[:-1] if directory_only else path_parts
+        return any(fnmatch.fnmatchcase(part, normalized) for part in candidates)
+
+    def match_parts(candidate: tuple[str, ...], wanted: tuple[str, ...]) -> bool:
+        if not wanted:
+            return not candidate
+        if wanted[0] == "**":
+            return match_parts(candidate, wanted[1:]) or (
+                bool(candidate) and match_parts(candidate[1:], wanted)
+            )
+        return bool(candidate) and fnmatch.fnmatchcase(candidate[0], wanted[0]) and match_parts(
+            candidate[1:], wanted[1:]
+        )
+
+    max_prefix = len(path_parts) - 1 if directory_only else len(path_parts)
+    wanted = tuple(pattern_parts)
+    return any(match_parts(tuple(path_parts[:size]), wanted) for size in range(1, max_prefix + 1))
+
+
+def _fallback_gitignored_paths(base: Path, paths: Iterable[str]) -> set[str]:
+    ignore_file = base / ".gitignore"
+    try:
+        lines = ignore_file.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return set()
+
+    rules: list[tuple[str, bool]] = []
+    for raw in lines:
+        value = raw.strip()
+        if not value or value.startswith("#"):
+            continue
+        negated = value.startswith("!")
+        if negated:
+            value = value[1:]
+        if value:
+            rules.append((value, negated))
+
+    ignored: set[str] = set()
+    for path in paths:
+        state = False
+        for pattern, negated in rules:
+            if _gitignore_pattern_matches(path, pattern):
+                state = not negated
+        if state:
+            ignored.add(path)
+    return ignored
+
+
+def _gitignored_paths(base: Path, paths: Iterable[str]) -> set[str]:
+    """Return workspace paths excluded by the repository's .gitignore rules.
+
+    ``git check-ignore --no-index`` evaluates ignore rules without using tracked-state
+    cleanliness as a diagnostic gate. A small parser fallback keeps isolated unit tests
+    deterministic when the temporary directory is not a Git repository.
+    """
+
+    candidates = tuple(sorted(set(paths), key=str.casefold))
+    if not candidates or not (base / ".gitignore").is_file():
+        return set()
+
+    payload = b"\0".join(path.encode("utf-8") for path in candidates) + b"\0"
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(base), "check-ignore", "--no-index", "-z", "--stdin"],
+            input=payload,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+    except OSError:
+        return _fallback_gitignored_paths(base, candidates)
+
+    if result.returncode in (0, 1):
+        return {
+            normalize_repository_path(item.decode("utf-8"))
+            for item in result.stdout.split(b"\0")
+            if item
+        }
+    return _fallback_gitignored_paths(base, candidates)
 
 
 def _string_list(value: Any) -> tuple[str, ...]:
@@ -141,10 +237,13 @@ def check_path_ownership(
         except ValueError as exc:
             findings.append(Finding("OWNERSHIP_IGNORE_INVALID", str(exc), ".koa/path-ownership.json"))
 
+    gitignored = _gitignored_paths(base, candidates)
     owner_counts: dict[str, int] = {}
+    checked_paths = 0
     for path in candidates:
-        if any(_matches_pattern(path, pattern) for pattern in normalized_ignored):
+        if path in gitignored or any(_matches_pattern(path, pattern) for pattern in normalized_ignored):
             continue
+        checked_paths += 1
         owners = sorted({rule.owner for rule in rules if rule.matches(path)})
         if not owners:
             findings.append(
@@ -171,7 +270,7 @@ def check_path_ownership(
         "path-ownership",
         findings,
         {
-            "checked_paths": len(candidates),
+            "checked_paths": checked_paths,
             "owners": len(owner_counts),
             "rules": len(rules),
         },

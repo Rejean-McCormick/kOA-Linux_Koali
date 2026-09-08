@@ -64,3 +64,9 @@ substitute_remote_assets = false
 [shell_assets_missing]
 action = "block_activation_or_preserve_previous_validated_space"
 public_cdn_fallback = false
+
+[composition_host_removal]
+product_standalone_interfaces = "preserved"
+product_business_authority = "preserved"
+integrated_navigation = "unavailable"
+unrelated_product_source_changes = false

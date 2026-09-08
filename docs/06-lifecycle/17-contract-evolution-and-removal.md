@@ -458,6 +458,12 @@ Historical objects remain available when required for:
 9. record revocation and recovery receipts;
 10. preserve historical lineage.
 
+### 6.7.1 Independently owned subsystem presentation removal
+
+When an independently owned subsystem contributes a presentation module or `local_module_surface`, its removal lifecycle remains bounded by the subsystem contract and presentation manifests. Removing that subsystem removes or disables its admitted routes, sidebar entries, widgets, local surface assets, and other declared host contributions without requiring source changes to unrelated product interfaces.
+
+Removing or replacing the experience host is a separate lifecycle operation. It SHALL NOT by itself invalidate an otherwise supported standalone interface owned by the subsystem. Presentation teardown does not transfer, delete, reinterpret, or authorize mutations of subsystem-owned business state.
+
 ### 6.8 Archive or remove
 
 1. Verify that no supported active consumer remains.
@@ -596,3 +602,14 @@ These criteria define validation requirements. They do not claim that any specif
 > **Non-normative example:** A signing key is compromised. Affected artifacts are revoked rather than ordinarily deprecated. New activation stops immediately, dependent evidence is invalidated, trusted replacements are staged, and historical receipts remain preserved.
 
 > **Non-normative example:** ChatGPT suggests that two API versions appear compatible. The suggestion may inform review, but only registered contract, profile, data, security, lifecycle, resource, and recovery tests with valid evidence support the compatibility claim.
+
+## Koali product UI modularity
+
+This document is interpreted with the Koali product-interface portability rule:
+
+- each independently packaged product owns its user interface and remains independently operable when its declared standalone mode is supported;
+- shared Koali shell and design-system code is reusable presentation infrastructure, not a mandatory product runtime and not a source of business authority;
+- an integrated composition host discovers installed and admitted product manifests dynamically rather than hard-coding a mandatory product list;
+- a surface profile is a projection of the same product routes, capabilities, commands, and contextual views, not a separately implemented frontend;
+- removing one product removes only that product's admitted presentation contributions and SHALL NOT require source changes to unrelated products;
+- ordinary shell behavior SHALL NOT require private UI imports from another product; cross-product journeys use explicit public routes, commands, capabilities, or integration contracts.

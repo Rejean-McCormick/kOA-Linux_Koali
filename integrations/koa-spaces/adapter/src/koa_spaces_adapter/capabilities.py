@@ -1,4 +1,4 @@
-"""Capability-state projection for the optional kOA Spaces integration."""
+"""Capability-state projection for the optional kOA Spaces composition host; product capabilities remain product-owned."""
 
 from __future__ import annotations
 

@@ -736,4 +736,15 @@ A build farm profile enables a compiler capability and associated artifact-produ
 
 ## Presentation Capabilities
 
-The capability model distinguishes presentation visibility from executable authority. kOA Spaces can evaluate whether a contribution should be shown, hidden, degraded, cached read-only, or unavailable. It cannot mint capabilities or execute a protected operation without the owning service performing its own authorization and state transition.
+The capability model distinguishes presentation visibility from executable authority. kOA Spaces can consume capability snapshots to evaluate whether a contribution should be shown, hidden, disabled, routed to, degraded, cached read-only, or unavailable. A capability snapshot is presentation input, not authorization evidence. It cannot mint capabilities or execute a protected operation without the owning service performing its own current authorization and state transition. For an Orgo-owned operation, Orgo therefore revalidates identity, tenant or organization scope, RBAC, policy, and operation-specific invariants regardless of what the Koali presentation layer displayed.
+
+## Koali product UI modularity
+
+This document is interpreted with the Koali product-interface portability rule:
+
+- each independently packaged product owns its user interface and remains independently operable when its declared standalone mode is supported;
+- shared Koali shell and design-system code is reusable presentation infrastructure, not a mandatory product runtime and not a source of business authority;
+- an integrated composition host discovers installed and admitted product manifests dynamically rather than hard-coding a mandatory product list;
+- a surface profile is a projection of the same product routes, capabilities, commands, and contextual views, not a separately implemented frontend;
+- removing one product removes only that product's admitted presentation contributions and SHALL NOT require source changes to unrelated products;
+- ordinary shell behavior SHALL NOT require private UI imports from another product; cross-product journeys use explicit public routes, commands, capabilities, or integration contracts.

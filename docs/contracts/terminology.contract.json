@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/terminology.contract.schema.json",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "status": "active",
   "language": "en",
   "effective_at": "2026-08-05T19:14:00-04:00",
@@ -362,6 +362,18 @@
       "left_term_id": "TERM-ART-MODULE-INTERFACE-MANIFEST",
       "right_term_id": "TERM-COMP-COMPONENT-CONTRACT",
       "required_distinction": "An interface manifest contributes presentation metadata; a component or subsystem contract owns architecture, authority, behavior, and integration boundaries."
+    },
+    {
+      "rule_id": "TERM-DIST-018",
+      "left_term_id": "TERM-UI-PRODUCT-INTERFACE",
+      "right_term_id": "TERM-SUBSYSTEM-KOA-SPACES",
+      "required_distinction": "A product interface is product-owned and may remain standalone; kOA Spaces is an optional integrated composition host and does not own the product interface."
+    },
+    {
+      "rule_id": "TERM-DIST-019",
+      "left_term_id": "TERM-UI-SURFACE-PROFILE",
+      "right_term_id": "TERM-PROFILE-PROFILE",
+      "required_distinction": "A surface profile projects product UI capabilities and navigation; a deployment profile defines system membership, resources, security, offline claims, and conformance."
     }
   ],
   "terms": [
@@ -2544,7 +2556,7 @@
       "canonical_name": "module interface manifest",
       "canonical_identifier": "module_interface_manifest",
       "category": "artifact_class",
-      "definition": "A module-owned manifest that contributes routes, sidebar entries, top-bar widgets, labels, capability requirements, and offline presentation behavior to kOA Spaces.",
+      "definition": "A product/module-owned manifest that contributes routes, surface profiles, navigation, commands, contextual inspectors, widgets, capability requirements, and offline presentation behavior to an admitted Koali composition host while preserving standalone product operation.",
       "semantic_owner_ref": "contracts/artifact-classes.contract.json#/artifact_classes/module_interface_manifest",
       "scope": [
         "global"
@@ -2565,7 +2577,7 @@
       "canonical_name": "module selector",
       "canonical_identifier": "module_selector",
       "category": "interface_element",
-      "definition": "The upper-left control rendered by kOA Spaces for choosing among installed, activated, visible, and permitted interface modules.",
+      "definition": "The product/module selector rendered by kOA Spaces when it is selected as the integrated composition host; entries are derived from installed and admitted manifests.",
       "semantic_owner_ref": "02-system/22-koa-spaces-interface-composition.md",
       "scope": [
         "global"
@@ -2767,6 +2779,91 @@
       ],
       "status": "active",
       "first_use_rule": "use_canonical_name_then_registered_alias"
+    },
+    {
+      "term_id": "TERM-UI-KOALI-SHELL",
+      "canonical_name": "Koali shell",
+      "canonical_identifier": "koali_shell",
+      "category": "interface_architecture",
+      "definition": "Reusable presentation primitives and contracts for product switching, surface navigation, context header, workspace, contextual inspector, responsive layout, and accessibility. The shell is not a business application and is not owned by an optional product host.",
+      "semantic_owner_ref": "02-system/22-koa-spaces-interface-composition.md",
+      "scope": [
+        "global"
+      ],
+      "case_sensitive": false,
+      "accepted_aliases": [],
+      "deprecated_aliases": [],
+      "forbidden_aliases": [],
+      "status": "active",
+      "first_use_rule": "canonical_name"
+    },
+    {
+      "term_id": "TERM-UI-PRODUCT-INTERFACE",
+      "canonical_name": "product interface",
+      "canonical_identifier": "product_interface",
+      "category": "interface_architecture",
+      "definition": "The product-owned user interface implementation that can expose a standalone entry point and optional integrated contributions without transferring product authority.",
+      "semantic_owner_ref": "02-system/21-koa-spaces-experience-layer.md",
+      "scope": [
+        "global"
+      ],
+      "case_sensitive": false,
+      "accepted_aliases": [],
+      "deprecated_aliases": [],
+      "forbidden_aliases": [],
+      "status": "active",
+      "first_use_rule": "canonical_name"
+    },
+    {
+      "term_id": "TERM-UI-SURFACE-PROFILE",
+      "canonical_name": "surface profile",
+      "canonical_identifier": "surface_profile",
+      "category": "interface_architecture",
+      "definition": "A declared projection of one product interface that selects routes, navigation, commands, inspectors, search scopes, or density without creating a separate frontend implementation.",
+      "semantic_owner_ref": "02-system/22-koa-spaces-interface-composition.md",
+      "scope": [
+        "global"
+      ],
+      "case_sensitive": false,
+      "accepted_aliases": [],
+      "deprecated_aliases": [],
+      "forbidden_aliases": [],
+      "status": "active",
+      "first_use_rule": "canonical_name"
+    },
+    {
+      "term_id": "TERM-UI-PRODUCT-REGISTRY",
+      "canonical_name": "installed product registry",
+      "canonical_identifier": "installed_product_registry",
+      "category": "interface_architecture",
+      "definition": "The runtime projection of installed and admitted product manifests used by an integrated composition host to discover available products without a hard-coded product list.",
+      "semantic_owner_ref": "02-system/21-koa-spaces-experience-layer.md",
+      "scope": [
+        "global"
+      ],
+      "case_sensitive": false,
+      "accepted_aliases": [],
+      "deprecated_aliases": [],
+      "forbidden_aliases": [],
+      "status": "active",
+      "first_use_rule": "canonical_name"
+    },
+    {
+      "term_id": "TERM-UI-CONTEXT-INSPECTOR",
+      "canonical_name": "contextual inspector",
+      "canonical_identifier": "contextual_inspector",
+      "category": "interface_element",
+      "definition": "A bounded shell panel whose content is product-owned and used for selected-object context, quick actions, relations, and navigation to a full product page.",
+      "semantic_owner_ref": "02-system/22-koa-spaces-interface-composition.md",
+      "scope": [
+        "global"
+      ],
+      "case_sensitive": false,
+      "accepted_aliases": [],
+      "deprecated_aliases": [],
+      "forbidden_aliases": [],
+      "status": "active",
+      "first_use_rule": "canonical_name"
     }
   ],
   "validation": {

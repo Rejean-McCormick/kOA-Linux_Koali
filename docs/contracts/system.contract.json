@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/system.contract.schema.json",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "status": "active",
   "language": "en",
   "effective_at": "2026-08-05T19:14:00-04:00",
@@ -83,7 +83,9 @@
       "contract_driven_integration",
       "safe_degradation",
       "selective_audit",
-      "portable_artifacts"
+      "portable_artifacts",
+      "modular_product_interfaces",
+      "dynamic_experience_composition"
     ],
     "global_non_goals": [
       "making every deployment an appliance",
@@ -101,7 +103,11 @@
       "treating menu visibility, route presence, or a top-bar widget as authorization",
       "requiring one user interface or one Space definition for every deployment",
       "allowing a Space definition to own or mutate business authority",
-      "treating integrated ecosystem systems as native kOA-Linux components"
+      "treating integrated ecosystem systems as native kOA-Linux components",
+      "making an optional experience-composition host mandatory for independently operable product interfaces",
+      "hard-coding installed product identities into shared shell implementation",
+      "requiring private cross-product UI imports for ordinary shell or navigation behavior",
+      "implementing reduced surface profiles as duplicate product frontends"
     ],
     "ecosystem_scope": "koa_digital_ecosystem"
   },
@@ -141,7 +147,10 @@
         "safe_degradation",
         "release_and_artifact_identity",
         "optional_experience_subsystems",
-        "contextual_interface_composition"
+        "contextual_interface_composition",
+        "portable_product_interfaces",
+        "dynamic_product_registry",
+        "surface_profile_composition"
       ]
     },
     {
@@ -1011,7 +1020,9 @@
       "projection_authority",
       "cache_authority",
       "duplicate_module_business_functions",
-      "public_internet_dependency_for_local_offline_capabilities"
+      "public_internet_dependency_for_local_offline_capabilities",
+      "module_internal_navigation",
+      "subsystem_standalone_interface_runtime"
     ],
     "inputs": [
       "space_definition",
@@ -1045,7 +1056,14 @@
       "LOCK-CQRS-001",
       "LOCK-CACHE-001",
       "LOCK-RES-001"
-    ]
+    ],
+    "composition_boundary": {
+      "global_shell_scope": "outer_koali_navigation_and_composition",
+      "local_module_surface_preserves_owner_internal_navigation": true,
+      "presentation_capability_snapshot_is_authorization": false,
+      "removing_one_product_requires_unrelated_ui_source_changes": false,
+      "experience_host_required_for_subsystem_standalone_ui": false
+    }
   },
   "architecture_patterns": {
     "contract_ref": "contracts/architecture-patterns.contract.json",

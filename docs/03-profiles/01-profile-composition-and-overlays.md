@@ -550,3 +550,7 @@ An effective-profile JSON file can list the resolved components, capabilities, l
 ## Composition of the Experience Layer
 
 A primary profile can select kOA Spaces, and compatible overlays can restrict its assets, routes, network exposure, switching behavior, evidence, or recovery path. An overlay cannot use the experience layer to broaden capabilities, merge data ownership, weaken security controls, or make presentation visibility equivalent to authorization.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

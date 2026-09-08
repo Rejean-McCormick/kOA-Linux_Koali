@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/interface-theme.schema.json",
-  "title": "kOA Spaces Interface Theme",
-  "description": "Presentation-only semantic design tokens for a locally admitted kOA Spaces theme.",
+  "title": "Koali Interface Theme",
+  "description": "Presentation-only theme compatible with shared Koali UI primitives and usable by standalone products or an optional integrated composition host.",
   "type": "object",
   "additionalProperties": false,
   "required": [

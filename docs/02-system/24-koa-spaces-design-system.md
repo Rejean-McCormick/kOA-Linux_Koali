@@ -28,7 +28,7 @@ KOA:DOC-META:END -->
 
 ## 1. Purpose
 
-This document defines the shared visual and interaction language for kOA Spaces. It keeps the outer Koali experience coherent while preserving the ownership and internal interface architecture of contributing systems.
+This document defines the shared Koali visual and interaction language used by kOA Spaces and by compatible standalone product interfaces. It keeps integrated and standalone Koali experiences coherent while preserving the ownership and internal interface architecture of contributing systems.
 
 The design system is a presentation contract. It does not define business behavior, authorization, workflow logic, storage, or subsystem ownership.
 
@@ -36,7 +36,7 @@ The design system is a presentation contract. It does not define business behavi
 
 The Koali interface favors:
 
-- a stable global frame;
+- a stable shell grammar that works in standalone and integrated modes;
 - predictable navigation placement;
 - neutral surfaces with a restrained semantic accent;
 - clear active, focus, warning, error, and success states;
@@ -45,7 +45,7 @@ The Koali interface favors:
 - outline-oriented iconography where practical;
 - keyboard-first operability alongside pointer and touch;
 - readable offline and degraded states;
-- consistent page structure across independently owned modules.
+- consistent page structure across independently owned products without requiring one product to host another.
 
 ## 3. Koali and Konnaxion Alignment
 
@@ -63,7 +63,26 @@ Suitable alignment includes:
 - responsive behavior;
 - accessibility interaction patterns.
 
-Alignment does not include duplicating Konnaxion domain services, pages, validation, workflows, APIs, or authoritative state inside kOA Spaces.
+Alignment does not include duplicating Konnaxion domain services, pages, validation, workflows, APIs, or authoritative state inside kOA Spaces. Konnaxion can use the shared Koali shell primitives in its standalone application and expose the same presentation declarations to an integrated Koali host without depending on another product's UI implementation.
+
+## 3.1 Shared Shell Primitives
+
+The shared Koali UI layer can provide reusable presentation primitives such as:
+
+- `KoaliShell`;
+- product/module selector;
+- surface navigation;
+- context header and breadcrumbs;
+- command/search surface;
+- main workspace;
+- optional contextual inspector;
+- mobile drawer;
+- PageShell;
+- common status, loading, offline, degraded, and error presentation.
+
+These primitives are a reusable library and interaction contract. They do not contain Orgo Case logic, Konnaxion domain behavior, Kristal semantics, or another product's business rules. A product can render them at its own standalone entry point. An integrated host can render them once and mount product contributions inside the resulting frame.
+
+The shared shell MUST derive installed products from an admitted registry or manifest source rather than from product-specific hard-coded imports.
 
 ## 4. Theme Contract
 
@@ -108,11 +127,11 @@ Token families include:
 - typography roles;
 - compact and touch targets.
 
-Module-specific pages can arrange their own content inside the main page surface while preserving the global frame and declared accessibility envelope.
+Product-specific pages can arrange their own content inside the main workspace while preserving the active shell contract and declared accessibility envelope. Reduced product surfaces can alter navigation, commands, widgets, inspector availability, and density without duplicating business pages.
 
 ## 7. Module PageShell
 
-A reusable PageShell pattern creates consistent page framing inside the main page surface.
+A reusable PageShell pattern creates consistent page framing inside the main workspace in either standalone or integrated mode.
 
 The pattern supports:
 
@@ -162,7 +181,7 @@ The global design language preserves:
 - keyboard-operable selectors, menus, dialogs, and drawers;
 - status announcements for important state changes.
 
-A module can add stronger accessibility behavior without replacing the global navigation contract.
+A product can add stronger accessibility behavior without replacing the shared navigation and shell contract.
 
 ## 10. Offline and Local Asset Behavior
 
@@ -184,7 +203,8 @@ Design-system validation checks:
 
 - theme schema validity;
 - local asset closure for offline-capable surfaces;
-- global-frame consistency;
+- shell consistency across standalone and integrated modes;
+- product-removal independence and absence of hard-coded mandatory product lists;
 - responsive behavior;
 - keyboard and focus behavior;
 - reduced-motion handling;

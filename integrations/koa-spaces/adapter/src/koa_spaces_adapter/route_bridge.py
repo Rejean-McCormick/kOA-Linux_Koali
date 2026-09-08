@@ -48,6 +48,7 @@ class RouteTable:
     by_id: Mapping[str, Mapping[str, Any]]
     by_path: Mapping[str, str]
     home_by_module: Mapping[str, str]
+    home_by_product: Mapping[str, str]
 
 
 class RouteBridge:
@@ -59,6 +60,7 @@ class RouteBridge:
         by_path: dict[str, str] = {}
         homes: dict[str, str] = {}
         modules: set[str] = set()
+        products: dict[str, str] = {}
         for manifest in manifests:
             if manifest.module_id in modules:
                 raise RouteCompositionError(f"duplicate module_id {manifest.module_id}")
@@ -66,6 +68,10 @@ class RouteBridge:
             doc = manifest.document
             home = str(doc["home_route_id"])
             homes[manifest.module_id] = home
+            product_id = manifest.product_id or manifest.module_id
+            if product_id in products and products[product_id] != home:
+                raise RouteCompositionError(f"duplicate product_id {product_id}")
+            products[product_id] = home
             for route in doc["routes"]:
                 route_id = str(route["route_id"])
                 if route_id in by_id:
@@ -79,6 +85,7 @@ class RouteBridge:
             by_id=MappingProxyType(by_id),
             by_path=MappingProxyType(by_path),
             home_by_module=MappingProxyType(homes),
+            home_by_product=MappingProxyType(products),
         )
 
     @staticmethod

@@ -3,12 +3,12 @@
   "subsystem_id": "koa_spaces",
   "title": "kOA Spaces",
   "status": "active",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "relationship_to_koa": "integrated_optional_subsystem",
   "optional": true,
   "replaceable": true,
   "offline_capable": true,
-  "koa_role": "Independent contextual experience subsystem that composes navigation and interface contributions without owning business authority.",
+  "koa_role": "Independent optional integrated experience-composition host that assembles admitted product interface contributions without owning product standalone runtimes or business authority.",
   "official_documentation": {
     "mount_path": "subsystems/koa-spaces",
     "mount_kind": "directory_junction_or_symbolic_link",
@@ -49,7 +49,14 @@
     "stable_module_ids_required": true,
     "technology_alignment": "shared_visual_and_interaction_patterns_allowed_without_business_function_duplication",
     "web_technology_implies_internet_dependency": false,
-    "offline_local_assets": "required_for_declared_offline_capable_surfaces"
+    "offline_local_assets": "required_for_declared_offline_capable_surfaces",
+    "composition_host_role": "optional_integrated_host",
+    "product_registry_source": "installed_and_admitted_product_manifests",
+    "hard_coded_product_registry": false,
+    "product_standalone_operation_preserved": true,
+    "shared_shell_contract": "reusable_koali_ui_primitives_not_spaces_business_authority",
+    "surface_profiles": "product_owned_projections",
+    "context_inspector_content_owner": "active_product"
   },
   "artifact_contracts": [
     "contracts/artifact-contracts/space-definition.schema.json",
@@ -75,7 +82,11 @@
     "replacement_preserves_business_state": true,
     "frontend_alignment_transfers_business_authority": false,
     "duplicate_subsystem_business_functions": "prohibited",
-    "public_internet_required_for_local_offline_surface": false
+    "public_internet_required_for_local_offline_surface": false,
+    "product_standalone_operation_depends_on_koa_spaces": false,
+    "private_cross_product_ui_imports_for_shell_behavior": "prohibited",
+    "product_removal_requires_unrelated_ui_source_changes": false,
+    "integrated_product_registry_hard_coded": "prohibited"
   },
   "documentation": {
     "koa_boundary_document": "04-components/subsystems/koa-spaces.md",
@@ -88,5 +99,5 @@
   "authority": "non_authoritative_presentation",
   "core_dependency": "declared_interfaces_only",
   "activation_model": "profile_conditioned_atomic_activation",
-  "deactivation_effect": "presentation_unavailable_business_and_core_authority_preserved"
+  "deactivation_effect": "integrated_composition_unavailable_product_standalone_and_business_authority_preserved"
 }

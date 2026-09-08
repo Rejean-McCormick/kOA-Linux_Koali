@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/sidebar-navigation.schema.json",
-  "title": "kOA Spaces Sidebar Navigation",
-  "description": "Two-level visible navigation contributed by one active interface module.",
+  "title": "Koali Surface Navigation",
+  "description": "Two-level navigation contribution for one product surface. The active shell host renders it without owning product behavior or authorization.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -33,6 +33,14 @@
           }
         ]
       }
+    },
+    "surface_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$",
+      "description": "Optional surface profile identity for this navigation projection."
     }
   },
   "$defs": {

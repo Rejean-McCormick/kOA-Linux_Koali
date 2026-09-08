@@ -59,3 +59,10 @@ record_degradation = true
 record_recovery = true
 record_removal = true
 include_raw_payload = false
+
+[composition_host_unavailable]
+standalone_product_interface = "preserved"
+integrated_contribution = "unavailable"
+business_authority = "unchanged"
+unrelated_product_interfaces = "unchanged"
+automatic_substitution = false

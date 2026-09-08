@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/interface-asset-manifest.schema.json",
-  "title": "kOA Spaces Interface Asset Manifest",
-  "description": "Manifest for locally installable shell or module presentation assets with explicit offline closure and no authority transfer.",
+  "title": "Koali Interface Asset Manifest",
+  "description": "Local interface asset inventory for shared Koali shell primitives, a composition host, or an independently packaged product.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -30,7 +30,9 @@
     "owner_kind": {
       "enum": [
         "koa_spaces_shell",
-        "module"
+        "module",
+        "koali_ui_shell",
+        "product"
       ]
     },
     "owner_id": {

@@ -165,6 +165,28 @@
     },
     "validation": {
       "$ref": "#/$defs/validation"
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "product_interface_owned_by_provider": {
+          "type": "boolean"
+        },
+        "standalone_operation_without_composition_host": {
+          "type": "boolean"
+        },
+        "integrated_composition_optional": {
+          "type": "boolean"
+        },
+        "private_cross_product_ui_imports": {
+          "type": "boolean"
+        },
+        "removal_preserves_unrelated_product_interfaces": {
+          "type": "boolean"
+        }
+      },
+      "description": "Optional declaration of product-interface autonomy and integrated composition behavior."
     }
   },
   "allOf": [

@@ -39,6 +39,34 @@ def test_path_ownership_accepts_one_owner_per_path(tmp_path: Path) -> None:
     assert result.metadata["owners"] == 3
 
 
+
+
+def test_path_ownership_ignores_gitignored_workspace_artifacts(tmp_path: Path) -> None:
+    touch(tmp_path, ".gitignore", "build/\n*.egg-info/\nGitSink.bat\n")
+    touch(tmp_path, "docs/README.md")
+    touch(tmp_path, "components/example/build/lib/generated.py")
+    touch(tmp_path, "components/example/src/example.egg-info/PKG-INFO")
+    touch(tmp_path, "GitSink.bat")
+    write_json(
+        tmp_path,
+        ".koa/path-ownership.json",
+        {"rules": [{"owner": "documentation-governance", "path": "docs"}]},
+    )
+
+    result = check_path_ownership(
+        tmp_path,
+        paths=[
+            "docs/README.md",
+            "components/example/build/lib/generated.py",
+            "components/example/src/example.egg-info/PKG-INFO",
+            "GitSink.bat",
+        ],
+    )
+
+    assert result.ok, result.to_dict()
+    assert result.metadata["checked_paths"] == 1
+
+
 def test_path_ownership_reports_missing_and_overlapping_owners(tmp_path: Path) -> None:
     touch(tmp_path, "components/a/src/model.py")
     touch(tmp_path, "orphan/file.txt")

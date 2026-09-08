@@ -4,7 +4,7 @@
   "authority": "non_authoritative_example",
   "bundle_id": "koa_spaces_shell_reference",
   "version": "1.0.0",
-  "owner_kind": "koa_spaces_shell",
+  "owner_kind": "koali_ui_shell",
   "owner_id": "koa_spaces",
   "entrypoints": [
     "index.html"

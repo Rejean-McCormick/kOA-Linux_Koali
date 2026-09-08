@@ -178,6 +178,19 @@
           "const": true
         }
       }
+    },
+    "surface_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "standalone_compatible": {
+      "type": "boolean",
+      "default": true
     }
-  }
+  },
+  "description": "A product-owned read-model/view adapter for optional experience composition. It does not transfer product authority to kOA Spaces and does not make an integrated host mandatory for standalone operation."
 }

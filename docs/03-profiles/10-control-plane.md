@@ -506,3 +506,7 @@ During a network partition, an endpoint can retain already valid local authority
 > **Non-normative example:** This example illustrates release coordination.
 
 The control plane can coordinate a Release Set across system, services, governance, and knowledge channels. Each artifact owner still verifies and activates its own artifact boundary, and a failed channel remains subject to its declared rollback or forward-repair behavior.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

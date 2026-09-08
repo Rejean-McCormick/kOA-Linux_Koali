@@ -86,3 +86,14 @@ The tool confirms:
 ## 11. Non-Normative Examples
 
 A missing `subsystems/koa-spaces/` mount can produce a warning while the source boundary contract remains valid. A school Space can label UCKK as “Learn” and Orgo as “Work” without changing the stable identifiers, permissions, or data owners of either system.
+
+## Product UI portability checks
+
+Conformance for a product-facing interface includes these structural checks where the product declares both standalone and integrated modes:
+
+- the standalone entry point remains product-owned and does not require kOA Spaces or another optional product;
+- integrated routes, navigation, commands, inspectors, and widgets are contributed through declared public interface contracts;
+- the integrated product registry is derived from installed and admitted manifests, not a hard-coded mandatory product list;
+- surface profiles reuse product-owned routes and capabilities instead of duplicating pages;
+- removal of one optional product does not require source changes to unrelated products;
+- menu or surface visibility never substitutes for owner-side authorization.

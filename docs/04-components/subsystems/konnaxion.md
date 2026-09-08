@@ -46,3 +46,12 @@ host scope:      Konnaxion = integrated subsystem
 ```
 
 No direct cross-system authoritative writes are permitted.
+
+
+## User-interface boundary
+
+Konnaxion owns its product pages, navigation semantics, commands, workflows, and standalone application entry point. It can use shared Koali shell and PageShell primitives without transferring Konnaxion business ownership to Koali.
+
+When integrated with kOA Spaces, Konnaxion can contribute declarative surfaces, routes, navigation, commands, contextual inspectors, and widgets. The integrated host renders one outer frame; Konnaxion renders its business pages inside the active workspace. When kOA Spaces is absent, Konnaxion can render the same shared shell primitives itself and remain functional as a standalone product.
+
+Konnaxion SHALL NOT become a mandatory UI runtime for Orgo or another product. Generic shell behavior belongs in the shared Koali UI contract or a compatible reusable library, not in private cross-product imports.

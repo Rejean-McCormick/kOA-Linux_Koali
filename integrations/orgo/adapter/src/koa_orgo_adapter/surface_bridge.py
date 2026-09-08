@@ -12,12 +12,16 @@ from .capabilities import CapabilityState, CapabilityStatus
 class SurfaceProjection:
     manifest_id: str
     module_id: str
+    product_id: str
     public_name: str
     home_route_id: str
     routes: tuple[Mapping[str, Any], ...]
     sidebar: Mapping[str, Any]
     topbar_widgets: tuple[Mapping[str, Any], ...]
     capability_states: Mapping[str, str]
+    surface_ids: tuple[str, ...]
+    commands: tuple[Mapping[str, Any], ...]
+    inspectors: tuple[Mapping[str, Any], ...]
     presentation_only: bool = True
     may_grant_capabilities: bool = False
     direct_domain_writes: bool = False
@@ -43,12 +47,16 @@ class SurfaceBridge:
         return SurfaceProjection(
             manifest_id=self._manifest["manifest_id"],
             module_id=self._manifest["module_id"],
+            product_id=self._manifest.get("product_id", "orgo"),
             public_name=self._manifest["public_name"],
             home_route_id=self._manifest["home_route_id"],
             routes=routes,
             sidebar=self._manifest["sidebar"],
             topbar_widgets=widgets,
             capability_states=states,
+            surface_ids=tuple(item["surface_id"] for item in self._manifest.get("surface_profiles", [])),
+            commands=tuple(MappingProxyType(dict(item)) for item in self._manifest.get("commands", [])),
+            inspectors=tuple(MappingProxyType(dict(item)) for item in self._manifest.get("inspectors", [])),
         )
 
 
@@ -79,8 +87,16 @@ def _validate_manifest(value: Mapping[str, Any]) -> Mapping[str, Any]:
     }
     if dict(boundary) != expected:
         raise ValueError("surface authority boundary must remain presentation-only")
-    if value.get("module_id") != "orgo":
-        raise ValueError("surface module_id must be orgo")
+    if value.get("product_id", value.get("module_id")) != "orgo":
+        raise ValueError("surface product_id must be orgo")
+    modes = value.get("ui_modes")
+    if modes is not None:
+        if not isinstance(modes, Mapping):
+            raise ValueError("ui_modes must be an object")
+        if modes.get("composition_host_required_for_standalone") is not False:
+            raise ValueError("standalone Orgo cannot require the optional composition host")
+        if modes.get("private_cross_product_ui_imports") is not False:
+            raise ValueError("private cross-product UI imports are prohibited")
     for field in ("routes", "topbar_widgets"):
         if not isinstance(value[field], list):
             raise ValueError(f"{field} must be a list")

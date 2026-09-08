@@ -33,3 +33,10 @@ receipt_required = true
 [isolation]
 other_modules_remain_available = true
 failure_scope = "orgo_only"
+
+[composition_host_unavailable]
+standalone_product_interface = "preserved"
+integrated_contribution = "unavailable"
+business_authority = "unchanged"
+unrelated_product_interfaces = "unchanged"
+automatic_substitution = false

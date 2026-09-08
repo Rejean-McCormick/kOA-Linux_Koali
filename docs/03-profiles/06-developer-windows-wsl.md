@@ -553,3 +553,7 @@ These criteria define required validation. They do not claim that a particular W
 ## kOA Spaces Development Under WSL
 
 The profile can run kOA Spaces on demand for contract validation and interface preview. The Windows host or browser can provide the visible surface, but workspace state, manifests, ports, caches, and test data remain isolated. WSL preview does not establish appliance-shell, sovereign-host, or production activation conformance.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

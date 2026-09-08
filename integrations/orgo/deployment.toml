@@ -31,3 +31,11 @@ outbound_network = "profile_and_policy_resolved"
 [activation]
 allowed = false
 blockers = ["source_lock_not_pinned", "official_documentation_not_mounted", "common_contract_set_incomplete"]
+
+[presentation_runtime]
+product_id = "orgo"
+standalone_supported = true
+integrated_host = "optional"
+composition_host_required_for_standalone = false
+product_registry_membership = "manifest_discovered"
+removal_scope = "own_presentation_contributions_only"

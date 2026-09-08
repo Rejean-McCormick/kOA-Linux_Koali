@@ -79,3 +79,10 @@ allowlisted_widget_actions_only = true
 membership = "optional_primary_surface"
 fallback_surface = "declared_appliance_recovery_surface"
 unrestricted_host_shell_fallback = false
+
+[product_registry]
+source = "installed_and_admitted_manifests"
+hard_coded_products = false
+missing_optional_product = "omit_without_substitution"
+removed_product = "remove_own_contributions_only"
+standalone_product_runtime_dependency = false

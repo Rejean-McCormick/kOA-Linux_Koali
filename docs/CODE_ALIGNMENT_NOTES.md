@@ -129,3 +129,11 @@ Offline/degraded code should continue from already admitted local state where th
 ## 11. Re-run the documentation/contracts validators with implementation changes
 
 The documentation corpus already provides `docs/tools/validate_docs.py` and generated catalogs. Contract-affecting implementation changes should stay consistent with those machine-readable sources and their conformance checks.
+
+## 12. Keep Koali product UIs standalone and composable
+
+Product user interfaces should support independent product lifecycle and integrated Koali composition. Generic shell behavior belongs in shared Koali UI primitives or a compatible reusable library; it should not be obtained by importing another product's private UI implementation.
+
+A product such as Orgo or Konnaxion can expose a standalone application entry point and also publish declarative surfaces, routes, navigation, commands, inspectors, and capability metadata for an admitted composition host such as kOA Spaces. Installed-product selection should be registry-driven so removing one product does not require source changes to unrelated product interfaces.
+
+For Orgo, the full Control Panel can act as the reference maximal surface while reduced surfaces reuse the same product capabilities and pages rather than becoming independent frontends.

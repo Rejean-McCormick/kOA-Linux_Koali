@@ -761,3 +761,7 @@ It remains a candidate. Production signing, Release Set compatibility, artifact 
 ## kOA Spaces Development Workbench
 
 The profile can run kOA Spaces as an isolated workbench for Space definitions, manifests, route collision checks, accessibility tests, offline simulation, and adapter development. Preview state is development data and does not become release evidence until the normal artifact and activation gates complete.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

@@ -53,6 +53,22 @@ def test_file_architecture_accepts_exact_deterministic_inventory(tmp_path: Path)
     assert result.metadata["actual_paths"] == result.metadata["expected_paths"]
 
 
+
+
+def test_file_architecture_ignores_gitignored_workspace_artifacts(tmp_path: Path) -> None:
+    touch(tmp_path, ".gitignore", "build/\n*.egg-info/\nGitSink.bat\n")
+    touch(tmp_path, "docs/README.md", "# docs\n")
+    touch(tmp_path, "components/example/build/lib/generated.py")
+    touch(tmp_path, "components/example/src/example.egg-info/PKG-INFO")
+    touch(tmp_path, "GitSink.bat")
+    architecture_registries(tmp_path, [".gitignore", "docs/README.md"])
+
+    result = check_file_architecture(tmp_path, include_related=False)
+
+    assert result.ok, result.to_dict()
+    assert result.metadata["actual_paths"] == result.metadata["expected_paths"]
+
+
 def test_file_architecture_reports_unknown_missing_and_unknown_root(tmp_path: Path) -> None:
     touch(tmp_path, "docs/README.md")
     touch(tmp_path, "surprise/value.txt")

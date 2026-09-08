@@ -710,3 +710,7 @@ The user exports authoritative data and provenance, verifies the export, removes
 ## kOA Spaces in User Lightweight
 
 The profile can enable kOA Spaces as an optional local experience surface. A deployment normally selects one validated active Space and bounded interface cache, while native module and administration paths remain available for fallback. The profile remains conformant when kOA Spaces is omitted.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

@@ -25,7 +25,7 @@ The repository defines:
 
 ## Core statement
 
-> kOA-Linux owns the local operating boundary. Each component or independent system owns its declared domain. kOA Spaces owns only the optional global presentation and navigation frame. The kOA Mediatheque is the private offline media authority. UCKK is the online Moodle learning and dissemination platform. Interface composition and controlled interchange never merge authority.
+> kOA-Linux owns the local operating boundary. Each component or independent system owns its declared domain. kOA Spaces owns the optional integrated presentation and navigation frame only when selected as the composition host; product standalone interfaces remain product-owned. The kOA Mediatheque is the private offline media authority. UCKK is the online Moodle learning and dissemination platform. Interface composition and controlled interchange never merge authority.
 
 ## Authority model
 
@@ -65,7 +65,7 @@ AI-assisted work starts at [`docs/AI_CONTEXT.md`](docs/AI_CONTEXT.md).
 
 ## kOA Spaces experience layer
 
-kOA Spaces is an independently documented, optional subsystem integrated by kOA-Linux as the global experience and navigation layer.
+kOA Spaces is an independently documented, optional subsystem integrated by kOA-Linux as an integrated experience and navigation composition host. It is not required for a product to retain its own standalone interface.
 
 It owns:
 
@@ -266,3 +266,7 @@ A passing validator proves the constraints implemented by the current validators
 ## Implementation status
 
 This repository currently defines a normative target architecture. A requirement is not an implementation claim. Runtime conformance requires corresponding code, tests, evidence, operational procedures, and release validation.
+
+## Modular product interfaces
+
+Koali product interfaces are autonomous and composable. Orgo, Konnaxion, and other independently packaged products own their standalone application entry points. Shared Koali UI primitives provide a common interaction grammar, while an optional host such as kOA Spaces can compose installed product manifests into one integrated experience. The integrated registry is dynamic: removing a product removes its routes, navigation, commands, inspectors, and widgets without requiring changes to unrelated products.

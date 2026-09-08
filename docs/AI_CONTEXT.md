@@ -74,3 +74,7 @@ This is the single entry point for AI-assisted work.
 10. Validate before activation.
 
 11. When the task concerns remote resilience, asynchronous failure, a multi-owner transition, large media in messages, experience aggregation, a read projection, or a cache, load `contracts/architecture-patterns.contract.json`, `02-system/34-architecture-patterns.md`, and the applicable artifact schema. Treat adapters, projections, and caches as non-authoritative; require terminal evidence for workflows and dead-letter closure.
+
+## Product UI portability context
+
+When reasoning about Koali interfaces, preserve product autonomy: a product UI can be standalone and can also contribute to an optional integrated host. Do not assume kOA Spaces owns product pages or is required for standalone operation. Treat surface profiles as projections of one product implementation, and treat removal of one product as independent from unrelated product interfaces.

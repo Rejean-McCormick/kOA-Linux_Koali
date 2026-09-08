@@ -745,3 +745,7 @@ The appliance shell continues to provide local navigation. Remote integrations a
 ## kOA Spaces as an Appliance Surface
 
 A compatible appliance deployment can select kOA Spaces as its primary full-screen experience. The appliance overlay still owns shell escape restrictions, maintenance entry, recovery entry, input, and host-session controls. kOA Spaces remains replaceable and cannot be the only recovery or privileged administration path.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

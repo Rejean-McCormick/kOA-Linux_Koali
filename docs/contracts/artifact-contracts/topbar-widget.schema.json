@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/topbar-widget.schema.json",
-  "title": "kOA Spaces Top-Bar Widget",
-  "description": "A compact global or module-specific widget rendered in a controlled kOA Spaces top-bar slot.",
+  "title": "Koali Context-Header Widget",
+  "description": "Compact product or global widget contribution for a Koali context header. It is presentation-only and may be filtered by surface profile.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -128,6 +128,14 @@
             "null"
           ]
         }
+      }
+    },
+    "surface_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$"
       }
     }
   },

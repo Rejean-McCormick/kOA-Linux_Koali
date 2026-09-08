@@ -1,4 +1,4 @@
-"""Validation for presentation-only Koali Spaces interface themes."""
+"""Validation for presentation-only Koali interface themes shared by standalone products and composition hosts."""
 from __future__ import annotations
 from dataclasses import dataclass
 from types import MappingProxyType

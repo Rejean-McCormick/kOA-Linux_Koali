@@ -10,7 +10,9 @@
     "label_key": "konnaxion.status.availability",
     "icon_ref": null,
     "priority": 100,
-    "required_capabilities": ["konnaxion.integration_status"],
+    "required_capabilities": [
+      "konnaxion.integration_status"
+    ],
     "offline_behavior": "unavailable",
     "compact_only": true,
     "activation": {
@@ -18,6 +20,9 @@
       "route_id": null,
       "command_ref": null,
       "status_provider_ref": "adapter://konnaxion/health"
-    }
+    },
+    "surface_ids": [
+      "default"
+    ]
   }
 ]

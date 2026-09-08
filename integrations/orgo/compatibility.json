@@ -89,5 +89,13 @@
     "requires_all_required_contracts": true,
     "requires_source_lock_state": "pinned",
     "requires_official_documentation_alignment": true
+  },
+  "ui_modularity": {
+    "product_id": "orgo",
+    "standalone_operation_without_koa_spaces": true,
+    "integrated_composition_optional": true,
+    "dynamic_manifest_discovery": true,
+    "private_cross_product_ui_imports": false,
+    "removal_preserves_unrelated_product_interfaces": true
   }
 }

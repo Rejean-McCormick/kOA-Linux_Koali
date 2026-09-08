@@ -834,3 +834,7 @@ A disconnected node is connected to a maintenance network. External routes remai
 ## Sovereign-Offline Constraints for kOA Spaces
 
 When the base profile enables kOA Spaces, every required Space definition, manifest, label, icon, accessibility resource, and permitted page asset is available through verified local or offline bundles. Online-only contributions remain explicitly unavailable. The overlay does not require kOA Spaces and does not permit remote presentation dependencies.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

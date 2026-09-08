@@ -870,3 +870,7 @@ The composition result is `blocked`. The system does not select the later declar
 ## kOA Spaces Profile Membership
 
 Each profile contract states whether kOA Spaces is optional, unavailable, inherited, or selected as a presentation surface. Membership never makes the subsystem part of the privileged core or a prerequisite for business authority. Security-control applicability remains owned by `contracts/security-controls.contract.json`; kOA Spaces membership only selects presentation behavior and its own operational obligations.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

@@ -155,3 +155,14 @@ A release claiming any activated pattern must provide:
 - a profile compatibility statement.
 
 Absence of this evidence blocks the pattern conformance claim and any dependent release claim.
+
+## Product UI portability checks
+
+Conformance for a product-facing interface includes these structural checks where the product declares both standalone and integrated modes:
+
+- the standalone entry point remains product-owned and does not require kOA Spaces or another optional product;
+- integrated routes, navigation, commands, inspectors, and widgets are contributed through declared public interface contracts;
+- the integrated product registry is derived from installed and admitted manifests, not a hard-coded mandatory product list;
+- surface profiles reuse product-owned routes and capabilities instead of duplicating pages;
+- removal of one optional product does not require source changes to unrelated products;
+- menu or surface visibility never substitutes for owner-side authorization.

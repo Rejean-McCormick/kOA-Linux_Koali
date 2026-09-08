@@ -38,31 +38,43 @@ KOA:DOC-META:END -->
 
 ## 1. Purpose
 
-This document defines the visible composition contract for kOA Spaces. It specifies the global frame shared by all Spaces while leaving each contributing system responsible for its pages, domain actions, and internal page-level composition.
+This document defines the visible composition contract used when kOA Spaces hosts an integrated Koali experience. It specifies the integrated frame while leaving each contributing product responsible for its pages, domain actions, standalone entry point, and internal page-level composition. The same Koali shell primitives can also be used directly by standalone product interfaces.
 
-## 2. Desktop Frame
+
+## 2. Standalone and Integrated Rendering Modes
+
+The Koali UI contract supports two rendering modes:
+
+- **standalone product mode** — one product owns the application entry point and renders the shared shell primitives around its own routes and surfaces;
+- **integrated composition mode** — kOA Spaces or another admitted composition host renders the shared outer frame and mounts the active product contribution inside it.
+
+A product does not need kOA Spaces to remain usable. Conversely, kOA Spaces does not copy the product's pages in order to compose them. The same product route, command, capability, surface, and inspector declarations SHOULD be reusable in both modes where the deployment supports both modes.
+
+The integrated registry is dynamic. Installed and admitted product manifests determine which products appear; the frame does not contain a mandatory hard-coded list of Orgo, Konnaxion, Kristal, or other products.
+
+## 3. Desktop Frame
 
 ```text
-┌──────────────────────┬──────────────────────────────────────────────┐
-│ Module selector      │ Shared top bar                               │
-│                      │ global tools • module widgets • shortcuts    │
-├──────────────────────┼──────────────────────────────────────────────┤
-│ Active module        │                                              │
-│ sidebar              │ Main page surface                            │
-│                      │                                              │
-│ Item                 │ module page • dashboard • course • workflow  │
-│ ├─ Child             │ document • media • administration • report  │
-│ └─ Child             │                                              │
-└──────────────────────┴──────────────────────────────────────────────┘
+┌──────────────────────┬────────────────────────────────────┬──────────────────┐
+│ Product selector     │ Context header                     │ Account / status │
+│                      │ search • commands • alerts         │                  │
+├──────────────────────┼────────────────────────────────────┼──────────────────┤
+│ Active product       │                                    │ Optional context │
+│ surface navigation   │ Main workspace                     │ inspector        │
+│                      │                                    │                  │
+│ Group                │ page • list • board • workflow     │ selected object  │
+│ ├─ Item              │ document • media • report          │ actions • links  │
+│ └─ Item              │                                    │                  │
+└──────────────────────┴────────────────────────────────────┴──────────────────┘
 ```
 
-The module selector and top bar occupy the same horizontal band. The sidebar begins below the module selector. The main page surface begins below the top bar.
+The product selector and context header occupy the same horizontal band. Product navigation begins below the selector. The main workspace begins below the context header. An optional contextual inspector can occupy a bounded right-side panel when the active product and surface declare one.
 
-The frame is rendered once. A contributing module renders inside the main page surface and does not instantiate a second global frame.
+In integrated mode, the frame is rendered once. A contributing product renders inside the main workspace and does not instantiate a second integrated global frame. In standalone mode, that same product can instantiate the shared shell primitives at its own application entry point.
 
-## 3. Module Selector
+## 4. Product / Module Selector
 
-The module selector is placed in the upper-left corner. It lists only modules that are:
+The product/module selector is placed in the upper-left corner. It lists only product contributions that are:
 
 - installed;
 - enabled by the active Space definition;
@@ -70,19 +82,19 @@ The module selector is placed in the upper-left corner. It lists only modules th
 - permitted for the current user;
 - available or meaningfully degradable in the current network state.
 
-Selecting a module changes:
+Selecting a product changes:
 
-- the active sidebar contribution;
-- the active home route or retained route for that module;
-- module-specific top-bar widgets;
+- the active surface navigation contribution;
+- the active home route or retained route for that product and surface;
+- product-specific header widgets and commands;
 - contextual help and Ariane navigation context;
 - optional public labels or visual accents allowed by the Space.
 
-Selecting a module does not change identity, authority, policy, ownership, or the owning module's business rules.
+Selecting a product or surface does not change identity, authority, policy, ownership, or the owning product's business rules.
 
-## 4. Sidebar
+## 5. Surface Navigation
 
-The left sidebar is supplied by the active module manifest and rendered by kOA Spaces.
+The left navigation is supplied by the active product manifest for the active surface profile and rendered by the current shell host.
 
 Rules:
 
@@ -91,13 +103,13 @@ Rules:
 - groups without any permitted child are omitted;
 - deep links are checked independently of menu visibility;
 - badges and counts are presentation data and cannot become authorization evidence;
-- the module may define page-level tabs inside its own page surface, but those tabs do not extend the global sidebar depth.
+- the product may define page-level tabs inside its own page surface, but those tabs do not extend the global navigation depth.
 
-The sidebar container is global. The active module contributes only its validated navigation tree.
+The navigation container is a shell primitive. The active product contributes only its validated navigation tree for the active surface. A reduced surface is a composition of the same product capabilities, not a separate frontend implementation.
 
-## 5. Top Bar
+## 6. Context Header and Commands
 
-The shared top bar has global and module-controlled slots.
+The shared context header has global and product-controlled slots. It keeps the active product, surface, route, and relevant operating context identifiable.
 
 Global functions can include:
 
@@ -109,7 +121,7 @@ Global functions can include:
 - Ariane assistance;
 - accessibility controls.
 
-A module may contribute compact widgets such as:
+A product may contribute compact widgets or commands such as:
 
 - resume the current course;
 - create a task;
@@ -118,19 +130,19 @@ A module may contribute compact widgets such as:
 - open an import or publication action;
 - show local storage status.
 
-Widgets are ordered by slot and priority. Overflow rules keep the frame stable on narrow displays. A widget cannot embed an entire business application in the top bar.
+Widgets and commands are ordered by slot and priority. Overflow rules keep the frame stable on narrow displays. A widget cannot embed an entire business application in the header. A command palette can expose permitted navigation and actions without replacing owner-side authorization.
 
-## 6. Main Page Surface
+## 7. Main Page Surface
 
 The main surface renders the active route. Contributing systems own their page content and may use their established internal page shells.
 
-For Konnaxion, module page shells such as the Ethikos, KeenKonnect, KonnectED, Kreative, or Ekoh shells remain valid inside this surface. They provide page titles, descriptions, page-level tools, and content layout. They do not recreate the outer module selector, shared top bar, or sidebar container.
+For Konnaxion, product page shells such as the Ethikos, KeenKonnect, KonnectED, Kreative, or Ekoh shells remain valid inside this surface. They provide page titles, descriptions, page-level tools, and content layout. In integrated mode they do not recreate the outer product selector, context header, or navigation container.
 
-The same rule applies to every module: kOA Spaces supplies global composition; the module supplies its own business page implementation.
+The same rule applies to every product: the active shell host supplies frame composition; the product supplies its own business page implementation. In standalone mode, the product can host those same shared frame primitives itself.
 
-## 7. Module PageShell Pattern
+## 8. Product PageShell Pattern
 
-A module can use a PageShell pattern to keep page structure consistent without transferring page ownership to kOA Spaces.
+A product can use a PageShell pattern to keep page structure consistent without transferring page ownership to kOA Spaces or another shell host.
 
 A typical PageShell exposes:
 
@@ -139,11 +151,44 @@ A typical PageShell exposes:
 - navigation context or breadcrumbs;
 - primary and secondary page actions;
 - status or degradation information;
-- the module-owned content region.
+- the product-owned content region.
 
 A PageShell is an interface pattern. It does not become a shared business service and does not move validation or workflow logic into the experience layer.
 
-## 8. Route and Surface Composition
+
+## 9. Product and Surface Profiles
+
+Product identity and surface identity are separate axes. A product identifies the owning application domain; a surface selects an intentional projection of that product for a user context.
+
+Examples include a full control surface, personal work surface, operations surface, supervisor surface, intake surface, executive surface, administration surface, or embedded surface. The actual surface vocabulary remains product-owned.
+
+A surface profile can select:
+
+- its home route;
+- visible navigation groups;
+- available commands and quick actions;
+- header widgets;
+- contextual inspector behavior;
+- search scopes;
+- density and presentation preferences.
+
+Surface composition never grants authority. Server-side and owner-side capability checks remain mandatory. A product SHOULD reuse the same route and feature implementations across surfaces rather than maintaining independent page copies.
+
+## 10. Context Inspector
+
+The shell can expose an optional contextual inspector beside the main workspace. The inspector is intended for selected-object context, quick edits, bounded actions, relations, status, and navigation to a full page.
+
+The inspector does not replace a complete business page. Complex workflows, large forms, deep history, or configuration remain product-owned routes in the main workspace.
+
+The inspector mechanism is generic; its content is product-owned. For example, Orgo can expose Case, Task, Signal, workflow, and action context without transferring those concepts into the shell implementation.
+
+## 11. Removal and Product Independence
+
+Removing one product contribution removes its routes, navigation, commands, inspectors, and widgets from the integrated registry. It does not require source changes to unrelated products and does not invalidate their standalone entry points.
+
+Ordinary shell behavior SHALL come from the shared Koali UI contract or compatible local implementation rather than from private imports between products. Cross-product navigation or context transfer uses explicit public integration contracts.
+
+## 12. Route and Surface Composition
 
 Every route contribution has:
 
@@ -169,9 +214,9 @@ The composer rejects:
 - a default route that is unavailable in the active profile;
 - circular redirects.
 
-## 9. Interface State Vocabulary
+## 13. Interface State Vocabulary
 
-The global frame and module surfaces use explicit presentation states:
+The active shell and product surfaces use explicit presentation states:
 
 - `loading` — required local state or assets are still resolving;
 - `ready` — the declared route is available for normal interaction;
@@ -184,7 +229,7 @@ The global frame and module surfaces use explicit presentation states:
 
 A presentation state never fabricates a business success state. In particular, `offline`, `degraded`, `loading`, or `error` cannot be interpreted as authorization or as completion of a mutation.
 
-## 10. Public Labels and Stable Identity
+## 14. Public Labels and Stable Identity
 
 A Space may adapt labels to the context:
 
@@ -198,7 +243,7 @@ konnaxion              Share
 
 Public labels do not alter identifiers, contracts, routes, logs, receipts, or authority.
 
-## 11. Visual Alignment and Module Independence
+## 15. Visual Alignment and Product Independence
 
 Koali and Konnaxion can share a visual language, interaction patterns, component-library conventions, spacing, iconography, PageShell structure, and compatible design tokens when that alignment improves continuity for users.
 
@@ -206,48 +251,48 @@ Alignment does not imply that kOA Spaces reproduces Konnaxion functions. Konnaxi
 
 The reference frontend recipe maps the shared Koali design language to Ant Design. The design-system contract remains independent from one frontend library so that the experience layer remains replaceable.
 
-## 12. Responsive Behavior
+## 16. Responsive Behavior
 
 On smaller displays:
 
-- the module selector remains reachable from the top bar;
-- the sidebar becomes a modal or sliding drawer;
+- the product selector remains reachable from the context header;
+- surface navigation becomes a modal or sliding drawer;
 - priority widgets remain visible;
 - secondary widgets move to overflow;
-- the active module and page remain identifiable;
+- the active product, surface, and page remain identifiable;
 - focus returns to the invoking control when a drawer closes;
 - keyboard, touch, switch, and assistive navigation remain supported.
 
-## 13. State Restoration
+## 17. State Restoration
 
 kOA Spaces may remember:
 
-- the last permitted module;
-- the last permitted route per module;
+- the last permitted product;
+- the last permitted surface and route per product;
 - sidebar expansion state;
 - presentation preferences;
 - locally safe widget preferences.
 
-It does not restore a route when the capability, profile, module, or offline state no longer permits it. In that case, it opens the nearest declared safe route and explains the degradation.
+It does not restore a route when the capability, profile, product, surface, or offline state no longer permits it. In that case, it opens the nearest declared safe route and explains the degradation.
 
-## 14. Local Assets and Offline Rendering
+## 18. Local Assets and Offline Rendering
 
-A locally available shell or module surface resolves its required JavaScript, style sheets, fonts, icons, localization data, and other presentation resources from admitted local assets.
+A locally available shell or product surface resolves its required JavaScript, style sheets, fonts, icons, localization data, and other presentation resources from admitted local assets.
 
 An Internet-hosted CDN is not part of the runtime path for a surface that claims local offline availability. Network-dependent content is represented as a separate declared capability and can degrade independently from the local frame.
 
 Browser-rendered technology does not imply public Web connectivity. Konnaxion can therefore use the same web-technology stack when installed locally in Koali and still expose its declared offline-capable functions without Internet access.
 
-## 15. Failure and Safe Degradation
+## 19. Failure and Safe Degradation
 
 - An invalid Space definition is rejected before activation.
-- An invalid module manifest disables only that contribution unless the Space marks it as required.
+- An invalid product/module manifest disables only that contribution unless the Space marks it as required.
 - A failed widget does not fail the page surface.
-- A failed module home route falls back to the module's declared safe route.
-- A missing optional module is omitted without substitution.
-- A missing required module blocks activation of that Space definition.
+- A failed product home route falls back to the product surface's declared safe route.
+- A missing optional product contribution is omitted without substitution.
+- A missing required product contribution blocks activation of that Space definition.
 - A missing local asset bundle makes only the dependent surface unavailable unless the active Space marks that contribution as required.
 
-## Aggregated view composition
+## 20. Aggregated View Composition
 
 A route may bind an experience view adapter, a CQRS projection, and a cache policy. The route exposes staleness or partial availability, bounds fan-out, applies per-dependency circuit policy, and preserves owner authorization. Menu visibility and cached presentation never imply permission.

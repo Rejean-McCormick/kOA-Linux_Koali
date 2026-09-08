@@ -1,6 +1,6 @@
 {
   "$schema": "../../../docs/contracts/artifact-contracts/sidebar-navigation.schema.json",
-  "module_id": "orgo_schoolwork",
+  "module_id": "orgo",
   "visible_depth": 2,
   "items": [
     {
@@ -14,5 +14,6 @@
       "badge_provider_ref": null,
       "route_id": "orgo_schoolwork.home"
     }
-  ]
+  ],
+  "surface_id": "control"
 }

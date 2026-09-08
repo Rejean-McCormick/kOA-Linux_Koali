@@ -934,3 +934,14 @@ A developer profile uses an external analysis tool. The tool receives only works
 ## Final resilience contract
 
 Every active external integration binds an `integration_resilience_policy`. An asynchronous integration also binds dead-letter behavior. A multi-owner operation binds a distributed workflow. A transfer above the active inline limit binds a large payload reference. These requirements apply to `publish_to_uckk` and `import_from_uckk` and preserve local authority while the remote platform is unavailable.
+
+## Koali product UI modularity
+
+This document is interpreted with the Koali product-interface portability rule:
+
+- each independently packaged product owns its user interface and remains independently operable when its declared standalone mode is supported;
+- shared Koali shell and design-system code is reusable presentation infrastructure, not a mandatory product runtime and not a source of business authority;
+- an integrated composition host discovers installed and admitted product manifests dynamically rather than hard-coding a mandatory product list;
+- a surface profile is a projection of the same product routes, capabilities, commands, and contextual views, not a separately implemented frontend;
+- removing one product removes only that product's admitted presentation contributions and SHALL NOT require source changes to unrelated products;
+- ordinary shell behavior SHALL NOT require private UI imports from another product; cross-product journeys use explicit public routes, commands, capabilities, or integration contracts.

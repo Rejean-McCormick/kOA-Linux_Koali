@@ -45,3 +45,11 @@ graceful = true
 timeout_source = "active_profile"
 force_kill_after_timeout = true
 pending_work_result = "cancelled_or_preserved_by_declared_adapter_policy"
+
+[presentation_runtime]
+product_id = "konnaxion"
+standalone_supported = true
+integrated_host = "optional"
+composition_host_required_for_standalone = false
+product_registry_membership = "manifest_discovered"
+removal_scope = "own_presentation_contributions_only"

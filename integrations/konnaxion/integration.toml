@@ -74,3 +74,13 @@ activation = true
 deactivation = true
 failure = true
 raw_payloads = false
+
+[interface_modularity]
+product_id = "konnaxion"
+standalone_interface_owned_by_product = true
+standalone_requires_koa_spaces = false
+integrated_composition_optional = true
+installed_manifest_discovery = true
+private_cross_product_ui_imports = false
+removal_preserves_unrelated_product_interfaces = true
+surface_profiles = ["default"]

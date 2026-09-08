@@ -85,3 +85,12 @@ prohibited_state = [
   "release_state",
   "privileged_operation_requests",
 ]
+
+[ui_modularity]
+role = "optional_integrated_composition_host"
+product_registry = "installed_and_admitted_manifests"
+hard_coded_product_list = false
+product_standalone_runtime_owned = false
+shared_shell_business_authority = false
+private_cross_product_ui_imports = false
+product_removal_requires_unrelated_source_changes = false

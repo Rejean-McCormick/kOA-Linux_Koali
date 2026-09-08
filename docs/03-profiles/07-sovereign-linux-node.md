@@ -1310,3 +1310,7 @@ The deployment is not conformant to `sovereign_linux_node`.
 ## kOA Spaces on a Sovereign Node
 
 The profile can enable kOA Spaces as an optional local presentation service with profile-scoped identity, storage, network, resource, health, and lifecycle controls. It remains unprivileged and cannot call arbitrary host operations. Node recovery and authoritative services remain accessible without the experience subsystem.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

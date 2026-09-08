@@ -165,6 +165,8 @@ native component contract
 
 A host may manage process lifecycle, resources, trust exposure, storage/network boundaries, artifact admission, health, backup coordination, and degradation for an integrated subsystem without owning the subsystem's internal domain model or workflow.
 
+Host-relative subsystem classification is independent from presentation mode. An integrated subsystem may expose a locally hosted presentation surface while retaining its own internal navigation and standalone interface. Hosting that surface does not transfer interface ownership to the host, and removing one independently owned subsystem does not require source changes to unrelated subsystem interfaces.
+
 ## 4. Model and Responsibilities
 
 ### 4.1 Component identity

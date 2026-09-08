@@ -3,7 +3,7 @@
   "space_id": "default_space",
   "title": "Default Space",
   "version": "1.0.0",
-  "description": "Minimal local Space containing only the admitted Koali Spaces home contribution.",
+  "description": "Minimal local Space containing only the admitted Koali Spaces home contribution. Integrated products remain independently owned and are discovered through admitted manifests rather than a hard-coded product runtime dependency.",
   "default_module_id": "space_home",
   "module_instances": [
     {

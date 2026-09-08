@@ -13,6 +13,8 @@ class ShellState:
     active_route_id: str|None
     network_state: str
     reason: str|None
+    active_product_id: str|None = None
+    active_surface_id: str|None = None
 
 class ShellStateReader:
     def __init__(self, client: SpacesClient): self.client=client
@@ -25,4 +27,9 @@ class ShellStateReader:
             v=raw.get(name)
             if v is not None and not isinstance(v,str): raise BoundaryResponseError(f"{name} must be string or null")
             return v
-        return ShellState(state,opt("active_space_id"),opt("active_module_id"),opt("active_route_id"),net,opt("reason"))
+        return ShellState(
+            state=state, active_space_id=opt("active_space_id"),
+            active_module_id=opt("active_module_id"), active_route_id=opt("active_route_id"),
+            network_state=net, reason=opt("reason"),
+            active_product_id=opt("active_product_id"), active_surface_id=opt("active_surface_id"),
+        )

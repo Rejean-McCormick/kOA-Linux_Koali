@@ -5,36 +5,42 @@
   "activation_allowed": false,
   "subsystem_contract": {
     "path": "docs/contracts/subsystems/konnaxion.subsystem.json",
-    "supported_versions": ["1.0.0"],
-    "sha256": "3da500f69f31e7416ba8fa5adf5b5d796a51c56f7b31948ccee296fb0e3bdbac"
+    "supported_versions": [
+      "1.2.0"
+    ],
+    "sha256": "5775f3ad37457a86c8a3156ede966af2621aee4b5bc1c08ea008b6730f9601cd"
   },
   "koa_contracts": [
     {
       "path": "docs/contracts/system.contract.json",
-      "supported_versions": ["2.2.0"],
-      "sha256": "650b2e7f31d8bead73ec0038b5d380754fa6b61b557ccf704f93df29f3aa4a83"
+      "supported_versions": [
+        "2.3.1"
+      ],
+      "sha256": "87a4b11fa9877114625fd4b23271a15a87212ca5d5fd7b7f39d409434031833d"
     },
     {
       "path": "docs/contracts/terminology.contract.json",
-      "supported_versions": ["2.2.0"],
-      "sha256": "5554053929f07be0d78f73ef4cd08935bd26abdb55c9cc9cb5eab3c59c4692cf"
+      "supported_versions": [
+        "2.3.1"
+      ],
+      "sha256": "63784ff255159eba7c03c25a7ab182a8ddb6ea06424880f9922ea7c807eb8be4"
     }
   ],
   "interface_schemas": [
     {
       "path": "docs/contracts/artifact-contracts/module-interface-manifest.schema.json",
       "schema_id": "https://schemas.koa.local/artifact-contracts/module-interface-manifest.schema.json",
-      "sha256": "a607174b96b59ed0d1facff3f6a57a64968de617e8e30b0b97152122dfc0ac08"
+      "sha256": "7a9ff4440cd95acd7251cd3fd9581747c4a908e129d82b3bff9e9fdbe699b4aa"
     },
     {
       "path": "docs/contracts/artifact-contracts/sidebar-navigation.schema.json",
       "schema_id": "https://schemas.koa.local/artifact-contracts/sidebar-navigation.schema.json",
-      "sha256": "32bb72fb5b23d3c9d1d1d8ae02e146ae87cf19c8e0337ff5c89d09c7649bd5a2"
+      "sha256": "a132a034f126dc7e281b1ad25c704d814c6b6e81742ae4d8582d81911e588412"
     },
     {
       "path": "docs/contracts/artifact-contracts/topbar-widget.schema.json",
       "schema_id": "https://schemas.koa.local/artifact-contracts/topbar-widget.schema.json",
-      "sha256": "0dfffe1f7a5e1423ee2d6839923769b27cae31726e6aca909fcdd99838e51aa2"
+      "sha256": "a45b412f4fa2da3c63e4b3989f68a6e33dea40a7762c0472f3568b52eb754d7b"
     }
   ],
   "required_common_interfaces": [
@@ -58,5 +64,13 @@
     "unsupported_subsystem_contract_version",
     "missing_required_common_interface",
     "undeclared_internal_api_assumption"
-  ]
+  ],
+  "ui_modularity": {
+    "product_id": "konnaxion",
+    "standalone_operation_without_koa_spaces": true,
+    "integrated_composition_optional": true,
+    "dynamic_manifest_discovery": true,
+    "private_cross_product_ui_imports": false,
+    "removal_preserves_unrelated_product_interfaces": true
+  }
 }

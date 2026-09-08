@@ -27,3 +27,7 @@ Direct writes to another subsystem's authoritative state are prohibited. Present
 - `degradation.toml`: unavailable-state behavior without substitution.
 - `interface/`: presentation-only kOA Spaces contribution.
 - `adapter/pyproject.toml`: package declaration for the separate adapter implementation bundle.
+
+## Product UI portability
+
+Orgo owns its standalone Control Panel, internal routes, surface profiles, commands, inspectors, and page behavior. The Koali integration may mount those capabilities into an optional composition host, but kOA Spaces is not required for standalone Orgo operation. Reduced surfaces are projections of the same Orgo product implementation rather than separate frontends. Removing Orgo removes its integrated contributions without requiring source changes to unrelated products.

@@ -9,10 +9,13 @@
       "label_key": "konnaxion.navigation.home",
       "icon_ref": null,
       "order": 100,
-      "required_capabilities": ["konnaxion.integration_status"],
+      "required_capabilities": [
+        "konnaxion.integration_status"
+      ],
       "availability": "conditional",
       "badge_provider_ref": "adapter://konnaxion/health",
       "route_id": "konnaxion.home"
     }
-  ]
+  ],
+  "surface_id": "default"
 }

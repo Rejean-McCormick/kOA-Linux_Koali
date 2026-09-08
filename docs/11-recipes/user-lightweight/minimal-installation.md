@@ -2029,3 +2029,7 @@ It is archived when no active supported installation uses it.
 - [x] Observability and evidence are explicit.
 - [x] AI execution behavior is bounded.
 - [x] No recipe choice is presented as a global architectural default.
+
+## Modular product-interface behavior
+
+This recipe assumes product UI portability. A product that supports standalone operation keeps its own product-owned entry point. When an integrated composition host is selected, the product contributes the same admitted routes and capabilities through its interface manifest. Reduced surfaces are projections of that product definition rather than separate frontends. Removing the product removes its integrated contributions without changing unrelated product source code.

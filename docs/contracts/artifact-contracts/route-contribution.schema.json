@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/route-contribution.schema.json",
-  "title": "kOA Spaces Route Contribution",
-  "description": "A single namespaced page route contributed by an interface module to kOA Spaces.",
+  "title": "Koali Product Route Contribution",
+  "description": "A namespaced route contributed by one product/module to an optional integrated Koali composition host while remaining owned by the contributing product.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -149,7 +149,24 @@
           ],
           "pattern": "^(?!https?://)(?!//)[A-Za-z0-9._/@+-]+$"
         }
-      }
+      },
+      "description": "Optional local presentation surface metadata. local_module_surface hosts an admitted product/module UI while preserving owner-side internal navigation and authorization."
+    },
+    "surface_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$"
+      },
+      "description": "Surface profiles in which this route is exposed. Omission preserves compatibility with manifests that expose the route on every surface."
+    },
+    "context_inspector_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
     }
   }
 }

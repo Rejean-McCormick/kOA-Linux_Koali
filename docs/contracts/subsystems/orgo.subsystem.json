@@ -3,7 +3,7 @@
   "subsystem_id": "orgo",
   "title": "Orgo",
   "status": "active",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "relationship_to_koa": "integrated_subsystem",
   "koa_role": "Independent Orgo ecosystem system integrated into kOA-Linux through a host-relative subsystem boundary.",
   "official_documentation": {
@@ -30,16 +30,37 @@
     "internal state machine",
     "complete subsystem API",
     "internal user interface",
-    "subsystem-specific validation logic"
+    "subsystem-specific validation logic",
+    "internal navigation and page composition",
+    "standalone interface runtime",
+    "product surface-profile definitions"
   ],
   "boundary_rules": {
     "direct_cross_subsystem_writes": "prohibited",
     "undeclared_substitution": "prohibited",
     "internal_behavior_duplication": "prohibited",
     "official_documentation_mount": "subsystems/orgo",
-    "host_relative_subsystem_classification_transfers_internal_authority": false
+    "host_relative_subsystem_classification_transfers_internal_authority": false,
+    "presentation_visibility_is_business_authorization": false,
+    "host_may_replace_internal_navigation": false,
+    "standalone_operation_requires_koa_spaces": false,
+    "private_cross_product_ui_imports_for_shell_behavior": "prohibited",
+    "removal_requires_unrelated_product_source_changes": false
   },
   "documentation": {
     "koa_boundary_document": "04-components/subsystems/orgo.md"
+  },
+  "presentation_boundary": {
+    "standalone_interface_owned_by": "orgo",
+    "standalone_operation_without_koa_spaces": true,
+    "integrated_composition_host": "optional_and_replaceable",
+    "integrated_surface_kind": "local_module_surface",
+    "surface_profiles_owned_by": "orgo",
+    "navigation_and_page_implementation_owned_by": "orgo",
+    "manifest_contract": "module_interface_manifest",
+    "capability_projection": "presentation_only",
+    "owner_reauthorization_required": true,
+    "shared_shell_private_cross_product_dependency": "prohibited",
+    "removal_must_not_break_unrelated_products": true
   }
 }

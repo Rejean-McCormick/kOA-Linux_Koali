@@ -776,3 +776,7 @@ A build farm produces a signed service artifact with provenance. The hub verifie
 ## kOA Spaces on a Sovereign Hub
 
 The profile can host multiple assigned Spaces for organizations, cohorts, devices, or roles. Assignment selects presentation only; tenant capabilities and data access remain enforced by their owners. Preference, cache, and activation state are isolated from business and tenant authority.
+
+## Product interface modularity
+
+Profile membership and user-interface composition are separate concerns. A deployment profile MAY select an integrated composition host such as kOA Spaces, but product interfaces that declare standalone operation do not depend on that host for their own operability. Installed product manifests determine integrated product availability dynamically. Surface profiles narrow presentation without creating duplicate frontend implementations or granting authority. Removing an optional product SHALL leave unrelated product interfaces and their standalone entry points intact.

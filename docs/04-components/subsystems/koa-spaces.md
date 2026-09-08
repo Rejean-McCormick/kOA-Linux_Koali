@@ -74,13 +74,14 @@ kOA-Linux owns:
 
 kOA Spaces owns:
 
-- the outer application frame;
-- module selection behavior;
-- sidebar and top-bar composition;
+- the integrated outer application frame when kOA Spaces is the active composition host;
+- installed-product/module selection behavior;
+- surface navigation, context-header, command, and optional inspector composition;
 - route composition;
 - interface localization and accessibility behavior;
 - Space activation, rollback, and preference state;
-- rendering adapters for declared interface contributions.
+- rendering adapters for declared interface contributions;
+- integrated registry composition from installed and admitted manifests.
 
 ## Excluded Authority
 
@@ -92,15 +93,23 @@ kOA Spaces does not own:
 - authorization decisions;
 - Publication Gateway decisions;
 - direct cross-subsystem writes;
-- hidden synchronization or data replication.
+- hidden synchronization or data replication;
+- standalone product entry points or product-owned shells;
+- private UI implementation dependencies between products.
 
 ## Konnaxion Compatibility
 
-Konnaxion can contribute its modules and routes through one interface manifest or a set of namespaced manifests. Its existing module page shells remain inside the kOA Spaces main page surface. The outer frame is rendered once by kOA Spaces.
+Konnaxion can contribute its surfaces, routes, navigation, commands, inspectors, and widgets through one interface manifest or a set of namespaced manifests. Its existing page shells remain inside the kOA Spaces main workspace. The integrated outer frame is rendered once by kOA Spaces. When Konnaxion runs standalone, it can render the same shared Koali shell primitives itself without requiring kOA Spaces.
 
 Koali and Konnaxion can align on generic presentation conventions such as Ant Design patterns, visual tokens, PageShell structure, navigation behavior, density, iconography, responsive rules, and accessibility behavior. This alignment does not transfer Konnaxion business functions into Koali. Konnaxion remains the owner of its pages, commands, workflows, validation, services, APIs, and domain state.
 
 Konnaxion can be installed as a locally hosted browser-rendered surface. Web technology describes its rendering model and does not imply a dependency on the public Web. Locally declared offline-capable Konnaxion functions can operate through local assets and local services when the integration is admitted.
+
+## Product UI Portability
+
+kOA Spaces is an optional composition host, not a mandatory UI runtime for independently packaged products. A product can remain functional with its own standalone application entry point while using the same shared Koali design and shell contract used in integrated mode.
+
+The product registry is derived from installed and admitted interface manifests. Removing one product removes its interface contributions from the registry without requiring source changes to unrelated products. kOA Spaces does not hard-code ordinary business knowledge about Orgo Cases, Konnaxion workflows, Kristal operations, or another product domain into the shell.
 
 ## Integration Contract
 
@@ -121,7 +130,7 @@ Executable code follows the normal subsystem release and artifact admission life
 
 - Invalid optional contributions are disabled and reported.
 - Invalid required contributions block Space activation.
-- Removing kOA Spaces leaves subsystem data unchanged.
+- Removing kOA Spaces leaves subsystem data unchanged and does not invalidate otherwise installed standalone product interfaces.
 - Loss of network access preserves the local frame, locally admitted presentation assets, and declared offline routes.
 - Loss of a module never activates an undeclared substitute.
 

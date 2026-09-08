@@ -200,3 +200,7 @@ Before freezing a reference frontend baseline, verify:
 - no duplicated subsystem business functions;
 - no direct authoritative writes from the presentation layer;
 - no public Internet dependency for the global frame.
+
+## Modular product-interface behavior
+
+This recipe assumes product UI portability. A product that supports standalone operation keeps its own product-owned entry point. When an integrated composition host is selected, the product contributes the same admitted routes and capabilities through its interface manifest. Reduced surfaces are projections of that product definition rather than separate frontends. Removing the product removes its integrated contributions without changing unrelated product source code.

@@ -58,3 +58,7 @@ Koali Spaces never derives or grants capabilities from module manifests. The act
 ## Interface-first baseline
 
 `community-space.json` and `school-space.json` retain future module slots as disabled templates. Only `space_home` is enabled by the passive interface baseline. Konnaxion, Ariane, Orgo and other independent subsystem contributions appear only after their own source and interface admission succeeds.
+
+## Product UI modularity
+
+This integration treats kOA Spaces as an optional integrated composition host. Product interfaces remain product-owned and can keep standalone entry points. Spaces discovers installed and admitted product manifests dynamically, renders shared Koali shell primitives, and composes surface-specific navigation, commands, inspectors, and widgets. It does not require private UI imports between products. Removing Spaces removes integrated composition only; it does not remove product business state or product-owned standalone interfaces.
