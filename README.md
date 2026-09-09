@@ -2,15 +2,18 @@
 
 > Sovereign, local-first, offline-capable, and governable operating system for kOA ecosystem workloads.
 
+**Version:** `v0.8.0-beta.2`  
 **Documentation architecture:** contract-first  
-**Status:** normative target architecture; implementation validation required  
-**Last documentation validation:** August 6, 2026
+**Status:** **Advanced Beta — System Closure & Qualification**  
+**Estimated engineering maturity:** **~88–90%**  
+**Estimated Release Candidate readiness:** **~65–70%**  
+**Latest validated integration milestone:** September 8, 2026
 
 ## Overview
 
 kOA-Linux Operating System provides a governed local execution environment for knowledge, coordination, media, language, navigation, publication, recovery, and offline operation.
 
-kOA Spaces is the optional, replaceable global experience layer. It composes validated navigation and presentation contributions into the module selector, active-module sidebar, top bar, and shared page surface. It does not own business authority, authorization, workflows, subsystem data, host privilege, resource admission, release activation, backup, or recovery.
+Koali Spaces is the optional, replaceable global experience layer. It composes validated navigation and presentation contributions into the module selector, active-module sidebar, top bar, and shared page surface. It does not own business authority, authorization, workflows, subsystem data, host privilege, resource admission, release activation, backup, or recovery.
 
 It is not a general-purpose desktop distribution, and it does not absorb the internal authority of the applications and independently documented systems it hosts or integrates.
 
@@ -23,9 +26,56 @@ The repository defines:
 - integration boundaries for independent systems and external services;
 - release, recovery, conformance, and validation requirements.
 
+## Current beta status
+
+Koali is currently classified as **Advanced Beta — System Closure & Qualification**. The project has moved beyond prototype and early-beta integration work, but it has not yet reached pre-RC or Release Candidate status.
+
+The September 8, 2026 integration milestone established a working browser-level Koali experience with Konnaxion:
+
+```text
+kOA-Linux core stabilization       PASS
+Koali ↔ Konnaxion adapter          15 / 15 PASS
+Konnaxion backend                  148 / 148 PASS
+Konnaxion frontend                 test + build PASS
+Koali Spaces                       29 / 29 PASS
+Koali Spaces contracts/spec        PASS
+Koali Spaces packaged runtime      build + smoke PASS
+Konnaxion API                      HTTP 200
+Konnaxion Web                      HTTP 200
+Koali Spaces                       HTTP 200
+Home + Konnaxion admission         PASS
+/apps/konnaxion                    HTTP 200
+Koali ⇄ Konnaxion navigation       VERIFIED IN BROWSER
+```
+
+This milestone proves integrated development-runtime navigation. It does **not** by itself prove the complete kOA-Linux appliance as releasable.
+
+The remaining release-critical path is:
+
+```text
+assembly/input closure
+→ deterministic package resolution
+→ authority-derived resolved deployment plan
+→ B-0092 / image projection
+→ reproducible system image
+→ QEMU boot
+→ system / security / confinement qualification
+→ offline qualification
+→ recovery / rollback / last-known-good proof
+→ SBOM / provenance / compatibility / signatures
+→ complete compatible Release Set
+→ staging and activation
+```
+
+Current maturity checkpoint:
+
+- [`docs/status/README.md`](docs/status/README.md)
+- [`docs/status/2026-09-08-technical-progress-and-maturity-assessment.md`](docs/status/2026-09-08-technical-progress-and-maturity-assessment.md)
+
+
 ## Core statement
 
-> kOA-Linux owns the local operating boundary. Each component or independent system owns its declared domain. kOA Spaces owns the optional integrated presentation and navigation frame only when selected as the composition host; product standalone interfaces remain product-owned. The kOA Mediatheque is the private offline media authority. UCKK is the online Moodle learning and dissemination platform. Interface composition and controlled interchange never merge authority.
+> kOA-Linux owns the local operating boundary. Each component or independent system owns its declared domain. Koali Spaces owns the optional integrated presentation and navigation frame only when selected as the composition host; product standalone interfaces remain product-owned. The kOA Mediatheque is the private offline media authority. UCKK is the online Moodle learning and dissemination platform. Interface composition and controlled interchange never merge authority.
 
 ## Authority model
 
@@ -45,7 +95,7 @@ AI-assisted work starts at [`docs/AI_CONTEXT.md`](docs/AI_CONTEXT.md).
 │                         user surfaces                            │
 │ local work • guidance • private instructions • offline learning │
 ├──────────────────────────────────────────────────────────────────┤
-│             optional kOA Spaces experience layer                 │
+│             optional Koali Spaces experience layer                 │
 │ module selector • sidebar • top bar • shared page surface       │
 ├──────────────────────────────────────────────────────────────────┤
 │                 profile-selected kOA systems                     │
@@ -63,9 +113,9 @@ AI-assisted work starts at [`docs/AI_CONTEXT.md`](docs/AI_CONTEXT.md).
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-## kOA Spaces experience layer
+## Koali Spaces experience layer
 
-kOA Spaces is an independently documented, optional subsystem integrated by kOA-Linux as an integrated experience and navigation composition host. It is not required for a product to retain its own standalone interface.
+Koali Spaces is an independently documented, optional subsystem integrated by kOA-Linux as an integrated experience and navigation composition host. It is not required for a product to retain its own standalone interface.
 
 It owns:
 
@@ -88,7 +138,7 @@ It does not own:
 - backup, restore, or disaster recovery;
 - the internal implementation of Ariane, Konnaxion, Orgo, SenTient, SemantiK Architect, or another contributing system.
 
-A route, menu item, alias, sidebar entry, or widget is a presentation contribution only. Every operation remains authorized and executed by the system that owns the underlying capability and state. Removing kOA Spaces removes that presentation surface without transferring or deleting the authoritative state of contributing systems.
+A route, menu item, alias, sidebar entry, or widget is a presentation contribution only. Every operation remains authorized and executed by the system that owns the underlying capability and state. Removing Koali Spaces removes that presentation surface without transferring or deleting the authoritative state of contributing systems.
 
 Canonical entry points:
 
@@ -178,7 +228,7 @@ UCKK is not an internal kOA-Linux component and is not required for local or off
 
 ## Independently documented systems
 
-Ariane, kOA Spaces, Konnaxion, Orgo, SenTient, and SemantiK Architect retain authority over their internal behavior. kOA boundary summaries live under [`docs/04-components/subsystems/`](docs/04-components/subsystems/), and their machine-readable boundary contracts live under [`docs/contracts/subsystems/`](docs/contracts/subsystems/). kOA Spaces is integrated only as the optional navigation and interface-composition layer; its presence does not make presentation artifacts authoritative.
+Ariane, Koali Spaces, Konnaxion, Orgo, SenTient, and SemantiK Architect retain authority over their internal behavior. kOA boundary summaries live under [`docs/04-components/subsystems/`](docs/04-components/subsystems/), and their machine-readable boundary contracts live under [`docs/contracts/subsystems/`](docs/contracts/subsystems/). Koali Spaces is integrated only as the optional navigation and interface-composition layer; its presence does not make presentation artifacts authoritative.
 
 UCKK is handled as an external online Moodle integration rather than as a mounted local subsystem.
 
@@ -192,7 +242,7 @@ UCKK is handled as an external online Moodle integration rather than as a mounte
 6. **Deterministic-first operation** — core local behavior is reproducible; AI remains optional and non-authoritative.
 7. **Selective disclosure** — private local content is not transferred merely because a compatible online destination exists.
 8. **Portability and exit** — export, transfer, restore, self-hosting, and independent consumption remain testable capabilities.
-9. **Replaceable experience layer** — kOA Spaces may be disabled or replaced without transferring authority, deleting business state, or disabling native administration and subsystem interfaces.
+9. **Replaceable experience layer** — Koali Spaces may be disabled or replaced without transferring authority, deleting business state, or disabling native administration and subsystem interfaces.
 
 ## Documentation structure
 
@@ -229,7 +279,7 @@ Do not edit files under `docs/generated/` manually.
 8. [`docs/10-adrs/ADR-032-directional-interchange-between-koa-and-uckk-mediatheques.md`](docs/10-adrs/ADR-032-directional-interchange-between-koa-and-uckk-mediatheques.md)
 9. [`docs/09-conformance/00-conformance-model.md`](docs/09-conformance/00-conformance-model.md)
 
-### kOA Spaces architecture review
+### Koali Spaces architecture review
 
 1. [`docs/02-system/21-koa-spaces-experience-layer.md`](docs/02-system/21-koa-spaces-experience-layer.md)
 2. [`docs/02-system/22-koa-spaces-interface-composition.md`](docs/02-system/22-koa-spaces-interface-composition.md)
@@ -265,8 +315,16 @@ A passing validator proves the constraints implemented by the current validators
 
 ## Implementation status
 
-This repository currently defines a normative target architecture. A requirement is not an implementation claim. Runtime conformance requires corresponding code, tests, evidence, operational procedures, and release validation.
+This repository now represents an **advanced engineering beta**, not only a normative target architecture.
+
+Architecture, contracts, profiles, first-party component builds, development-environment automation, diagnostics, Koali Spaces, and the Koali ↔ Konnaxion browser integration are substantially implemented and exercised. The current supported development stack can start Konnaxion API, Konnaxion Web, and the packaged Koali Spaces runtime, admit Konnaxion into the Koali Space, resolve `/apps/konnaxion`, and support interactive browser navigation between Koali and Konnaxion.
+
+A requirement is still not an implementation claim, and a passing development integration is not a release declaration. Full appliance conformance still requires the corresponding authority-derived assembly artifacts, reproducible system image, QEMU and machine-observed qualification, offline evidence, recovery/rollback proof, and complete release evidence.
+
+**Public maturity status:** **Advanced Beta — System Closure & Qualification**  
+**Current version:** `v0.8.0-beta.2`  
+**Not yet:** pre-RC or Release Candidate
 
 ## Modular product interfaces
 
-Koali product interfaces are autonomous and composable. Orgo, Konnaxion, and other independently packaged products own their standalone application entry points. Shared Koali UI primitives provide a common interaction grammar, while an optional host such as kOA Spaces can compose installed product manifests into one integrated experience. The integrated registry is dynamic: removing a product removes its routes, navigation, commands, inspectors, and widgets without requiring changes to unrelated products.
+Koali product interfaces are autonomous and composable. Orgo, Konnaxion, and other independently packaged products own their standalone application entry points. Shared Koali UI primitives provide a common interaction grammar, while an optional host such as Koali Spaces can compose installed product manifests into one integrated experience. The integrated registry is dynamic: removing a product removes its routes, navigation, commands, inspectors, and widgets without requiring changes to unrelated products.
