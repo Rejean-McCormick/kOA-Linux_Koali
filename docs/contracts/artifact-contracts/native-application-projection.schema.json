@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.koa.local/artifact-contracts/native-application-projection.schema.json",
+  "title": "kOA Native Application Projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["projection_version", "app_id", "display_name", "icon_ref", "available", "allowed_actions", "security_class", "reason"],
+  "properties": {
+    "projection_version": {"const": "1.0.0"},
+    "app_id": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,159}$"},
+    "display_name": {"type": "string", "minLength": 1, "maxLength": 200},
+    "icon_ref": {"type": ["string", "null"], "maxLength": 512},
+    "available": {"type": "boolean"},
+    "allowed_actions": {"type": "array", "uniqueItems": true, "items": {"enum": ["launch", "open_resource", "open_uri"]}},
+    "security_class": {"enum": ["web", "mail", "office", "media", "files"]},
+    "reason": {"type": ["string", "null"], "maxLength": 160}
+  }
+}

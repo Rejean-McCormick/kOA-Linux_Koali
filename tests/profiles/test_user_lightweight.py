@@ -50,6 +50,7 @@ def test_user_lightweight_local_and_offline_capabilities() -> None:
     assert CONTRACT["capabilities"]["interactive_user"]["state"] == "required"
     assert CONTRACT["capabilities"]["ariane_local_navigation"]["state"] == "required"
     assert CONTRACT["capabilities"]["offline_continuity"]["state"] == "required"
+    assert CONTRACT["capabilities"]["user.native_workspace"]["state"] == "required"
     assert CONTRACT["offline_behavior"]["continuity_level"] == "core_required"
     assert CONTRACT["offline_behavior"]["recovery_without_internet"] is True
     assert set(CONTRACT["ai_boundary"]["approved_external_surfaces"]) == {"chatgpt", "suno", "gamma", "ariane-voice"}

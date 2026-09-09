@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.koa.local/artifact-contracts/topbar-widget.schema.json",
-  "title": "Koali Context-Header Widget",
-  "description": "Compact product or global widget contribution for a Koali context header. It is presentation-only and may be filtered by surface profile.",
+  "title": "Koali Spaces Top-Bar Widget",
+  "description": "A compact global or module-specific widget rendered in a controlled Koali Spaces top-bar slot.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -94,6 +94,13 @@
       "type": "boolean",
       "default": true
     },
+    "projection_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    },
     "activation": {
       "type": "object",
       "additionalProperties": false,
@@ -105,7 +112,6 @@
           "enum": [
             "route",
             "command",
-            "status_provider",
             "none"
           ]
         },
@@ -121,21 +127,7 @@
             "string",
             "null"
           ]
-        },
-        "status_provider_ref": {
-          "type": [
-            "string",
-            "null"
-          ]
         }
-      }
-    },
-    "surface_ids": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$"
       }
     }
   },
@@ -166,6 +158,75 @@
         "properties": {
           "module_id": {
             "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "counter",
+              "resume"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "projection_ref"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "activation": {
+            "properties": {
+              "kind": {
+                "const": "route"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "activation": {
+            "required": [
+              "kind",
+              "route_id"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "activation": {
+            "properties": {
+              "kind": {
+                "const": "command"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "activation": {
+            "required": [
+              "kind",
+              "command_ref"
+            ]
           }
         }
       }

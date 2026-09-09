@@ -10,6 +10,7 @@ from koa_spaces_adapter import (
     SpaceActivator,
     admit_space,
     validate_asset_manifest,
+    validate_accent_palette,
     validate_manifest,
     validate_receipt,
     validate_theme,
@@ -58,10 +59,11 @@ def test_manifest_semantics_and_atomic_activation_receipt(
     optional_manifest,
     receipt_response,
     transport_factory,
+    accent_palette,
 ):
     first = validate_manifest(module_manifest)
     assert first.module_id == "koa_mediatheque"
-    assert validate_theme(interface_theme).design_system_id == "koali.ant5"
+    assert validate_theme(interface_theme, accent_palette=validate_accent_palette(accent_palette)).design_system_id == "koali.ant5"
     assert validate_asset_manifest(shell_asset_manifest).owner_id == "koa_spaces"
     admission = admit_space(
         space_definition,
@@ -74,6 +76,7 @@ def test_manifest_semantics_and_atomic_activation_receipt(
         shell_asset_manifest=shell_asset_manifest,
         permitted_modules={"koa_mediatheque", "ariane"},
         available_capabilities={"koa_mediatheque.read", "publication.request"},
+        accent_palette=accent_palette,
     )
     transport = transport_factory({"space.activate": receipt_response})
     result = SpaceActivator(SpacesClient(transport)).activate(

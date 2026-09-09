@@ -70,11 +70,11 @@
       "offline_behavior": "degraded",
       "compact_only": true,
       "activation": {
-        "kind": "status_provider",
+        "kind": "none",
         "route_id": null,
-        "command_ref": null,
-        "status_provider_ref": "koa_semantik_architect_adapter.health:health_status"
-      }
+        "command_ref": null
+      },
+      "projection_ref": "semantik-architect.status"
     }
   ],
   "localization_refs": [],

@@ -120,6 +120,16 @@ profiles/test-fixtures/minimal-user.json
 profiles/test-fixtures/sovereign-node.json
 profiles/test-fixtures/offline-school.json
 profiles/test-fixtures/build-worker.json
+profiles/native-applications/README.md
+profiles/native-applications/admission/firefox.json
+profiles/native-applications/admission/vlc.json
+profiles/native-applications/admission/libreoffice.json
+profiles/native-applications/admission/thunderbird.json
+profiles/native-applications/data/firefox.json
+profiles/native-applications/data/vlc.json
+profiles/native-applications/data/libreoffice.json
+profiles/native-applications/data/thunderbird.json
+profiles/native-applications/fixtures/files-selection.json
 ```
 ## 4. Packaging Inputs
 
@@ -186,6 +196,7 @@ release/provenance/generate-provenance.py
 release/promotion/channels.toml
 release/promotion/promote.py
 release/promotion/rollback.py
+release/native-workspace-security.toml
 generated/.gitignore
 generated/README.md
 ```

@@ -290,7 +290,10 @@ def check_file_architecture(
         related = (
             check_path_ownership(base, paths=actual),
             check_dependencies(base, paths=actual),
-            check_generated_content(base, paths=actual),
+            # Generated documentation/build roots are intentionally outside the frozen
+            # structural inventory. Validate them against the complete discovered tree
+            # rather than the lock-filtered path set.
+            check_generated_content(base, paths=discovered),
         )
         for result in related:
             findings.extend(result.findings)

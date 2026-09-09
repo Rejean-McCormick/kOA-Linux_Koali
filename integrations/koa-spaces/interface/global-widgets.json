@@ -199,8 +199,8 @@
   "topbar_widgets": [
     {
       "widget_id": "global.search",
-      "module_id": null,
-      "scope": "global",
+      "module_id": "space_home",
+      "scope": "module",
       "slot": "primary",
       "kind": "search",
       "label": "Search",
@@ -212,15 +212,13 @@
       "compact_only": true,
       "activation": {
         "kind": "route",
-        "route_id": "space_home.search",
-        "command_ref": null,
-        "status_provider_ref": null
+        "route_id": "space_home.search"
       }
     },
     {
       "widget_id": "global.tasks",
-      "module_id": null,
-      "scope": "global",
+      "module_id": "space_home",
+      "scope": "module",
       "slot": "secondary",
       "kind": "action",
       "label": "Tasks",
@@ -232,15 +230,13 @@
       "compact_only": true,
       "activation": {
         "kind": "route",
-        "route_id": "space_home.tasks",
-        "command_ref": null,
-        "status_provider_ref": null
+        "route_id": "space_home.tasks"
       }
     },
     {
       "widget_id": "global.network_state",
-      "module_id": null,
-      "scope": "global",
+      "module_id": "space_home",
+      "scope": "module",
       "slot": "status",
       "kind": "status",
       "label": "Network state",
@@ -251,11 +247,9 @@
       "offline_behavior": "available",
       "compact_only": true,
       "activation": {
-        "kind": "status_provider",
-        "route_id": null,
-        "command_ref": null,
-        "status_provider_ref": "koa://network/state"
-      }
+        "kind": "none"
+      },
+      "projection_ref": "space_home.network_state"
     }
   ],
   "localization_refs": [

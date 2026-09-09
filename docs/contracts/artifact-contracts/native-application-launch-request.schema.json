@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.koa.local/artifact-contracts/native-application-launch-request.schema.json",
+  "title": "kOA Native Application Launch Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "operation", "app_id", "action", "correlation_id"],
+  "properties": {
+    "protocol": {"const": "koa.native-workspace/v1"},
+    "operation": {"const": "launch"},
+    "app_id": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,159}$"},
+    "action": {"enum": ["launch", "open_resource", "open_uri"]},
+    "correlation_id": {"type": "string", "minLength": 1, "maxLength": 160},
+    "resource_scope": {"enum": ["documents", "downloads", "music", "pictures", "videos", "desktop"]},
+    "relative_path": {"type": "string", "minLength": 1, "maxLength": 4096},
+    "uri": {"type": "string", "minLength": 1, "maxLength": 4096}
+  },
+  "allOf": [
+    {"if": {"properties": {"action": {"const": "open_resource"}}}, "then": {"required": ["resource_scope", "relative_path"]}},
+    {"if": {"properties": {"action": {"const": "open_uri"}}}, "then": {"required": ["uri"]}}
+  ]
+}

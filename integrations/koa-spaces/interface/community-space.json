@@ -60,10 +60,7 @@
   "global_topbar": [],
   "appearance": {
     "theme_ref": "themes/community.json",
-    "density": "comfortable",
     "logo_ref": null,
-    "accent_token": null,
-    "allow_module_accent": true,
     "design_system_id": "koali.ant5",
     "theme_version": "1.0.0"
   },
@@ -81,5 +78,34 @@
     "may_grant_capabilities": false,
     "contains_business_state": false,
     "contains_executable_extension": false
+  },
+  "appearance_policy": {
+    "default_mode": "system",
+    "default_accent": "forest",
+    "default_density": "comfortable",
+    "default_surface_style": "outlined",
+    "allowed_modes": [
+      "system",
+      "light",
+      "dark"
+    ],
+    "allowed_accents": [
+      "forest",
+      "ocean",
+      "slate",
+      "earth",
+      "plum"
+    ],
+    "allowed_densities": [
+      "compact",
+      "comfortable",
+      "touch"
+    ],
+    "allowed_surface_styles": [
+      "minimal",
+      "outlined",
+      "elevated"
+    ],
+    "allow_module_accent": true
   }
 }

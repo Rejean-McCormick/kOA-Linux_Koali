@@ -7,8 +7,9 @@ ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_SUBSYSTEMS = {"ariane", "konnaxion", "orgo", "sentient", "semantik_architect", "koa_spaces"}
 FORBIDDEN_NAMES = {".git", "vendor", "vendored", "upstream", "third_party", "node_modules"}
 ALLOWED_TOP_LEVEL = {
-    "README.md", "source.lock.json", "compatibility.toml", "integration.toml", "deployment.toml",
-    "resource-policy.toml", "storage.toml", "backup.toml", "degradation.toml", "interface", "adapter", "tests"
+    "README.md", "source.lock.json", "compatibility.json", "integration.toml", "deployment.toml",
+    "resource-envelope.toml", "health.toml", "storage.toml", "backup.toml", "degradation.toml",
+    "interface", "adapter", "tests"
 }
 
 

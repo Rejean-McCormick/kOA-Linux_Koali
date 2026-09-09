@@ -74,6 +74,7 @@ host/recovery/restore-controller.py
 host/recovery/forward-repair.py
 host/recovery/collect-recovery-evidence.py
 host/image/base-packages.yaml
+host/image/package-sets/user-lightweight.yaml
 host/image/filesystem-layout.yaml
 host/image/partition-layout.yaml
 host/image/image-manifest.yaml
@@ -145,6 +146,9 @@ host/sessions/appliance-session.toml
 host/sessions/maintenance-session.toml
 host/sessions/recovery-session.toml
 host/sessions/koa-session-launcher.py
+host/sessions/native_workspace.py
+host/sessions/koa-native-workspace-broker.py
+host/sessions/native-workspace.toml
 host/sessions/session_runtime.py
 host/sessions/koa-appliance-session.py
 host/sessions/koa-maintenance-session.py
@@ -155,6 +159,9 @@ host/adapters/podman.py
 host/adapters/filesystem.py
 host/adapters/network.py
 host/adapters/storage.py
+host/adapters/koa_spaces_unix_transport.py
+host/adapters/native_workspace_unix_transport.py
+host/adapters/koa_spaces_adapter_factory.py
 ```
 
 ## 3. Separation Rules

@@ -5,7 +5,7 @@
   "status": "active",
   "version": "1.2.0",
   "relationship_to_koa": "integrated_subsystem",
-  "koa_role": "Independent Konnaxion ecosystem system integrated into kOA-Linux through a host-relative subsystem boundary.",
+  "koa_role": "Independent civic-participation owner application integrated into kOA-Linux through a host-relative subsystem boundary.",
   "official_documentation": {
     "mount_path": "subsystems/konnaxion",
     "mount_kind": "directory_junction_or_symbolic_link",

@@ -30,7 +30,7 @@ optional_surface_roles = ["embedded_web_engine"]
 required_native_capabilities = ["status", "recovery", "accessibility", "session_exit", "safe_maintenance"]
 
 [environment]
-inherit = ["LANG", "LC_ALL", "LC_CTYPE", "XDG_RUNTIME_DIR", "WAYLAND_DISPLAY"]
+inherit = ["LANG", "LC_ALL", "LC_CTYPE", "XDG_RUNTIME_DIR", "WAYLAND_DISPLAY", "DBUS_SESSION_BUS_ADDRESS", "XDG_DATA_HOME", "XDG_DATA_DIRS", "PULSE_SERVER"]
 clear_unlisted = true
 profile_overlay = "appliance_shell"
 session_mode = "interactive_user"

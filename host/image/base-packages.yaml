@@ -78,5 +78,8 @@
     "content_digest_required": true,
     "source_admission_required": true,
     "network_resolution_allowed": false
+  },
+  "profile_package_sets": {
+    "user_lightweight": "host/image/package-sets/user-lightweight.yaml"
   }
 }

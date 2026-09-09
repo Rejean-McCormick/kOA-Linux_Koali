@@ -23,6 +23,11 @@ def fixed_clock():
 
 
 @pytest.fixture
+def accent_palette() -> dict[str, Any]:
+    return json.loads((ROOT / "integrations/koa-spaces/interface/appearance/accent-palette.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture
 def interface_theme() -> dict[str, Any]:
     return {
         "theme_id": "koa_spaces.test",
@@ -30,6 +35,7 @@ def interface_theme() -> dict[str, Any]:
         "design_system_id": "koali.ant5",
         "tokens": {
             "primary_accent": "#1e6864",
+            "primary_accent_id": "forest",
             "density": "comfortable",
             "radius_scale": "koali.radius.v1",
             "spacing_scale": "koali.spacing.v1",
@@ -183,7 +189,6 @@ def module_manifest() -> dict[str, Any]:
                     "kind": "route",
                     "route_id": "koa_mediatheque.publish",
                     "command_ref": None,
-                    "status_provider_ref": None,
                 },
             }
         ],

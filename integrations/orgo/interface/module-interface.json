@@ -73,10 +73,9 @@
       "offline_behavior": "unavailable",
       "compact_only": true,
       "activation": {
-        "kind": "status_provider",
+        "kind": "none",
         "route_id": null,
-        "command_ref": null,
-        "status_provider_ref": "koa://orgo/health"
+        "command_ref": null
       },
       "surface_ids": [
         "control",
@@ -87,7 +86,8 @@
         "workflow_admin",
         "executive",
         "embedded"
-      ]
+      ],
+      "projection_ref": "orgo.health"
     }
   ],
   "localization_refs": [],

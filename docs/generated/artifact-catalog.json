@@ -2,6 +2,13 @@
   "generated": true,
   "records": [
     {
+      "id": "https://schemas.koa.local/artifact-contracts/accent-palette.schema.json",
+      "path": "contracts/artifact-contracts/accent-palette.schema.json",
+      "title": "Koali Accent Palette",
+      "status": null,
+      "version": null
+    },
+    {
       "id": "https://schemas.koa.local/artifact-contracts/cache-policy.schema.json",
       "path": "contracts/artifact-contracts/cache-policy.schema.json",
       "title": "kOA Cache Policy",
@@ -121,6 +128,34 @@
       "version": null
     },
     {
+      "id": "https://schemas.koa.local/artifact-contracts/native-application-admission-policy.schema.json",
+      "path": "contracts/artifact-contracts/native-application-admission-policy.schema.json",
+      "title": "kOA Native Application Admission Policy",
+      "status": null,
+      "version": null
+    },
+    {
+      "id": "https://schemas.koa.local/artifact-contracts/native-application-data-policy.schema.json",
+      "path": "contracts/artifact-contracts/native-application-data-policy.schema.json",
+      "title": "kOA Native Application Data Policy",
+      "status": null,
+      "version": null
+    },
+    {
+      "id": "https://schemas.koa.local/artifact-contracts/native-application-launch-request.schema.json",
+      "path": "contracts/artifact-contracts/native-application-launch-request.schema.json",
+      "title": "kOA Native Application Launch Request",
+      "status": null,
+      "version": null
+    },
+    {
+      "id": "https://schemas.koa.local/artifact-contracts/native-application-projection.schema.json",
+      "path": "contracts/artifact-contracts/native-application-projection.schema.json",
+      "title": "kOA Native Application Projection",
+      "status": null,
+      "version": null
+    },
+    {
       "id": "https://schemas.koa.local/artifact-contracts/node-profile.schema.json",
       "path": "contracts/artifact-contracts/node-profile.schema.json",
       "title": "kOA Node Profile Artifact",
@@ -138,6 +173,20 @@
       "id": "https://schemas.koa.local/artifact-contracts/policy-bundle.schema.json",
       "path": "contracts/artifact-contracts/policy-bundle.schema.json",
       "title": "kOA Governance Policy Bundle",
+      "status": null,
+      "version": null
+    },
+    {
+      "id": "https://schemas.koa.local/artifact-contracts/presentation-preferences.schema.json",
+      "path": "contracts/artifact-contracts/presentation-preferences.schema.json",
+      "title": "Koali Presentation Preferences",
+      "status": null,
+      "version": null
+    },
+    {
+      "id": "https://schemas.koa.local/artifact-contracts/product-surface-profile.schema.json",
+      "path": "contracts/artifact-contracts/product-surface-profile.schema.json",
+      "title": "Koali Product Surface Profile",
       "status": null,
       "version": null
     },
@@ -179,7 +228,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/route-contribution.schema.json",
       "path": "contracts/artifact-contracts/route-contribution.schema.json",
-      "title": "Koali Product Route Contribution",
+      "title": "Koali Spaces Route Contribution",
       "status": null,
       "version": null
     },
@@ -207,7 +256,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/sidebar-navigation.schema.json",
       "path": "contracts/artifact-contracts/sidebar-navigation.schema.json",
-      "title": "Koali Surface Navigation",
+      "title": "Koali Spaces Sidebar Navigation",
       "status": null,
       "version": null
     },
@@ -235,7 +284,7 @@
     {
       "id": "https://schemas.koa.local/artifact-contracts/topbar-widget.schema.json",
       "path": "contracts/artifact-contracts/topbar-widget.schema.json",
-      "title": "Koali Context-Header Widget",
+      "title": "Koali Spaces Top-Bar Widget",
       "status": null,
       "version": null
     },

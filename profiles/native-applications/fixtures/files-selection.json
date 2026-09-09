@@ -1,0 +1,8 @@
+{
+  "fixture_id":"native.files.selection",
+  "status":"selection_required",
+  "security_class":"files",
+  "required_capability":"user.native_workspace",
+  "qualification_requirements":["filesystem_navigation","open_with","xdg_portal_file_chooser","permitted_volumes","removable_media_policy"],
+  "authority_note":"The file-manager product is intentionally not selected by architecture. Freedesktop desktop/MIME metadata remains authoritative after product selection."
+}

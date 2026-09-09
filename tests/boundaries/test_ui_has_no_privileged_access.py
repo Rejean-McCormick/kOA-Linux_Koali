@@ -14,8 +14,12 @@ PRIVILEGED_TEXT = re.compile(
 
 
 def _is_ui_path(path: Path) -> bool:
-    lowered = {part.lower().replace("-", "_") for part in path.parts}
-    return bool(lowered & UI_MARKERS) or any(marker in path.name.lower() for marker in UI_MARKERS)
+    if path.parts and path.parts[0] in {"host", "assembly"}:
+        return False
+    tokens: set[str] = set()
+    for part in path.parts:
+        tokens.update(token for token in re.split(r"[^a-z0-9]+", part.lower()) if token)
+    return bool(tokens & UI_MARKERS)
 
 
 def ui_privilege_violations(repository: Path) -> list[str]:

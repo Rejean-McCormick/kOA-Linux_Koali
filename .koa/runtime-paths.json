@@ -83,7 +83,17 @@
         "/usr/lib/sysusers.d/koa-components.conf",
         "/usr/lib/sysusers.d/koa-privileged-broker.conf",
         "/usr/lib/tmpfiles.d/koa-components.conf",
-        "/usr/lib/tmpfiles.d/koa-runtime.conf"
+        "/usr/lib/tmpfiles.d/koa-runtime.conf",
+        "/usr/libexec/koa/koa-session-launcher",
+        "/usr/libexec/koa/session_runtime.py",
+        "/usr/libexec/koa/koa-appliance-session",
+        "/usr/libexec/koa/koa-maintenance-session",
+        "/usr/libexec/koa/koa-recovery-session",
+        "/usr/libexec/koa/native_workspace.py",
+        "/usr/libexec/koa/koa-native-workspace-broker",
+        "/usr/share/koa/native-workspace/",
+        "/usr/share/koa/native-apps/admission/",
+        "/usr/share/koa/native-apps/data/"
       ]
     },
     {
@@ -620,6 +630,12 @@
       "owner": "packaging"
     },
     {
+      "source": "host/sessions/koa-appliance-session.py",
+      "destination": "/usr/libexec/koa/koa-appliance-session",
+      "install_mode": "copy",
+      "owner": "host"
+    },
+    {
       "source": "operations/pyproject.toml#project.scripts.koa-backup",
       "destination": "/usr/libexec/koa/koa-backup",
       "install_mode": "packaged_entrypoint",
@@ -636,6 +652,18 @@
       "destination": "/usr/libexec/koa/koa-maintenance",
       "install_mode": "packaged_entrypoint",
       "owner": "packaging"
+    },
+    {
+      "source": "host/sessions/koa-maintenance-session.py",
+      "destination": "/usr/libexec/koa/koa-maintenance-session",
+      "install_mode": "copy",
+      "owner": "host"
+    },
+    {
+      "source": "host/sessions/koa-native-workspace-broker.py",
+      "destination": "/usr/libexec/koa/koa-native-workspace-broker",
+      "install_mode": "copy",
+      "owner": "host"
     },
     {
       "source": "components/koa-node-agent/src/bin/koa-node-agent.rs",
@@ -656,6 +684,30 @@
       "owner": "koa-node-agent"
     },
     {
+      "source": "host/sessions/koa-recovery-session.py",
+      "destination": "/usr/libexec/koa/koa-recovery-session",
+      "install_mode": "copy",
+      "owner": "host"
+    },
+    {
+      "source": "host/sessions/koa-session-launcher.py",
+      "destination": "/usr/libexec/koa/koa-session-launcher",
+      "install_mode": "copy",
+      "owner": "host"
+    },
+    {
+      "source": "host/sessions/native_workspace.py",
+      "destination": "/usr/libexec/koa/native_workspace.py",
+      "install_mode": "copy",
+      "owner": "host"
+    },
+    {
+      "source": "host/sessions/session_runtime.py",
+      "destination": "/usr/libexec/koa/session_runtime.py",
+      "install_mode": "copy",
+      "owner": "host"
+    },
+    {
       "source": "packaging/system/image.toml#share.appliance-shell",
       "destination": "/usr/share/koa/appliance-shell/",
       "install_mode": "manifest_selection",
@@ -672,6 +724,24 @@
       "destination": "/usr/share/koa/locales/",
       "install_mode": "manifest_selection",
       "owner": "packaging"
+    },
+    {
+      "source": "profiles/native-applications/admission/",
+      "destination": "/usr/share/koa/native-apps/admission/",
+      "install_mode": "recursive_copy",
+      "owner": "profiles"
+    },
+    {
+      "source": "profiles/native-applications/data/",
+      "destination": "/usr/share/koa/native-apps/data/",
+      "install_mode": "recursive_copy",
+      "owner": "profiles"
+    },
+    {
+      "source": "host/sessions/native-workspace.toml",
+      "destination": "/usr/share/koa/native-workspace/native-workspace.toml",
+      "install_mode": "copy",
+      "owner": "host"
     },
     {
       "source": "host/recovery/",

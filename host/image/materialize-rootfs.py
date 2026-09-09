@@ -152,6 +152,49 @@ def _source_catalog(policy: dict[str, Any]) -> dict[str, dict[str, Any]]:
         catalog[source_id] = item
     return catalog
 
+def _select_package_set(
+    base: dict[str, Any],
+    base_path: Path,
+    profile_id: str,
+) -> tuple[dict[str, Any], bytes | None]:
+    base_profile = _require_nonempty(base.get("profile_id"), "base_profile_id")
+    if profile_id == base_profile:
+        return base, None
+    mapping = base.get("profile_package_sets")
+    if not isinstance(mapping, dict):
+        raise MaterializationError(f"profile_package_set_unavailable:{profile_id}")
+    reference = mapping.get(profile_id)
+    if not isinstance(reference, str) or not reference.strip():
+        raise MaterializationError(f"profile_package_set_unavailable:{profile_id}")
+    relative = _relative_path(reference, "profile_package_set")
+    repository_root = base_path.resolve().parents[2]
+    candidate = (repository_root / relative).resolve(strict=True)
+    try:
+        candidate.relative_to(repository_root)
+    except ValueError as exc:
+        raise MaterializationError("profile_package_set_escapes_repository") from exc
+    overlay, raw = _load_json_document(candidate)
+    if overlay.get("extends_package_set_id") != base.get("package_set_id"):
+        raise MaterializationError("profile_package_set_base_mismatch")
+    if overlay.get("profile_id") != profile_id:
+        raise MaterializationError("profile_package_set_profile_mismatch")
+    package_set_id = _require_nonempty(overlay.get("package_set_id"), "profile_package_set_id")
+    required = overlay.get("required_capabilities")
+    if not isinstance(required, list) or not required:
+        raise MaterializationError("profile_package_set_capabilities_missing")
+    merged = dict(base)
+    merged["package_set_id"] = package_set_id
+    merged["profile_id"] = profile_id
+    merged["required_capabilities"] = [
+        *list(base.get("required_capabilities") or []),
+        *required,
+    ]
+    merged["prohibited_contents"] = sorted(
+        set(base.get("prohibited_contents") or []) | set(overlay.get("prohibited_contents") or [])
+    )
+    return merged, raw
+
+
 def _base_requirements(base: dict[str, Any]) -> tuple[list[str], list[str]]:
     required = base.get("required_capabilities")
     if not isinstance(required, list) or not required:
@@ -435,10 +478,12 @@ def materialize(args: argparse.Namespace) -> dict[str, Any]:
 
     base, base_raw = _load_json_document(args.base_packages)
     plan, plan_raw = _load_json_document(args.package_plan)
+    profile_id = _require_nonempty(plan.get("profile_id"), "package_plan_profile_id")
+    package_set, profile_package_set_raw = _select_package_set(base, args.base_packages, profile_id)
     policy, policy_raw = _load_toml_document(args.package_sources)
     source_catalog = _source_catalog(policy)
-    resolved = _validate_plan(base, plan, source_catalog)
-    _, prohibited_prefixes = _base_requirements(base)
+    resolved = _validate_plan(package_set, plan, source_catalog)
+    _, prohibited_prefixes = _base_requirements(package_set)
 
     args.output_dir.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=f".{args.output_dir.name}.stage-", dir=args.output_dir.parent))
@@ -458,14 +503,17 @@ def materialize(args: argparse.Namespace) -> dict[str, Any]:
         tree_sha256, entry_count = _tree_digest(rootfs)
         resolution = {
             "schema_version": 1,
-            "package_set_id": base["package_set_id"],
-            "profile_id": base["profile_id"],
+            "package_set_id": package_set["package_set_id"],
+            "profile_id": package_set["profile_id"],
             "capabilities": resolved,
             "materialization": {
                 "status": "materialized",
                 "network_accessed": False,
                 "candidate_code_executed": False,
                 "base_packages_sha256": _sha256_bytes(base_raw),
+                "profile_package_set_sha256": (
+                    _sha256_bytes(profile_package_set_raw) if profile_package_set_raw is not None else None
+                ),
                 "package_plan_sha256": _sha256_bytes(plan_raw),
                 "package_sources_sha256": _sha256_bytes(policy_raw),
                 "rootfs_tree_sha256": tree_sha256,

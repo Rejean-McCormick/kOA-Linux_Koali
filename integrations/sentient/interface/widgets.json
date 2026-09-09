@@ -4,8 +4,7 @@
     "activation": {
       "command_ref": null,
       "kind": "route",
-      "route_id": "sentient.workbench",
-      "status_provider_ref": null
+      "route_id": "sentient.workbench"
     },
     "compact_only": true,
     "icon_ref": null,
@@ -25,10 +24,9 @@
   {
     "$schema": "../../../docs/contracts/artifact-contracts/topbar-widget.schema.json",
     "activation": {
-      "command_ref": null,
-      "kind": "status_provider",
+      "kind": "none",
       "route_id": null,
-      "status_provider_ref": "koa://integrations/sentient/job-status"
+      "command_ref": null
     },
     "compact_only": true,
     "icon_ref": null,
@@ -43,6 +41,7 @@
     ],
     "scope": "module",
     "slot": "status",
-    "widget_id": "sentient.job-status"
+    "widget_id": "sentient.job-status",
+    "projection_ref": "sentient.job_status"
   }
 ]

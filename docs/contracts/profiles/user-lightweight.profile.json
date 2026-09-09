@@ -211,6 +211,14 @@
       ],
       "degraded_behavior": "Container-dependent capabilities are unavailable; core local operation continues without silent substitution.",
       "rationale": "When containers are used, the user-lightweight profile prefers a rootless OCI-compatible runtime and does not make containers a baseline requirement."
+    },
+    "user.native_workspace": {
+      "state": "required",
+      "conditions": [
+        "The local graphical session and native workspace admission policy are available."
+      ],
+      "degraded_behavior": "Native applications are unavailable; Koali and other local declared capabilities continue without silent substitution or desktop fallback.",
+      "rationale": "The user-lightweight endpoint admits policy-controlled native desktop applications through the unprivileged user-session broker."
     }
   },
   "components": {

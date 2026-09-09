@@ -85,9 +85,7 @@
       "compact_only": true,
       "activation": {
         "kind": "route",
-        "route_id": "global.search",
-        "command_ref": null,
-        "status_provider_ref": null
+        "route_id": "global.search"
       }
     },
     {
@@ -104,11 +102,9 @@
       "offline_behavior": "available",
       "compact_only": true,
       "activation": {
-        "kind": "status_provider",
-        "route_id": null,
-        "command_ref": null,
-        "status_provider_ref": "koa://network/state"
-      }
+        "kind": "none"
+      },
+      "projection_ref": "space_home.network_state"
     },
     {
       "widget_id": "global.ariane",
@@ -127,18 +123,13 @@
       "compact_only": true,
       "activation": {
         "kind": "route",
-        "route_id": "ariane.home",
-        "command_ref": null,
-        "status_provider_ref": null
+        "route_id": "ariane.home"
       }
     }
   ],
   "appearance": {
     "theme_ref": "themes/school-default.json",
-    "density": "touch",
     "logo_ref": "branding/school-logo.svg",
-    "accent_token": "school-blue",
-    "allow_module_accent": true,
     "design_system_id": "koali_spaces",
     "theme_version": "1.0.0"
   },
@@ -156,5 +147,34 @@
     "may_grant_capabilities": false,
     "contains_business_state": false,
     "contains_executable_extension": false
+  },
+  "appearance_policy": {
+    "default_mode": "system",
+    "default_accent": "forest",
+    "default_density": "touch",
+    "default_surface_style": "outlined",
+    "allowed_modes": [
+      "system",
+      "light",
+      "dark"
+    ],
+    "allowed_accents": [
+      "forest",
+      "ocean",
+      "slate",
+      "earth",
+      "plum"
+    ],
+    "allowed_densities": [
+      "compact",
+      "comfortable",
+      "touch"
+    ],
+    "allowed_surface_styles": [
+      "minimal",
+      "outlined",
+      "elevated"
+    ],
+    "allow_module_accent": true
   }
 }

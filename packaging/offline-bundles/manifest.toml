@@ -101,6 +101,7 @@ allowed_application_roles = [
 ]
 
 [manifest.lifecycle]
+activation_mode = "atomic"
 envelope_verification_precedes_payload_verification = true
 payloads_verified_independently = true
 import_is_activation = false

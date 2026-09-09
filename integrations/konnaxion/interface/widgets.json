@@ -16,13 +16,13 @@
     "offline_behavior": "unavailable",
     "compact_only": true,
     "activation": {
-      "kind": "status_provider",
+      "kind": "none",
       "route_id": null,
-      "command_ref": null,
-      "status_provider_ref": "adapter://konnaxion/health"
+      "command_ref": null
     },
     "surface_ids": [
       "default"
-    ]
+    ],
+    "projection_ref": "konnaxion.availability"
   }
 ]

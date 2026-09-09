@@ -65,6 +65,21 @@ def normalize_identifier(value: str) -> str:
     return normalized
 
 
+def normalize_capability_identifier(value: str) -> str:
+    if not isinstance(value, str):
+        raise TypeError("capability identifier must be a string")
+    normalized = value.strip().lower().replace("-", "_").replace(" ", "_")
+    while "__" in normalized:
+        normalized = normalized.replace("__", "_")
+    if not normalized or normalized.startswith(("_", ".")) or normalized.endswith(("_", ".")):
+        raise ValueError(f"invalid capability identifier: {value!r}")
+    segments = normalized.split(".")
+    allowed = set("abcdefghijklmnopqrstuvwxyz0123456789_")
+    if any(not segment or segment.startswith("_") or segment.endswith("_") or any(ch not in allowed for ch in segment) for segment in segments):
+        raise ValueError(f"invalid capability identifier: {value!r}")
+    return normalized
+
+
 def _conditions_from_item(item: Mapping[str, Any]) -> tuple[str, ...]:
     raw = item.get("conditions")
     if raw is None and isinstance(item.get("condition"), str):
@@ -85,13 +100,13 @@ def _conditions_from_item(item: Mapping[str, Any]) -> tuple[str, ...]:
 
 def _item_identifier(item: object) -> tuple[str, tuple[str, ...]]:
     if isinstance(item, str):
-        return normalize_identifier(item), ()
+        return normalize_capability_identifier(item), ()
     if not isinstance(item, Mapping):
         raise ValueError("capability member must be a string or object")
     identifier = item.get("capability_id", item.get("capability", item.get("id")))
     if not isinstance(identifier, str):
         raise ValueError("capability object requires capability_id, capability, or id")
-    return normalize_identifier(identifier), _conditions_from_item(item)
+    return normalize_capability_identifier(identifier), _conditions_from_item(item)
 
 
 def _membership_from_state(value: object) -> CapabilityMembership:
@@ -158,7 +173,7 @@ def extract_capabilities(contract: Mapping[str, Any], source: str) -> tuple[Capa
                 conditions = _conditions_from_item(details)
                 entries.append(
                     CapabilityEntry(
-                        normalize_identifier(capability_id), membership, conditions, (source,)
+                        normalize_capability_identifier(capability_id), membership, conditions, (source,)
                     )
                 )
 
@@ -251,7 +266,7 @@ def merge_capabilities(
     unresolved: list[str] = []
     if dependencies:
         for raw_capability_id, raw_dependencies in sorted(dependencies.items()):
-            capability_id = normalize_identifier(raw_capability_id)
+            capability_id = normalize_capability_identifier(raw_capability_id)
             owner = merged_map.get(capability_id)
             if owner is None or owner.membership in {
                 CapabilityMembership.PROHIBITED,
@@ -259,7 +274,7 @@ def merge_capabilities(
             }:
                 continue
             for raw_dependency in sorted(raw_dependencies):
-                dependency = normalize_identifier(raw_dependency)
+                dependency = normalize_capability_identifier(raw_dependency)
                 dependency_entry = merged_map.get(dependency)
                 if dependency_entry is None:
                     unresolved.append(f"{capability_id}->{dependency}:missing")

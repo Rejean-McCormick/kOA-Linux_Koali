@@ -1,0 +1,31 @@
+schema_version = "1.0.0"
+policy_id = "koa_native_workspace_user_session"
+required_capability = "user.native_workspace"
+profile_path = "/etc/koa/active/profile.json"
+admission_policy_root = "/usr/share/koa/native-apps/admission"
+data_policy_root = "/usr/share/koa/native-apps/data"
+socket_relative_to_xdg_runtime = "koa/native-workspace.sock"
+transport = "json_line_over_unix"
+peer_authentication = "same_uid_so_peercred"
+network_listener = false
+raw_executable_input = false
+raw_argv_input = false
+resource_admission = "resource_governor_required"
+
+[limits]
+max_request_bytes = 65536
+max_response_bytes = 2097152
+max_launches_per_minute = 12
+
+[substrate.required]
+wayland = true
+user_dbus = true
+gio = true
+
+[substrate.optional]
+audio = true
+xdg_mime = true
+portal = true
+xwayland = false
+secret_service = true
+accessibility_bus = true

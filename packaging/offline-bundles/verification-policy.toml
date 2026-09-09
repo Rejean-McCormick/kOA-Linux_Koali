@@ -4,6 +4,7 @@ policy_version = "1.0.0"
 status = "active"
 contract_ref = "docs/contracts/artifact-contracts/offline-bundle.schema.json"
 default_outcome = "blocked"
+verification_mode = "verify-before-use"
 network_dependency = "none"
 fail_closed = true
 false_success_reporting = false

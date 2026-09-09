@@ -346,3 +346,13 @@ def test_effective_profile_declaration_rejects_unbound_source_digests() -> None:
     }).resolve("base").require_effective()
     with pytest.raises(ValueError, match="source digests do not match"):
         effective.to_declaration(source_digests={"other.json": "sha256:" + "a" * 64})
+
+
+def test_namespaced_native_workspace_capability_is_preserved():
+    from koa_assembly.profiles.capabilities import extract_capabilities
+
+    entries = extract_capabilities(
+        {"capabilities": {"user.native_workspace": {"state": "required"}}},
+        "test-profile",
+    )
+    assert [entry.capability_id for entry in entries] == ["user.native_workspace"]

@@ -3,6 +3,7 @@ policy_id = "koa.release.sbom"
 policy_version = "1.0.0"
 format = "spdx-2.3-json"
 canonicalization = "utf8-json-sorted-keys-v1"
+deterministic_ordering = "lexicographic"
 hash_algorithm = "sha256"
 timestamp_source = "explicit"
 subject_digest_required = true

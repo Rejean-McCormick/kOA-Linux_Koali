@@ -14,7 +14,8 @@
     "typography_scale": "koali-default",
     "focus_style": "visible-ring",
     "surface_family": "neutral",
-    "semantic_color_policy": "semantic-colors-remain-distinct"
+    "semantic_color_policy": "semantic-colors-remain-distinct",
+    "primary_accent_id": "forest"
   },
   "icon_policy": {
     "style": "outline",

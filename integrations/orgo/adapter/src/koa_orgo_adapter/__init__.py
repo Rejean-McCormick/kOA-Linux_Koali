@@ -52,4 +52,7 @@ __all__ = [
     "TransportError",
     "TransportResponse",
     "build_adapter",
+    "bootstrap_adapter",
 ]
+
+bootstrap_adapter = build_adapter

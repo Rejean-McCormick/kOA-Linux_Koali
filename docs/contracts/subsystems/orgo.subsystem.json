@@ -5,7 +5,7 @@
   "status": "active",
   "version": "1.3.0",
   "relationship_to_koa": "integrated_subsystem",
-  "koa_role": "Independent Orgo ecosystem system integrated into kOA-Linux through a host-relative subsystem boundary.",
+  "koa_role": "Independent task, organization, scheduling owner application integrated into kOA-Linux through a host-relative subsystem boundary.",
   "official_documentation": {
     "mount_path": "subsystems/orgo",
     "mount_kind": "directory_junction_or_symbolic_link",

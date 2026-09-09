@@ -1,0 +1,27 @@
+{
+  "$schema": "contracts/artifact-contracts/native-application-data-policy.schema.json",
+  "kind": "NativeApplicationDataPolicy",
+  "version": "1.0.0",
+  "policy_id": "native.firefox.data",
+  "profile_persistence": "persistent",
+  "cache_policy": "disposable",
+  "documents_ownership": "external_logical_owner",
+  "rollback": {
+    "requires_compatible_profile": true
+  },
+  "upgrade": {
+    "checkpoint_when_required": true
+  },
+  "profile_locations": [
+    {
+      "root": "home",
+      "relative_path": ".mozilla/firefox"
+    }
+  ],
+  "cache_locations": [
+    {
+      "root": "xdg_cache",
+      "relative_path": "mozilla/firefox"
+    }
+  ]
+}

@@ -165,6 +165,52 @@ def _tar_info(name: str, mode: int, epoch: int, kind: str, size: int = 0, linkna
     return info
 
 
+def _relative_repository_path(value: Any, field: str) -> str:
+    if not isinstance(value, str) or not value.strip() or "\\" in value:
+        raise BuildError(f"{field}_must_be_normalized_relative")
+    pure = PurePosixPath(value.strip())
+    if pure.is_absolute() or ".." in pure.parts or "." in pure.parts:
+        raise BuildError(f"{field}_must_be_normalized_relative")
+    return pure.as_posix()
+
+
+def _select_package_set(
+    base: dict[str, Any],
+    base_path: Path,
+    profile_id: str,
+) -> tuple[dict[str, Any], bytes | None]:
+    base_profile = base.get("profile_id")
+    if profile_id == base_profile:
+        return base, None
+    mapping = base.get("profile_package_sets")
+    if not isinstance(mapping, dict):
+        raise BuildError(f"profile_package_set_unavailable:{profile_id}")
+    reference = mapping.get(profile_id)
+    relative = _relative_repository_path(reference, "profile_package_set")
+    repository_root = base_path.resolve().parents[2]
+    candidate = (repository_root / relative).resolve(strict=True)
+    try:
+        candidate.relative_to(repository_root)
+    except ValueError as exc:
+        raise BuildError("profile_package_set_escapes_repository") from exc
+    overlay, raw = _load_document(candidate)
+    if overlay.get("extends_package_set_id") != base.get("package_set_id"):
+        raise BuildError("profile_package_set_base_mismatch")
+    if overlay.get("profile_id") != profile_id:
+        raise BuildError("profile_package_set_profile_mismatch")
+    package_set_id = overlay.get("package_set_id")
+    if not isinstance(package_set_id, str) or not package_set_id.strip():
+        raise BuildError("profile_package_set_id_required")
+    required = overlay.get("required_capabilities")
+    if not isinstance(required, list) or not required:
+        raise BuildError("profile_package_set_capabilities_missing")
+    merged = dict(base)
+    merged["package_set_id"] = package_set_id
+    merged["profile_id"] = profile_id
+    merged["required_capabilities"] = [*list(base.get("required_capabilities") or []), *required]
+    return merged, raw
+
+
 def _valid_sha256(value: Any) -> bool:
     return isinstance(value, str) and len(value) == 64 and all(ch in "0123456789abcdef" for ch in value)
 
@@ -244,7 +290,11 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
     partition, partition_raw = _load_document(args.partition_layout)
     definition, definition_raw = _load_document(args.image_manifest)
     resolution, resolution_raw = _load_document(args.package_resolution)
-    expected_tree_digest = _validate_package_resolution(base, resolution)
+    profile_id = resolution.get("profile_id")
+    if not isinstance(profile_id, str) or not profile_id:
+        raise BuildError("package_resolution_profile_id_required")
+    package_set, profile_package_set_raw = _select_package_set(base, args.base_packages, profile_id)
+    expected_tree_digest = _validate_package_resolution(package_set, resolution)
     if _materialized_tree_digest(source_root) != expected_tree_digest:
         raise BuildError("materialized_tree_digest_mismatch")
 
@@ -334,6 +384,9 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         "source_date_epoch": args.source_date_epoch,
         "inputs": {
             "base_packages_sha256": _sha256_bytes(base_raw),
+            "profile_package_set_sha256": (
+                _sha256_bytes(profile_package_set_raw) if profile_package_set_raw is not None else None
+            ),
             "filesystem_layout_sha256": _sha256_bytes(layout_raw),
             "partition_layout_sha256": _sha256_bytes(partition_raw),
             "image_manifest_sha256": _sha256_bytes(definition_raw),

@@ -111,22 +111,24 @@ integrations/koa-spaces/degradation.toml
 integrations/koa-spaces/adapter/pyproject.toml
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/__init__.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/bootstrap.py
+integrations/koa-spaces/adapter/src/koa_spaces_adapter/appearance.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/client.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/health.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/capabilities.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/receipts.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/space_activation.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/module_manifest.py
+integrations/koa-spaces/adapter/src/koa_spaces_adapter/native_workspace.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/host_bridge.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/route_bridge.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/interface_assets.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/interface_theme.py
 integrations/koa-spaces/adapter/src/koa_spaces_adapter/shell_state.py
-integrations/koa-spaces/adapter/src/koa_spaces_adapter/unix_transport.py
 integrations/koa-spaces/interface/default-space.json
 integrations/koa-spaces/interface/school-space.json
 integrations/koa-spaces/interface/community-space.json
 integrations/koa-spaces/interface/global-widgets.json
+integrations/koa-spaces/interface/appearance/accent-palette.json
 integrations/koa-spaces/interface/themes/default.json
 integrations/koa-spaces/interface/themes/school.json
 integrations/koa-spaces/interface/themes/community.json
@@ -152,6 +154,8 @@ integrations/koa-spaces/tests/test_interface_theme.py
 integrations/koa-spaces/tests/test_shell_state.py
 integrations/koa-spaces/tests/test_unix_transport.py
 integrations/koa-spaces/tests/test_capability_projection.py
+integrations/koa-spaces/tests/test_ks2_contract_convergence.py
+integrations/koa-spaces/tests/test_native_workspace_bridge.py
 ```
 ## 4. Konnaxion Integration
 

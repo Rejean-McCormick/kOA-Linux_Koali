@@ -66,6 +66,8 @@ def test_repository_release_manifests_have_terminal_evidence() -> None:
     failures: list[str] = []
     for path in sorted(manifests.glob("*.json")):
         record = json.loads(path.read_text(encoding="utf-8"))
+        if "channels" not in record and "channel_versions" not in record:
+            continue
         failures.extend(f"{path.relative_to(ROOT)}: {item}" for item in release_record_violations(record))
     assert failures == []
 

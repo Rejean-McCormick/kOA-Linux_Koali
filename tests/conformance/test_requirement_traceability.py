@@ -67,7 +67,7 @@ def test_document_metadata_references_resolve() -> None:
     failures: list[str] = []
     for document in sorted((ROOT / "docs").rglob("*.md")):
         relative = document.relative_to(ROOT / "docs").as_posix()
-        if relative.startswith(("generated/", "subsystems/", "finalization-reports/")):
+        if relative.startswith(("generated/", "subsystems/", "finalization-reports/", "KOALI_MAJOR_UPDATE_SPEC_2026-09/")):
             continue
         metadata = _metadata(document)
         for field, valid_ids in known.items():

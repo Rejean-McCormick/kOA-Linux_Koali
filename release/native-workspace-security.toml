@@ -1,0 +1,20 @@
+format = "koa.native-workspace-security-update-policy"
+format_version = "1.0.0"
+status = "active"
+
+[authority]
+application_binaries_channel = "system"
+policy_channel = "governance"
+service_runtime_channel = "services"
+dedicated_native_application_channel = false
+
+[security_update_slo]
+critical_browser_or_mail_fix_max_hours = 72
+high_severity_fix_max_days = 7
+normal_updates_follow_system_release_cadence = true
+missed_slo_requires_release_model_review = true
+
+[recovery]
+use_existing_signed_system_image_rollback = true
+application_profile_data_rollback_is_implicit = false
+data_policy_must_declare_profile_compatibility = true

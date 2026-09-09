@@ -102,11 +102,14 @@ __all__ = (
     "UckkHealthReport",
     "UckkTransport",
     "build_adapter",
+    "bootstrap_adapter",
     "build_dead_letter_record",
     "build_terminal_receipt",
     "canonical_json",
     "payload_digest",
     "utc_timestamp",
 )
+
+bootstrap_adapter = build_adapter
 
 __version__ = "1.0.0"

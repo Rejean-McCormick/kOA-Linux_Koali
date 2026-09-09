@@ -1,0 +1,27 @@
+{
+  "$schema": "contracts/artifact-contracts/native-application-data-policy.schema.json",
+  "kind": "NativeApplicationDataPolicy",
+  "version": "1.0.0",
+  "policy_id": "native.vlc.data",
+  "profile_persistence": "persistent",
+  "cache_policy": "disposable",
+  "documents_ownership": "external_logical_owner",
+  "rollback": {
+    "requires_compatible_profile": false
+  },
+  "upgrade": {
+    "checkpoint_when_required": false
+  },
+  "profile_locations": [
+    {
+      "root": "xdg_config",
+      "relative_path": "vlc"
+    }
+  ],
+  "cache_locations": [
+    {
+      "root": "xdg_cache",
+      "relative_path": "vlc"
+    }
+  ]
+}

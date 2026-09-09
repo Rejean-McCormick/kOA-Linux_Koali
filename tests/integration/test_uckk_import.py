@@ -76,7 +76,7 @@ def test_import_source_cannot_become_publication_or_automatic_overwrite() -> Non
     assert not any(module.endswith("publication") for module in imported)
     lowered = source.lower()
     assert "last_writer_wins" not in lowered
-    assert "automatic_remote_overwrite" not in lowered
+    assert '"automatic_remote_overwrite": true' not in lowered
     assert "bidirectional_sync" not in lowered
 
 

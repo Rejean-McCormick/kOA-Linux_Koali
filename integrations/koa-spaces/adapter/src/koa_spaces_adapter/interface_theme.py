@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any, Mapping
 from .receipts import artifact_digest
+from .appearance import AppearanceValidationError, ValidatedAccentPalette
 
 class ThemeValidationError(ValueError):
     """Raised when an interface theme crosses the presentation contract."""
@@ -17,7 +18,7 @@ class ValidatedTheme:
     document: Mapping[str, Any]
 
 
-def validate_theme(document: Mapping[str, Any]) -> ValidatedTheme:
+def validate_theme(document: Mapping[str, Any], *, accent_palette: ValidatedAccentPalette | None = None) -> ValidatedTheme:
     if not isinstance(document, Mapping):
         raise ThemeValidationError("theme must be an object")
     required = {"theme_id","version","design_system_id","tokens","icon_policy","motion_policy","authority_boundary"}
@@ -36,6 +37,16 @@ def validate_theme(document: Mapping[str, Any]) -> ValidatedTheme:
     tokens=document["tokens"]
     if not isinstance(tokens, Mapping) or tokens.get("density") not in {"comfortable","compact","touch"}:
         raise ThemeValidationError("theme density is invalid")
+    accent_id = tokens.get("primary_accent_id")
+    if accent_id is not None:
+        if accent_palette is None:
+            raise ThemeValidationError("theme primary_accent_id requires the canonical accent palette")
+        expected = accent_palette.accents.get(str(accent_id))
+        if expected is None:
+            raise ThemeValidationError("theme primary_accent_id is not in the canonical accent palette")
+        color = tokens.get("primary_accent")
+        if not isinstance(color, str) or color.lower() != expected.lower():
+            raise ThemeValidationError("theme primary accent id/color mismatch")
     return ValidatedTheme(
         theme_id=str(document["theme_id"]), version=str(document["version"]),
         design_system_id=str(document["design_system_id"]), digest=artifact_digest(document),

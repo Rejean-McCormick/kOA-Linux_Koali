@@ -1,0 +1,8 @@
+{
+  "$schema":"contracts/artifact-contracts/native-application-admission-policy.schema.json","kind":"NativeApplicationAdmissionPolicy","version":"1.0.0","app_id":"firefox","desktop_entry_refs":["firefox.desktop","org.mozilla.firefox.desktop"],"enabled":true,
+  "runtime":{"required_capability":"user.native_workspace","allowed_profile_ids":["user_lightweight"]},
+  "security":{"class":"web","network":"required","audio":"optional","gpu":"optional"},
+  "resources":{"resource_envelope_ref":"native.interactive-web","workload_class":"interactive_web","resource_request":{"cpu":{"unit":"millicores","reservation":100,"limit":2500},"memory":{"unit":"MiB","reservation":256,"limit":4096},"processes":{"unit":"processes","reservation":1,"limit":256}},"criticality":"interactive","priority":80},
+  "offline_behavior":"degraded","data_policy_ref":"data/firefox.json",
+  "launch":{"allowed_actions":["launch","open_uri"],"allowed_uri_schemes":["http","https"],"allowed_resource_scopes":["downloads"]}
+}

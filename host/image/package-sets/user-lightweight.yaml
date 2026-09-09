@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "package_set_id": "koa.host.user-lightweight-packages",
+  "profile_id": "user_lightweight",
+  "extends_package_set_id": "koa.host.base-packages",
+  "required_capabilities": [
+    {
+      "id": "wayland-session",
+      "purpose": "native graphical application windows without a full desktop environment"
+    },
+    {
+      "id": "user-dbus",
+      "purpose": "per-user desktop IPC required by admitted native applications"
+    },
+    {
+      "id": "xdg-desktop-portals",
+      "purpose": "file chooser, URI and desktop mediation for admitted native applications"
+    },
+    {
+      "id": "desktop-mime-open",
+      "purpose": "Freedesktop MIME and OpenURI/OpenWith integration"
+    },
+    {
+      "id": "desktop-audio",
+      "purpose": "profile-controlled user-session audio services"
+    },
+    {
+      "id": "native-firefox",
+      "purpose": "Firefox conformance application for Web security and desktop integration"
+    },
+    {
+      "id": "native-vlc",
+      "purpose": "VLC conformance application for local media, audio, video and fullscreen"
+    },
+    {
+      "id": "native-libreoffice",
+      "purpose": "LibreOffice conformance application for office documents and MIME handling"
+    },
+    {
+      "id": "native-thunderbird",
+      "purpose": "Thunderbird conformance application for mail and cross-application handoff"
+    }
+  ],
+  "prohibited_contents": [
+    "private_signing_keys",
+    "deployment_secrets",
+    "user_content",
+    "mutable_runtime_state",
+    "application_profiles",
+    "application_caches"
+  ],
+  "resolution_rule": "A distribution adapter resolves every capability to an exact signed system-channel artifact; no package-manager latest lookup is permitted during build or activation."
+}

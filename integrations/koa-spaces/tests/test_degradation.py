@@ -14,6 +14,7 @@ def _admit(
     *,
     permitted_modules,
     available_capabilities,
+    accent_palette,
 ):
     return admit_space(
         space_definition,
@@ -23,11 +24,12 @@ def _admit(
         shell_asset_manifest=shell_asset_manifest,
         permitted_modules=permitted_modules,
         available_capabilities=available_capabilities,
+        accent_palette=accent_palette,
     )
 
 
 def test_missing_optional_module_is_omitted_without_substitution(
-    space_definition, module_manifest, interface_theme, shell_asset_manifest
+    space_definition, module_manifest, interface_theme, shell_asset_manifest, accent_palette
 ):
     admission = _admit(
         space_definition,
@@ -36,13 +38,14 @@ def test_missing_optional_module_is_omitted_without_substitution(
         shell_asset_manifest,
         permitted_modules={"koa_mediatheque", "ariane"},
         available_capabilities={"koa_mediatheque.read", "publication.request"},
+        accent_palette=accent_palette,
     )
     assert admission.disabled_optional_modules == ("ariane",)
     assert set(admission.route_table.home_by_module) == {"koa_mediatheque"}
 
 
 def test_missing_required_module_blocks_activation(
-    space_definition, interface_theme, shell_asset_manifest
+    space_definition, interface_theme, shell_asset_manifest, accent_palette
 ):
     with pytest.raises(SpaceActivationError, match="required manifest missing"):
         _admit(
@@ -52,6 +55,7 @@ def test_missing_required_module_blocks_activation(
             shell_asset_manifest,
             permitted_modules={"koa_mediatheque", "ariane"},
             available_capabilities={"koa_mediatheque.read"},
+            accent_palette=accent_palette,
         )
 
 
@@ -61,6 +65,7 @@ def test_network_loss_and_capability_loss_are_explicit(
     optional_manifest,
     interface_theme,
     shell_asset_manifest,
+    accent_palette,
 ):
     admission = _admit(
         space_definition,
@@ -72,6 +77,7 @@ def test_network_loss_and_capability_loss_are_explicit(
         shell_asset_manifest,
         permitted_modules={"koa_mediatheque", "ariane"},
         available_capabilities={"koa_mediatheque.read", "publication.request"},
+        accent_palette=accent_palette,
     )
     offline = RouteBridge.resolve(
         admission.route_table,

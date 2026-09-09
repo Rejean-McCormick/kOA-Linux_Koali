@@ -70,6 +70,7 @@ operations/src/koa_operations/backup/__init__.py
 operations/src/koa_operations/backup/plan.py
 operations/src/koa_operations/backup/run.py
 operations/src/koa_operations/backup/verify.py
+operations/src/koa_operations/backup/native_applications.py
 operations/src/koa_operations/restore/__init__.py
 operations/src/koa_operations/restore/plan.py
 operations/src/koa_operations/restore/run.py
@@ -98,6 +99,7 @@ operations/tests/test_redaction.py
 operations/tests/test_maintenance.py
 operations/tests/test_migration.py
 operations/tests/test_recovery.py
+operations/tests/test_native_applications.py
 ```
 ## 3. Cross-System Tests
 
@@ -146,6 +148,8 @@ tests/system/test_last_known_good.py
 tests/system/test_backup_coordination.py
 tests/system/test_restore_coordination.py
 tests/system/test_appliance_session.py
+tests/system/test_native_workspace.py
+tests/system/test_native_workspace_package_set.py
 tests/security/test_privileged_catalog.py
 tests/security/test_path_traversal.py
 tests/security/test_capability_drop.py
@@ -177,6 +181,25 @@ tests/conformance/test_filesystem_architecture.py
 ```
 
 ### 3.1 Registered ordinary additions
+
+The following previously registered additions remain part of the frozen implementation inventory:
+
+```text
+tests/reproducibility/test_image_binary_determinism.py
+tests/system/qemu-machine.toml
+tests/system/qemu_harness.py
+tests/system/test_qemu_boot.py
+tests/system/test_qemu_appliance_session.py
+tests/system/test_qemu_navigation.py
+tests/system/test_qemu_mediatheque.py
+tests/system/test_qemu_semantik_architect.py
+tests/system/test_rootfs_materialization.py
+tests/system/test_system_image_build.py
+tests/security/test_qemu_appliance_confinement.py
+tests/recovery/test_qemu_recovery_boot.py
+tests/recovery/test_qemu_failed_candidate_rollback.py
+tests/offline/test_qemu_offline_navigation.py
+```
 
 The following implementation files are registered after the frozen baseline inventory under the ordinary-addition rules in `33-path-ownership-and-change-rules.md`. They inherit the existing `tests/` owner and do not amend a structural root or authority boundary.
 

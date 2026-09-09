@@ -39,8 +39,16 @@ def _service(identifier: str) -> dict:
     }
 
 
+def _required_local_services() -> list[str]:
+    return sorted(
+        component_id
+        for component_id, declaration in _profile()["components"].items()
+        if declaration.get("state") == "required"
+    )
+
+
 def _boot_plan() -> dict:
-    required = _profile()["offline_operation"]["required_local_services"]
+    required = _required_local_services()
     services = [_service(item) for item in required]
     packages = [
         {"name": service["id"], "version": "1.0.0", "digest": _SHA_PACKAGE}
@@ -82,7 +90,7 @@ def test_offline_boot_plan_contains_every_required_local_service() -> None:
     plan = _boot_plan()
     expected = {
         item.replace("_", "-")
-        for item in _profile()["offline_operation"]["required_local_services"]
+        for item in _required_local_services()
     }
     image = json.loads(render("image", plan)[0].text)
     assert {item["id"] for item in image["services"]} == expected
@@ -102,7 +110,11 @@ def test_offline_boot_requires_verified_local_material_and_no_network() -> None:
     assert all(package["digest"] == _SHA_PACKAGE for package in offline["packages"])
     systemd = render("systemd", plan)
     service_paths = {item.path for item in systemd if item.path.endswith(".service")}
-    expected_paths = {f"systemd/koa-{item.replace('_', '-')}.service" for item in _profile()["offline_operation"]["required_local_services"]}
+    expected_paths = {
+        f"systemd/{service_id if service_id.startswith('koa-') else 'koa-' + service_id}.service"
+        for item in _required_local_services()
+        for service_id in (item.replace('_', '-'),)
+    }
     assert service_paths == expected_paths
     assert any(item.path == "systemd/manifest.json" for item in systemd)
     assert all("network-online.target" not in item.text.lower() for item in systemd)

@@ -83,33 +83,118 @@ def _detect_fallback_cycles(routes: Mapping[str, Mapping[str, Any]]) -> None:
 
 
 
-def _product_ui_metadata(manifest: Mapping[str, Any], routes: Mapping[str, Mapping[str, Any]]) -> tuple[str | None, tuple[str, ...], bool]:
+def _sidebar_item_ids(sidebar: Mapping[str, Any]) -> set[str]:
+    result: set[str] = set()
+    for item in _require_array(sidebar.get("items"), "sidebar.items"):
+        obj = _require_object(item, "sidebar item")
+        item_id = obj.get("item_id")
+        if isinstance(item_id, str) and item_id:
+            result.add(item_id)
+        for child in obj.get("children", []):
+            child_obj = _require_object(child, "sidebar child")
+            child_id = child_obj.get("item_id")
+            if isinstance(child_id, str) and child_id:
+                result.add(child_id)
+    return result
+
+
+def _product_ui_metadata(
+    manifest: Mapping[str, Any], routes: Mapping[str, Mapping[str, Any]]
+) -> tuple[str | None, tuple[str, ...], bool]:
     product_id = manifest.get("product_id")
-    modes = manifest.get("ui_modes")
-    surfaces = manifest.get("surface_profiles", [])
-    if product_id is None and modes is None and not surfaces:
-        return None, (), False
-    if not isinstance(product_id, str) or not product_id:
-        raise ManifestValidationError("product_id must be a non-empty string when UI portability metadata is declared")
-    mode_obj = _require_object(modes, "ui_modes")
-    if mode_obj.get("composition_host_required_for_standalone") is not False:
-        raise ManifestValidationError("standalone product operation cannot require the optional composition host")
-    if mode_obj.get("private_cross_product_ui_imports") is not False:
-        raise ManifestValidationError("private cross-product UI imports are prohibited")
-    standalone_supported = mode_obj.get("standalone") == "supported"
+    if product_id is not None and (not isinstance(product_id, str) or not product_id):
+        raise ManifestValidationError("product_id must be a non-empty string when present")
+
+    portability = manifest.get("ui_portability")
+    standalone_supported = False
+    if portability is not None:
+        portability = _require_object(portability, "ui_portability")
+        if portability.get("integrated_supported") is not True or not isinstance(portability.get("standalone_supported"), bool):
+            raise ManifestValidationError("ui_portability is invalid")
+        entrypoint = portability.get("standalone_entrypoint_ref")
+        if entrypoint is not None and (not isinstance(entrypoint, str) or not entrypoint or entrypoint.startswith(("http://", "https://", "//"))):
+            raise ManifestValidationError("standalone_entrypoint_ref must be a logical/local reference")
+        standalone_supported = portability.get("standalone_supported") is True
+
+    surfaces = manifest.get("surface_profiles")
+    default_surface_id = manifest.get("default_surface_id")
+    if surfaces is None:
+        if default_surface_id is not None:
+            raise ManifestValidationError("default_surface_id requires surface_profiles")
+        return str(product_id) if product_id is not None else None, (), standalone_supported
+    if not isinstance(surfaces, list) or not surfaces:
+        raise ManifestValidationError("surface_profiles must be a non-empty array when present")
+
+    navigation_ids = _sidebar_item_ids(_require_object(manifest.get("sidebar"), "sidebar"))
+    widget_ids = {
+        str(_require_object(widget, "topbar widget").get("widget_id"))
+        for widget in _require_array(manifest.get("topbar_widgets"), "topbar_widgets")
+    }
+    command_ids = {
+        str(_require_object(command, "command").get("command_id"))
+        for command in _require_array(manifest.get("commands", []), "commands")
+    }
+    inspector_ids = {
+        str(_require_object(inspector, "inspector").get("inspector_id"))
+        for inspector in _require_array(manifest.get("inspectors", []), "inspectors")
+    }
     surface_ids: list[str] = []
-    for raw in _require_array(surfaces, "surface_profiles"):
+    for raw in surfaces:
         surface = _require_object(raw, "surface profile")
         surface_id = surface.get("surface_id")
         if not isinstance(surface_id, str) or not surface_id:
             raise ManifestValidationError("surface_id must be a non-empty string")
         if surface.get("home_route_id") not in routes:
             raise ManifestValidationError(f"surface {surface_id} references unknown home route")
-        for route_id in _require_array(surface.get("route_ids"), "surface route_ids"):
-            if route_id not in routes:
-                raise ManifestValidationError(f"surface {surface_id} references unknown route {route_id}")
+        required = surface.get("required_capabilities", [])
+        _assert_unique((str(v) for v in _require_array(required, "surface required_capabilities")), "surface capability")
+        for item_id in _require_array(surface.get("navigation_item_ids", []), "surface navigation_item_ids"):
+            if item_id not in navigation_ids:
+                raise ManifestValidationError(f"surface {surface_id} references unknown navigation item {item_id}")
+        for widget_id in _require_array(surface.get("topbar_widget_ids", []), "surface topbar_widget_ids"):
+            if widget_id not in widget_ids:
+                raise ManifestValidationError(f"surface {surface_id} references unknown topbar widget {widget_id}")
+        for command_ref in _require_array(surface.get("command_refs", []), "surface command_refs"):
+            if command_ids and command_ref not in command_ids:
+                raise ManifestValidationError(f"surface {surface_id} references unknown command {command_ref}")
+        inspector_ref = surface.get("inspector_ref")
+        if inspector_ref is not None and inspector_ids and inspector_ref not in inspector_ids:
+            raise ManifestValidationError(f"surface {surface_id} references unknown inspector {inspector_ref}")
+        if surface.get("density") is not None and surface.get("density") not in {"comfortable", "compact", "touch"}:
+            raise ManifestValidationError("surface density is invalid")
         surface_ids.append(surface_id)
-    return product_id, _assert_unique(surface_ids, "surface_id"), standalone_supported
+    ids = _assert_unique(surface_ids, "surface_id")
+    if default_surface_id is not None and default_surface_id not in ids:
+        raise ManifestValidationError("default_surface_id does not resolve")
+    return str(product_id) if product_id is not None else None, ids, standalone_supported
+
+
+def _validate_topbar_widget(widget: Mapping[str, Any], route_ids: set[str]) -> None:
+    projection_ref = widget.get("projection_ref")
+    if projection_ref is not None and (not isinstance(projection_ref, str) or not projection_ref):
+        raise ManifestValidationError("widget projection_ref is invalid")
+    if widget.get("kind") in {"counter", "resume"} and not projection_ref:
+        raise ManifestValidationError(f"{widget.get('kind')} widget requires projection_ref")
+    activation = _require_object(widget.get("activation"), "widget activation")
+    kind = activation.get("kind")
+    if kind not in {"route", "command", "none"}:
+        raise ManifestValidationError("widget activation kind is invalid")
+    if kind == "route":
+        route_id = activation.get("route_id")
+        if route_id not in route_ids:
+            raise ManifestValidationError("widget references an unknown route")
+        if activation.get("command_ref") is not None:
+            raise ManifestValidationError("route activation must not contain command_ref")
+    elif kind == "command":
+        command_ref = activation.get("command_ref")
+        if not isinstance(command_ref, str) or not command_ref:
+            raise ManifestValidationError("command activation requires command_ref")
+        if activation.get("route_id") is not None:
+            raise ManifestValidationError("command activation must not contain route_id")
+    elif activation.get("route_id") is not None or activation.get("command_ref") is not None:
+        raise ManifestValidationError("none activation must not contain route_id or command_ref")
+    if "status_provider_ref" in activation:
+        raise ManifestValidationError("projection source must be declared with projection_ref, not activation.status_provider_ref")
 
 def validate_manifest(
     document: Mapping[str, Any],
@@ -197,13 +282,12 @@ def validate_manifest(
         if route_id not in routes:
             raise ManifestValidationError(f"sidebar references unknown route {route_id}")
 
+    route_id_set = set(routes)
     for widget in _require_array(manifest.get("topbar_widgets"), "topbar_widgets"):
         obj = _require_object(widget, "topbar widget")
-        if obj.get("scope") == "module" and obj.get("module_id") != module_id:
+        if obj.get("scope") != "module" or obj.get("module_id") != module_id:
             raise ManifestValidationError("module widget has a mismatched module_id")
-        activation = _require_object(obj.get("activation"), "widget activation")
-        if activation.get("kind") == "route" and activation.get("route_id") not in routes:
-            raise ManifestValidationError("widget references an unknown route")
+        _validate_topbar_widget(obj, route_id_set)
         if obj.get("offline_behavior") not in {
             "available",
             "cached_read_only",

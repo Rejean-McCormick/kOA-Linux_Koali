@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.koa.local/artifact-contracts/native-application-admission-policy.schema.json",
+  "title": "kOA Native Application Admission Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "kind", "version", "app_id", "desktop_entry_refs", "enabled", "runtime", "security", "resources", "offline_behavior", "data_policy_ref", "launch"],
+  "properties": {
+    "$schema": {"const": "contracts/artifact-contracts/native-application-admission-policy.schema.json"},
+    "kind": {"const": "NativeApplicationAdmissionPolicy"},
+    "version": {"const": "1.0.0"},
+    "app_id": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,159}$"},
+    "desktop_entry_refs": {"type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+-]{0,159}\\.desktop$"}},
+    "enabled": {"type": "boolean"},
+    "runtime": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_capability", "allowed_profile_ids"],
+      "properties": {
+        "required_capability": {"const": "user.native_workspace"},
+        "allowed_profile_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,79}$"}}
+      }
+    },
+    "security": {
+      "type": "object", "additionalProperties": false,
+      "required": ["class", "network", "audio", "gpu"],
+      "properties": {
+        "class": {"enum": ["web", "mail", "office", "media", "files"]},
+        "network": {"enum": ["required", "optional", "denied"]},
+        "audio": {"enum": ["required", "optional", "denied"]},
+        "gpu": {"enum": ["required", "optional", "denied"]}
+      }
+    },
+    "resources": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resource_envelope_ref", "workload_class", "resource_request", "criticality", "priority"],
+      "properties": {
+        "resource_envelope_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+        "workload_class": {"type": "string", "minLength": 1, "maxLength": 160},
+        "resource_request": {"type": "object", "minProperties": 1, "maxProperties": 16},
+        "criticality": {"enum": ["interactive", "operational", "background", "best_effort"]},
+        "priority": {"type": "integer", "minimum": 0, "maximum": 100}
+      }
+    },
+    "offline_behavior": {"enum": ["available", "degraded", "unavailable"]},
+    "data_policy_ref": {"type": "string", "pattern": "^data/[a-z][a-z0-9_.-]{0,159}\\.json$"},
+    "launch": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allowed_actions", "allowed_uri_schemes", "allowed_resource_scopes"],
+      "properties": {
+        "allowed_actions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["launch", "open_resource", "open_uri"]}},
+        "allowed_uri_schemes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9+.-]{0,31}$"}},
+        "allowed_resource_scopes": {"type": "array", "uniqueItems": true, "items": {"enum": ["documents", "downloads", "music", "pictures", "videos", "desktop"]}}
+      }
+    }
+  }
+}

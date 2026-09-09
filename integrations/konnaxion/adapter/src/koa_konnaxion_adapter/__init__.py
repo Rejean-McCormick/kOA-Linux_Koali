@@ -76,7 +76,10 @@ __all__ = [
     "TransportTimeout",
     "TransportUnavailable",
     "bootstrap",
+    "bootstrap_adapter",
 ]
+
+bootstrap_adapter = bootstrap
 
 __version__ = "0.1.0"
 INTEGRATION_ID = "konnaxion"

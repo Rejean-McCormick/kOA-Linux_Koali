@@ -811,7 +811,7 @@
       "type": "object",
       "minProperties": 1,
       "propertyNames": {
-        "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+        "pattern": "^[a-z][a-z0-9]*(?:(?:_|\\.)[a-z0-9]+)*$"
       },
       "additionalProperties": {
         "$ref": "#/$defs/capabilityEntry"

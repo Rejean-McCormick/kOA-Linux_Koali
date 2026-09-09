@@ -175,7 +175,8 @@ def adapter_config() -> Mapping[str, Any]:
                     "priority": 100,
                     "required_capabilities": ["orgo.surface"],
                     "offline_behavior": "degraded",
-                    "activation": {"kind": "status_provider", "status_provider_ref": "orgo:health"},
+                    "projection_ref": "orgo.health",
+                    "activation": {"kind": "none", "route_id": None, "command_ref": None},
                 }
             ],
             "offline_behavior": {"module_state": "degraded", "fallback_route_id": "orgo.home"},

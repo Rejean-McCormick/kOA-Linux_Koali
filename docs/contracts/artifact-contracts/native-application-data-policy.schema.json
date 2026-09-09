@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.koa.local/artifact-contracts/native-application-data-policy.schema.json",
+  "title": "kOA Native Application Data Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "kind",
+    "version",
+    "policy_id",
+    "profile_persistence",
+    "cache_policy",
+    "documents_ownership",
+    "profile_locations",
+    "cache_locations",
+    "rollback",
+    "upgrade"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "contracts/artifact-contracts/native-application-data-policy.schema.json"
+    },
+    "kind": {
+      "const": "NativeApplicationDataPolicy"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "policy_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{0,159}$"
+    },
+    "profile_persistence": {
+      "enum": [
+        "persistent",
+        "ephemeral",
+        "none"
+      ]
+    },
+    "cache_policy": {
+      "enum": [
+        "disposable",
+        "persistent_bounded",
+        "none"
+      ]
+    },
+    "documents_ownership": {
+      "enum": [
+        "external_logical_owner",
+        "application_owned",
+        "none"
+      ]
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requires_compatible_profile"
+      ],
+      "properties": {
+        "requires_compatible_profile": {
+          "type": "boolean"
+        }
+      }
+    },
+    "upgrade": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkpoint_when_required"
+      ],
+      "properties": {
+        "checkpoint_when_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "profile_locations": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "root",
+          "relative_path"
+        ],
+        "properties": {
+          "root": {
+            "enum": [
+              "home",
+              "xdg_config",
+              "xdg_data",
+              "xdg_state",
+              "xdg_cache"
+            ]
+          },
+          "relative_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+          }
+        }
+      }
+    },
+    "cache_locations": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "root",
+          "relative_path"
+        ],
+        "properties": {
+          "root": {
+            "enum": [
+              "home",
+              "xdg_config",
+              "xdg_data",
+              "xdg_state",
+              "xdg_cache"
+            ]
+          },
+          "relative_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+          }
+        }
+      }
+    }
+  }
+}

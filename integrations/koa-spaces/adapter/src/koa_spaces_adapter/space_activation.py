@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Iterable, Mapping
 from .client import SpacesClient
+from .appearance import AppearanceValidationError, ValidatedAccentPalette, validate_accent_palette, validate_space_appearance
 from .interface_assets import AssetManifestValidationError, ValidatedAssetManifest, validate_asset_manifest
 from .interface_theme import ThemeValidationError, ValidatedTheme, validate_theme
 from .module_manifest import ManifestValidationError, ValidatedManifest, validate_manifest
@@ -63,16 +64,21 @@ def admit_space(
     shell_asset_manifest: Mapping[str, Any],
     permitted_modules: Iterable[str],
     available_capabilities: Iterable[str],
+    accent_palette: Mapping[str, Any],
     reserved_paths: Iterable[str] = (),
 ) -> AdmissionResult:
     if not isinstance(space, Mapping):
         raise SpaceActivationError("Space definition must be object")
     _validate_space_boundary(space)
-    appearance = space.get("appearance")
-    if not isinstance(appearance, Mapping) or not isinstance(appearance.get("theme_ref"), str):
-        raise SpaceActivationError("Space must select an interface theme")
     try:
-        theme = validate_theme(themes_by_ref[appearance["theme_ref"]])
+        palette = validate_accent_palette(accent_palette)
+        validate_space_appearance(space, palette)
+    except AppearanceValidationError as exc:
+        raise SpaceActivationError("Space appearance policy is invalid") from exc
+    appearance = space.get("appearance")
+    assert isinstance(appearance, Mapping)
+    try:
+        theme = validate_theme(themes_by_ref[appearance["theme_ref"]], accent_palette=palette)
     except (KeyError, ThemeValidationError) as exc:
         raise SpaceActivationError("required interface theme missing or invalid") from exc
     ds = appearance.get("design_system_id")

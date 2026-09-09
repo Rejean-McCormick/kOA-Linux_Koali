@@ -1,9 +1,10 @@
-from koa_spaces_adapter.unix_transport import UnixHttpTransport, _OPERATION_MAP
+from __future__ import annotations
+
+import pytest
+
+from koa_spaces_adapter import bootstrap_adapter
 
 
-def test_transport_uses_canonical_socket_by_default():
-    assert UnixHttpTransport().socket_path == "/run/koa/sockets/koa-spaces.sock"
-
-
-def test_capability_projection_update_uses_explicit_control_route():
-    assert _OPERATION_MAP["capabilities.update"] == ("POST", "/capabilities/update")
+def test_concrete_unix_transport_is_not_owned_by_integration_package():
+    with pytest.raises(ValueError, match="transport is required"):
+        bootstrap_adapter()

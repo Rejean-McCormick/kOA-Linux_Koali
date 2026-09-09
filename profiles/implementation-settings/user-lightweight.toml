@@ -60,3 +60,21 @@ provider_substitution = false
 continuity_claim = "core_local_operation"
 internet_required_for_boot = false
 remote_work_release_on_reconnection = "explicit_revalidation"
+[implementation.native_workspace]
+capability_id = "user.native_workspace"
+launch_boundary = "unprivileged_user_session_broker"
+transport = "unix_socket_same_uid"
+freedesktop_metadata_authority = true
+resource_governor_required = true
+remote_launch_implicit = false
+managed_conformance_apps = ["firefox", "vlc", "libreoffice", "thunderbird"]
+files_application_selection = "explicit_technical_selection_required"
+
+[implementation.native_workspace.desktop_substrate]
+wayland = "required"
+user_dbus = "required"
+xdg_portals = "required_when_available_for_admitted_app"
+audio = "profile_and_app_policy"
+secret_service = "qualified_when_required"
+xwayland = "only_when_conformance_requires"
+full_desktop_environment = false

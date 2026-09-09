@@ -209,83 +209,11 @@
       "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$",
       "description": "Stable independently packaged product identity. It may equal module_id when one module represents one product."
     },
-    "ui_modes": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "standalone",
-        "integrated",
-        "composition_host_required_for_standalone",
-        "private_cross_product_ui_imports"
-      ],
-      "properties": {
-        "standalone": {
-          "enum": [
-            "supported",
-            "not_applicable"
-          ]
-        },
-        "integrated": {
-          "enum": [
-            "supported",
-            "not_applicable"
-          ]
-        },
-        "composition_host_required_for_standalone": {
-          "const": false
-        },
-        "private_cross_product_ui_imports": {
-          "const": false
-        }
-      }
-    },
     "surface_profiles": {
       "type": "array",
-      "uniqueItems": true,
+      "minItems": 1,
       "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "surface_id",
-          "home_route_id",
-          "route_ids"
-        ],
-        "properties": {
-          "surface_id": {
-            "type": "string",
-            "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$"
-          },
-          "label": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 120
-          },
-          "home_route_id": {
-            "type": "string",
-            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
-          },
-          "route_ids": {
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-              "type": "string",
-              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
-            }
-          },
-          "navigation_mode": {
-            "enum": [
-              "manifest_navigation",
-              "product_owned_inner_navigation"
-            ]
-          },
-          "density": {
-            "enum": [
-              "compact",
-              "standard",
-              "touch"
-            ]
-          }
-        }
+        "$ref": "./product-surface-profile.schema.json"
       }
     },
     "commands": {
@@ -321,14 +249,6 @@
               "type": "string",
               "minLength": 1
             }
-          },
-          "surface_ids": {
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
           }
         }
       }
@@ -340,8 +260,7 @@
         "additionalProperties": false,
         "required": [
           "inspector_id",
-          "label",
-          "surface_ids"
+          "label"
         ],
         "properties": {
           "inspector_id": {
@@ -353,14 +272,6 @@
             "minLength": 1,
             "maxLength": 120
           },
-          "surface_ids": {
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
           "required_capabilities": {
             "type": "array",
             "uniqueItems": true,
@@ -371,21 +282,36 @@
           }
         }
       }
-    }
-  },
-  "allOf": [
-    {
-      "if": {
-        "required": [
-          "ui_modes"
-        ]
-      },
-      "then": {
-        "required": [
-          "product_id",
-          "surface_profiles"
-        ]
+    },
+    "default_surface_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$"
+    },
+    "ui_portability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "integrated_supported",
+        "standalone_supported"
+      ],
+      "properties": {
+        "integrated_supported": {
+          "const": true
+        },
+        "standalone_supported": {
+          "type": "boolean"
+        },
+        "standalone_entrypoint_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
       }
     }
-  ]
+  }
 }

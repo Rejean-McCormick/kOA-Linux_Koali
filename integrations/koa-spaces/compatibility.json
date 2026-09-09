@@ -47,6 +47,30 @@
       "supported_artifact_versions": [
         "1.0.0"
       ]
+    },
+    {
+      "artifact_class": "product_surface_profile",
+      "schema": "docs/contracts/artifact-contracts/product-surface-profile.schema.json",
+      "schema_version": "draft-2020-12",
+      "supported_artifact_versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "artifact_class": "presentation_preferences",
+      "schema": "docs/contracts/artifact-contracts/presentation-preferences.schema.json",
+      "schema_version": "draft-2020-12",
+      "supported_artifact_versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "artifact_class": "accent_palette",
+      "schema": "docs/contracts/artifact-contracts/accent-palette.schema.json",
+      "schema_version": "draft-2020-12",
+      "supported_artifact_versions": [
+        "1.0.0"
+      ]
     }
   ],
   "common_interfaces": {

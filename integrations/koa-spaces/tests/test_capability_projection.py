@@ -3,7 +3,7 @@ from copy import deepcopy
 from koa_spaces_adapter.receipts import artifact_digest
 from koa_spaces_adapter.space_activation import admit_space
 
-def test_admission_carries_non_authoritative_koa_capability_snapshot(space_definition, module_manifest, interface_theme, shell_asset_manifest):
+def test_admission_carries_non_authoritative_koa_capability_snapshot(space_definition, module_manifest, interface_theme, shell_asset_manifest, accent_palette):
     admission = admit_space(
         space_definition,
         {"manifest:koa_mediatheque": module_manifest},
@@ -12,6 +12,7 @@ def test_admission_carries_non_authoritative_koa_capability_snapshot(space_defin
         shell_asset_manifest=shell_asset_manifest,
         permitted_modules={"koa_mediatheque"},
         available_capabilities={"koa_mediatheque.read", "publication.request"},
+        accent_palette=accent_palette,
     )
     assert admission.capability_snapshot == {
         "source": "koa",
